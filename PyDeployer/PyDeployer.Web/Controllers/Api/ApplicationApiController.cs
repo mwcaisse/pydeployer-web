@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PyDeployer.Common.Mappers;
 using PyDeployer.Common.ViewModels;
+using PyDeployer.Logic.Services;
 
 namespace PyDeployer.Web.Controllers.Api
 {
@@ -12,46 +14,57 @@ namespace PyDeployer.Web.Controllers.Api
     public class ApplicationApiController : Controller
     {
 
+        private readonly ApplicationService _applicationService;
+
+        public ApplicationApiController(ApplicationService applicationService)
+        {
+            this._applicationService = applicationService;
+        }
+
         [HttpGet]
         [Route("{id:long}")]
         public IActionResult Get(long id)
         {
-            return Ok();
+            //TODO: Instead of calling ToViewModel in each API Method, create a custom serializer that
+            //  calls ToViewModel
+            return Ok(_applicationService.Get(id).ToViewModel());
         }
 
         [HttpGet]
         [Route("{uuid:string}")]
         public IActionResult GetByUuid(string uuid)
         {
-            return Ok();
+            return Ok(_applicationService.GetByUuid(uuid).ToViewModel());
         }
 
         [HttpGet]
         [Route("")]
         public IActionResult GetAll()
         {
-            return Ok();
+            return Ok(_applicationService.GetAll().ToViewModel());
         }
 
         [HttpPost]
         [Route("")]
         public IActionResult Create([FromBody] ApplicationViewModel application)
         {
-            return Ok();
+            
+            return Ok(_applicationService.Create(application).ToViewModel());
         }
 
         [HttpPut]
-        [Route("")]
-        public IActionResult Update([FromBody] ApplicationViewModel application)
+        [Route("{id:long}")]
+        public IActionResult Update(long id, [FromBody] ApplicationViewModel application)
         {
-            return Ok();
+            application.ApplicationId = id;
+            return Ok(_applicationService.Update(application).ToViewModel());
         }
 
         [HttpDelete]
         [Route("{id:long}")]
         public IActionResult Delete(long id)
         {
-            return Ok();
+            return Ok(_applicationService.Delete(id));
         }
 
     }

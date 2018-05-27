@@ -25,23 +25,21 @@ namespace PyDeployer.Web.Controllers.Api
         [Route("{id:long}")]
         public IActionResult Get(long id)
         {
-            //TODO: Instead of calling ToViewModel in each API Method, create a custom serializer that
-            //  calls ToViewModel
-            return Ok(_applicationService.Get(id).ToViewModel());
+            return Ok(_applicationService.Get(id));
         }
 
         [HttpGet]
         [Route("{uuid:string}")]
         public IActionResult GetByUuid(string uuid)
         {
-            return Ok(_applicationService.GetByUuid(uuid).ToViewModel());
+            return Ok(_applicationService.GetByUuid(uuid));
         }
 
         [HttpGet]
         [Route("")]
         public IActionResult GetAll()
         {
-            return Ok(_applicationService.GetAll().ToViewModel());
+            return Ok(_applicationService.GetAll());
         }
 
         [HttpPost]
@@ -49,7 +47,7 @@ namespace PyDeployer.Web.Controllers.Api
         public IActionResult Create([FromBody] ApplicationViewModel application)
         {
             
-            return Ok(_applicationService.Create(application).ToViewModel());
+            return Ok(_applicationService.Create(application));
         }
 
         [HttpPut]
@@ -57,7 +55,7 @@ namespace PyDeployer.Web.Controllers.Api
         public IActionResult Update(long id, [FromBody] ApplicationViewModel application)
         {
             application.ApplicationId = id;
-            return Ok(_applicationService.Update(application).ToViewModel());
+            return Ok(_applicationService.Update(application));
         }
 
         [HttpDelete]

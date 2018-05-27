@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PyDeployer.Common\PyDeployer.Common.csproj" />
+    <ProjectReference Include="..\PyDeployer.Data\PyDeployer.Data.csproj" />
+  </ItemGroup>
+
 </Project>

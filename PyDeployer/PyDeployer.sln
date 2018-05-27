@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PyDeployer.Web", "PyDeployer.Web\PyDeployer.Web.csproj", "{96EEDC25-A5EF-4B27-BC85-B35A02F9D03F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PyDeployer.Common", "PyDeployer.Common\PyDeployer.Common.csproj", "{1B99BDF6-1848-4B92-AEFF-A92A34263972}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PyDeployer.Data", "PyDeployer.Data\PyDeployer.Data.csproj", "{85E46CED-EED9-433B-B8EA-ADE29C07A13A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PyDeployer.Logic", "PyDeployer.Logic\PyDeployer.Logic.csproj", "{406CC07F-FFDF-4088-BE04-B047C8B1AEAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mitchell.Common", "Mitchell.Common\Mitchell.Common.csproj", "{E1AB8FEF-4F3D-4E94-8E47-269024B21031}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96EEDC25-A5EF-4B27-BC85-B35A02F9D03F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96EEDC25-A5EF-4B27-BC85-B35A02F9D03F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96EEDC25-A5EF-4B27-BC85-B35A02F9D03F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96EEDC25-A5EF-4B27-BC85-B35A02F9D03F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B99BDF6-1848-4B92-AEFF-A92A34263972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B99BDF6-1848-4B92-AEFF-A92A34263972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B99BDF6-1848-4B92-AEFF-A92A34263972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B99BDF6-1848-4B92-AEFF-A92A34263972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85E46CED-EED9-433B-B8EA-ADE29C07A13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85E46CED-EED9-433B-B8EA-ADE29C07A13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85E46CED-EED9-433B-B8EA-ADE29C07A13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85E46CED-EED9-433B-B8EA-ADE29C07A13A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{406CC07F-FFDF-4088-BE04-B047C8B1AEAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{406CC07F-FFDF-4088-BE04-B047C8B1AEAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{406CC07F-FFDF-4088-BE04-B047C8B1AEAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{406CC07F-FFDF-4088-BE04-B047C8B1AEAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1AB8FEF-4F3D-4E94-8E47-269024B21031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1AB8FEF-4F3D-4E94-8E47-269024B21031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1AB8FEF-4F3D-4E94-8E47-269024B21031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1AB8FEF-4F3D-4E94-8E47-269024B21031}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {810A9A12-373F-40A0-B607-7FCC7494B72C}
+	EndGlobalSection
+EndGlobal

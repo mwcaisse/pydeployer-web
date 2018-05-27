@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace PyDeployer.Web.Controllers.Api
 {
     [Produces("application/json")]
-    [Route("api/application/{id:long}/token/")]
+    [Route("api/application/{applicationId:long}/token/")]
     public class ApplicationTokenApiController : Controller
     {
 

@@ -5,9 +5,9 @@ using Mitchell.Common.Entities;
 
 namespace PyDeployer.Common.Entities
 {
-    public class EnvironmentToken : ITrackedEntity, IActiveEntity
+    public class ApplicationEnvironmentToken : ITrackedEntity, IActiveEntity
     {
-        public long EnvironmentTokenId { get; set; }
+        public long ApplicationEnvironmentTokenId { get; set; }
 
         public long ApplicationEnvironmentId { get; set; }
 

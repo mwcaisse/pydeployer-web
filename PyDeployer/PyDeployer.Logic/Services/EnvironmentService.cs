@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mitchell.Common;
 using Mitchell.Common.Exceptions;
 using PyDeployer.Common.ViewModels;
 using PyDeployer.Data;
@@ -21,18 +22,18 @@ namespace PyDeployer.Logic.Services
 
         public Common.Entities.Environment Get(long id)
         {
-            return _db.Environments.FirstOrDefault(e => e.EnvironmentId == id);
+            return _db.Environments.Active().FirstOrDefault(e => e.EnvironmentId == id);
         }
 
         public Common.Entities.Environment GetByUuid(string uuid)
         {
             var guid = new Guid(uuid);
-            return _db.Environments.FirstOrDefault(e => e.EnvironmentUuid == guid);
+            return _db.Environments.Active().FirstOrDefault(e => e.EnvironmentUuid == guid);
         }
 
         public IEnumerable<Common.Entities.Environment> GetAll()
         {
-            return _db.Environments.ToList();
+            return _db.Environments.Active().ToList();
         }
 
         public Common.Entities.Environment Create(EnvironmentViewModel toCreate)
@@ -50,6 +51,7 @@ namespace PyDeployer.Logic.Services
                 Active = true
             };
 
+            _db.Environments.Add(env);
             _db.SaveChanges();
 
             return env;

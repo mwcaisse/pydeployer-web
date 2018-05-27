@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mitchell.Common;
 using Mitchell.Common.Exceptions;
 using PyDeployer.Common.Entities;
 using PyDeployer.Common.ViewModels;
@@ -21,18 +22,18 @@ namespace PyDeployer.Logic.Services
 
         public Application Get(long id)
         {
-            return _db.Applications.FirstOrDefault(a => a.ApplicationId == id);
+            return _db.Applications.Active().FirstOrDefault(a => a.ApplicationId == id);
         }
 
         public Application GetByUuid(string uuid)
         {
             var guid = new Guid(uuid);
-            return _db.Applications.FirstOrDefault(a => a.ApplicationUuid == guid);
+            return _db.Applications.Active().FirstOrDefault(a => a.ApplicationUuid == guid);
         }
 
         public IEnumerable<Application> GetAll()
         {
-            return _db.Applications.ToList();
+            return _db.Applications.Active().ToList();
         }
 
         public Application Create(ApplicationViewModel toCreate)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PyDeployer.Common.ViewModels;
+using PyDeployer.Logic.Services;
 
 namespace PyDeployer.Web.Controllers.Api
 {
@@ -12,39 +13,50 @@ namespace PyDeployer.Web.Controllers.Api
     public class ApplicationTokenApiController : Controller
     {
 
+        private readonly ApplicationTokenService _applicationTokenService;
+
+        public ApplicationTokenApiController(ApplicationTokenService applicationTokenService)
+        {
+            this._applicationTokenService = applicationTokenService;
+        }
+
         [HttpGet]
         [Route("{id:long}")]
         public IActionResult Get(long applicationId, long id)
         {
-            return Ok();
+            return Ok(_applicationTokenService.Get(id));
         }
 
         [HttpGet]
         [Route("")]
         public IActionResult GetAll(long applicationId)
         {
-            return Ok();
+            return Ok(_applicationTokenService.GetForApplication(applicationId));
         }
 
         [HttpPost]
         [Route("")]
         public IActionResult Create(long applicationId, [FromBody] ApplicationTokenViewModel token)
         {
-            return Ok();
+            token.ApplicationId = applicationId;
+            return Ok(_applicationTokenService.Create(token));
         }
 
         [HttpPut]
-        [Route("")]
-        public IActionResult Update(long applicationId, [FromBody] ApplicationTokenViewModel token)
+        [Route("{id:long}")]
+        public IActionResult Update(long applicationId, long id, 
+            [FromBody] ApplicationTokenViewModel token)
         {
-            return Ok();
+            token.ApplicationTokenId = id;
+            token.ApplicationId = applicationId;
+            return Ok(_applicationTokenService.Update(token));
         }
 
         [HttpDelete]
         [Route("{id:long}")]
         public IActionResult Delete(long applicationId, long id)
         {
-            return Ok();
+            return Ok(_applicationTokenService.Delete(id));
         }
 
     }

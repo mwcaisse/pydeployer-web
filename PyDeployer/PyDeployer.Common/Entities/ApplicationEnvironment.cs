@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mitchell.Common.Entities;
 
 namespace PyDeployer.Common.Entities
 {
-    public class ApplicationEnvironment
+    public class ApplicationEnvironment : IActiveEntity, ITrackedEntity
     {
 
         public long ApplicationEnvironmentId { get; set; }
@@ -12,6 +13,12 @@ namespace PyDeployer.Common.Entities
         public long ApplicationId { get; set; }
 
         public long EnvironmentId { get; set; }
+
+        public bool Active { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
 
         public virtual Application Application { get; set; }
 

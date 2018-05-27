@@ -5,48 +5,69 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PyDeployer.Common.ViewModels;
+using PyDeployer.Logic.Services;
 
 namespace PyDeployer.Web.Controllers.Api
 {
     [Produces("application/json")]
     [Route("api/application/{applicationId:long}/environment/{environmentId:long}/token/")]
-    [Route("api/application/{applicationUuid:string}/environment/{environmentUuid:string}/token/")]
     public class ApplicationEnvironmentTokenApiController : Controller
     {
 
+        private readonly ApplicationEnvironmentTokenService _tokenService;
+
+        public ApplicationEnvironmentTokenApiController(ApplicationEnvironmentTokenService tokenService)
+        {
+            this._tokenService = tokenService;
+        }
+
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id:long}")]
         public IActionResult Get(long id)
         {
-            return Ok();
+            return Ok(_tokenService.Get(id));
         }
 
         [HttpGet]
         [Route("")]
-        public IActionResult GetAll()
+        public IActionResult GetAll(long applicationId, long environmentId)
         {
-            return Ok();
+            return Ok(_tokenService.GetForEnvironment(applicationId, environmentId));
+        }
+
+        [HttpGet]
+        [Route("~/api/application/{applicationUuid:string}/environment/{environmentUuid:string}/token/")]
+        public IActionResult GetllByUuid(string applicationUuid, string environmentUuid)
+        {
+            return Ok(_tokenService.GetForEnvironmentByUuid(applicationUuid, environmentUuid));
         }
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create([FromBody] ApplicationEnvironmentTokenViewModel token)
+        public IActionResult Create(long applicationId, long environmentId, 
+            [FromBody] ApplicationEnvironmentTokenViewModel token)
         {
-            return Ok();
+            token.ApplicationId = applicationId;
+            token.EnvironmentId = environmentId;
+            return Ok(_tokenService.Create(token));
         }
 
         [HttpPut]
-        [Route("")]
-        public IActionResult Update([FromBody] ApplicationEnvironmentTokenViewModel token)
+        [Route("{id:long}")]
+        public IActionResult Update(long applicationId, long environmentId, long id,
+            [FromBody] ApplicationEnvironmentTokenViewModel token)
         {
-            return Ok();
+            token.ApplicationEnvironmentTokenId = id;
+            token.ApplicationId = applicationId;
+            token.EnvironmentId = environmentId;
+            return Ok(_tokenService.Update(token));
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(long id)
         {
-            return Ok();
+            return Ok(_tokenService.Delete(id));
         }
 
     }

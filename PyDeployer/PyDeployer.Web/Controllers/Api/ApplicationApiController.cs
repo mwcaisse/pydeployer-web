@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PyDeployer.Common.ViewModels;
 
 namespace PyDeployer.Web.Controllers.Api
 {
@@ -34,14 +35,14 @@ namespace PyDeployer.Web.Controllers.Api
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create()
+        public IActionResult Create([FromBody] ApplicationViewModel application)
         {
             return Ok();
         }
 
         [HttpPut]
         [Route("")]
-        public IActionResult Update()
+        public IActionResult Update([FromBody] ApplicationViewModel application)
         {
             return Ok();
         }

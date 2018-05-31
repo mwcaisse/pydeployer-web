@@ -27,6 +27,16 @@ namespace PyDeployer.Data.Mapping
                 .HasColumnName("ENVIRONMENT_ID")
                 .IsRequired();
 
+            builder.HasOne(ae => ae.Application)
+                .WithMany(a => a.ApplicationEnvironments)
+                .HasForeignKey(ae => ae.ApplicationId)
+                .IsRequired();
+
+            builder.HasOne(ae => ae.Environment)
+                .WithMany(e => e.ApplicationEnvironments)
+                .HasForeignKey(ae => ae.EnvironmentId)
+                .IsRequired();
+
             builder.AddTrackedEntityProperties();
             builder.AddActiveEntityProperties();
         }

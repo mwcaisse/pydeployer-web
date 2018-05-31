@@ -28,6 +28,12 @@ namespace PyDeployer.Data.Mapping
                 .HasColumnName("NAME")
                 .IsRequired()
                 .HasMaxLength(255);
+
+            builder.HasOne(at => at.Application)
+                .WithMany(a => a.ApplicationTokens)
+                .HasForeignKey(at => at.ApplicationId)
+                .IsRequired();
+                
             
             builder.AddTrackedEntityProperties();
             builder.AddActiveEntityProperties();

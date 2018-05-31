@@ -33,6 +33,17 @@ namespace PyDeployer.Data.Mapping
                 .IsRequired()
                 .HasMaxLength(255);
 
+            builder.HasOne(ate => ate.ApplicationEnvironment)
+                .WithMany(ae => ae.ApplicationEnvironmentTokens)
+                .HasForeignKey(ate => ate.ApplicationEnvironmentId)
+                .IsRequired();
+
+            builder.HasOne(ate => ate.ApplicationToken)
+                .WithMany(at => at.ApplicationEnvironmentTokens)
+                .HasForeignKey(ate => ate.ApplicationTokenId)
+                .IsRequired();
+                
+
             builder.AddTrackedEntityProperties();
             builder.AddActiveEntityProperties();
         }

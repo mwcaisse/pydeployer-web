@@ -21,5 +21,7 @@ namespace PyDeployer.Common.Entities
 
         public virtual Application Application { get; set; }
 
+        public virtual ICollection<ApplicationEnvironmentToken> ApplicationEnvironmentTokens { get; set; }
+
     }
 }

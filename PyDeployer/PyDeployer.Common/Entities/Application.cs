@@ -20,7 +20,7 @@ namespace PyDeployer.Common.Entities
 
         public bool Active { get; set; }
 
-        public virtual ApplicationEnvironment ApplicationEnvironment { get; set; }
+        public virtual ICollection<ApplicationEnvironment> ApplicationEnvironments { get; set; }
 
         public virtual ICollection<ApplicationToken> ApplicationTokens { get; set; }
 

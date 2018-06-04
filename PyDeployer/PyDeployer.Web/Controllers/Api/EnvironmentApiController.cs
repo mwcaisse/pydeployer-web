@@ -29,7 +29,7 @@ namespace PyDeployer.Web.Controllers.Api
         }
 
         [HttpGet]
-        [Route("{uuid:string}")]
+        [Route("{uuid}")]
         public IActionResult GetByUuid(string uuid)
         {
             return Ok(_environmentService.GetByUuid(uuid));

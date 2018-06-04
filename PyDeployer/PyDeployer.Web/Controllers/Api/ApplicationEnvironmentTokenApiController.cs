@@ -36,7 +36,7 @@ namespace PyDeployer.Web.Controllers.Api
         }
 
         [HttpGet]
-        [Route("~/api/application/{applicationUuid:string}/environment/{environmentUuid:string}/token/")]
+        [Route("~/api/application/{applicationUuid}/environment/{environmentUuid}/token/")]
         public IActionResult GetllByUuid(string applicationUuid, string environmentUuid)
         {
             return Ok(_tokenService.GetForEnvironmentByUuid(applicationUuid, environmentUuid));

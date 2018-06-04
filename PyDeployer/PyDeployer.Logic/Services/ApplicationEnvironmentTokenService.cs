@@ -69,6 +69,11 @@ namespace PyDeployer.Logic.Services
                 throw new EntityValidationException("The application does not have a definition for this token");
             }
 
+            if (_db.ApplicationEnvironmentTokens.Active().Any(ae => ae.ApplicationTokenId == toCreate.ApplicationTokenId
+                                                                    && ae.ApplicationEnvironment.EnvironmentId == toCreate.EnvironmentId))
+            {
+                throw new EntityValidationException("A value is already defined for this application token in this environment");   
+            }
 
             var applicationEnvironment =
                 _db.ApplicationEnvironments.Active()

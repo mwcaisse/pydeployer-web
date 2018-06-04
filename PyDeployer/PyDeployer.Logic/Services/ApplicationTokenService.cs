@@ -41,6 +41,12 @@ namespace PyDeployer.Logic.Services
                 throw new EntityValidationException("Application does not exist!");
             }
 
+            if (_db.ApplicationTokens.Active()
+                .Any(at => at.ApplicationId == toCreate.ApplicationId && at.Name == toCreate.Name))
+            {
+                throw new EntityValidationException("A token with this name already exists for this application.");
+            }
+
             var token = new ApplicationToken()
             {
                 Name = toCreate.Name,

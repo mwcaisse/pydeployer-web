@@ -7,6 +7,7 @@ using Mitchell.Common.Exceptions;
 using PyDeployer.Common.Entities;
 using PyDeployer.Common.ViewModels;
 using PyDeployer.Data;
+using PyDeployer.Data.Extensions;
 
 namespace PyDeployer.Logic.Services
 {
@@ -22,7 +23,7 @@ namespace PyDeployer.Logic.Services
 
         public ApplicationEnvironmentToken Get(long id)
         {
-            return _db.ApplicationEnvironmentTokens.Active()
+            return _db.ApplicationEnvironmentTokens.Active().Build()
                 .FirstOrDefault(t => t.ApplicationEnvironmentTokenId == id);
         }
 
@@ -30,7 +31,7 @@ namespace PyDeployer.Logic.Services
             long environmentId)
         {
             return
-                _db.ApplicationEnvironmentTokens.Active()
+                _db.ApplicationEnvironmentTokens.Active().Build()
                     .Where(
                         t =>
                             t.ApplicationEnvironment.ApplicationId == applicationId &&
@@ -43,7 +44,7 @@ namespace PyDeployer.Logic.Services
             var applicationGuid = new Guid(applicationUuid);
             var environmentGuid = new Guid(environmentUuid);
             return
-                _db.ApplicationEnvironmentTokens.Active()
+                _db.ApplicationEnvironmentTokens.Active().Build()
                     .Where(
                         t =>
                             t.ApplicationEnvironment.Application.ApplicationUuid == applicationGuid &&
@@ -92,7 +93,7 @@ namespace PyDeployer.Logic.Services
             _db.ApplicationEnvironmentTokens.Add(token);
             _db.SaveChanges();
 
-            return token;
+            return Get(token.ApplicationEnvironmentTokenId);
         }
 
         public ApplicationEnvironmentToken Update(ApplicationEnvironmentTokenViewModel toUpdate)

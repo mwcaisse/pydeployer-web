@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using PyDeployer.Common.Entities;
+using PyDeployer.Data.Mapping;
 
 namespace PyDeployer.Data
 {
@@ -24,7 +25,11 @@ namespace PyDeployer.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // TOOD: IMPLEMENT MY MODEL MAPPERS
+            modelBuilder.ApplyConfiguration(new ApplicationMap());
+            modelBuilder.ApplyConfiguration(new EnvironmentMap());
+            modelBuilder.ApplyConfiguration(new ApplicationTokenMap());
+            modelBuilder.ApplyConfiguration(new ApplicationEnvironmentMap());
+            modelBuilder.ApplyConfiguration(new ApplicationEnvironmentTokenMap());
         }
 
     }

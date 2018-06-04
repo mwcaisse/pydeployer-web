@@ -6,6 +6,7 @@ using Mitchell.Common;
 using Mitchell.Common.Exceptions;
 using PyDeployer.Common.Entities;
 using PyDeployer.Data;
+using PyDeployer.Data.Extensions;
 
 namespace PyDeployer.Logic.Services
 {
@@ -21,12 +22,12 @@ namespace PyDeployer.Logic.Services
 
         public ApplicationEnvironment Get(long id)
         {
-            return _db.ApplicationEnvironments.Active().FirstOrDefault(ae => ae.ApplicationEnvironmentId == id);
+            return _db.ApplicationEnvironments.Active().Build().FirstOrDefault(ae => ae.ApplicationEnvironmentId == id);
         }
 
         public IEnumerable<ApplicationEnvironment> GetForApplication(long applicationId)
         {
-            return _db.ApplicationEnvironments.Active().Where(ae => ae.ApplicationId == applicationId);
+            return _db.ApplicationEnvironments.Active().Build().Where(ae => ae.ApplicationId == applicationId);
         }
 
         public ApplicationEnvironment Create(long applicationId, long environmentId)
@@ -57,7 +58,7 @@ namespace PyDeployer.Logic.Services
             _db.ApplicationEnvironments.Add(env);
             _db.SaveChanges();
 
-            return env;
+            return Get(env.ApplicationEnvironmentId);
         }
 
         public bool Delete(long applicationId, long environmentId)

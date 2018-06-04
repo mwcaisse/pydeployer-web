@@ -7,6 +7,7 @@ using Mitchell.Common.Exceptions;
 using PyDeployer.Common.Entities;
 using PyDeployer.Common.ViewModels;
 using PyDeployer.Data;
+using PyDeployer.Data.Extensions;
 
 namespace PyDeployer.Logic.Services
 {
@@ -22,12 +23,12 @@ namespace PyDeployer.Logic.Services
 
         public ApplicationToken Get(long id)
         {
-            return _db.ApplicationTokens.Active().FirstOrDefault(t => t.ApplicationTokenId == id);
+            return _db.ApplicationTokens.Active().Build().FirstOrDefault(t => t.ApplicationTokenId == id);
         }
 
         public IEnumerable<ApplicationToken> GetForApplication(long applicationId)
         {
-            return _db.ApplicationTokens.Active().Where(t => t.ApplicationId == applicationId);
+            return _db.ApplicationTokens.Active().Build().Where(t => t.ApplicationId == applicationId);
         }
 
         public ApplicationToken Create(ApplicationTokenViewModel toCreate)
@@ -57,7 +58,7 @@ namespace PyDeployer.Logic.Services
             _db.ApplicationTokens.Add(token);
             _db.SaveChanges();
 
-            return token;
+            return Get(token.ApplicationTokenId);
 
         }
 

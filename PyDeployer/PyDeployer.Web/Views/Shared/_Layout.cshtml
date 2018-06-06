@@ -1,0 +1,42 @@
+﻿@{
+    var title = "PyDeployer ";
+    if (!string.IsNullOrEmpty(ViewData["Title"]?.ToString()))
+    {
+        title += ViewData["Title"];
+    }
+
+    //var rootPathPrefix = ViewBag.RootPathPrefix;
+    var rootPathPrefix = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--  scripts -->
+    <script type="text/javascript" src="@rootPathPrefix/lib/jquery/js/jquery.js"></script>
+    <script type="text/javascript" src="@rootPathPrefix/lib/lodash/js/lodash.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="@rootPathPrefix/lib/bulma/css/bulma.css" />
+
+    <title>@title</title>
+</head>
+<body>
+    <input id="rootPathPrefix" type="hidden" value="@rootPathPrefix" />
+    
+    <div>
+        <!-- the body of the page -->
+        <div class="container">
+            @RenderBody()
+        </div>
+
+        <!-- page footer -->
+        <footer>
+            @Html.Partial("_Footer")
+        </footer>
+    </div>
+
+</body>
+</html>
+

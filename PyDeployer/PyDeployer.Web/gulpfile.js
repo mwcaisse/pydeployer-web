@@ -20,7 +20,7 @@ gulp.task("restore:bulma", function() {
 gulp.task("restore:fontawesome", function() {
     return gulp.src([
         "node_modules/@fortawesome/fontawesome-free-regular/index.js"
-    ]).pipe(gulp.dest(libs + "/fontawesome/fontawesome.js"));
+    ]).pipe(gulp.dest(libs + "/fontawesome/js/"));
 });
 
 gulp.task('restore:jquery', function () {
@@ -56,12 +56,13 @@ gulp.task('restore:vue', function () {
     ]).pipe(gulp.dest(libs + 'vue/js'));
 });
 
-gulp.task('restore', [
+
+gulp.task('restore', gulp.series(
     'restore:bulma',
-    'restore:font-awesome',
+    'restore:fontawesome',
     'restore:jquery',
     'restore:lodash',
     'restore:moment',
     'restore:q',
     'restore:vue'
-]);
+));

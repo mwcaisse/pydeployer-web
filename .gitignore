@@ -332,3 +332,7 @@ ASALocalRun/
 
 # Credentials files
 dbConfig.json
+
+# Generated web assets
+wwwroot/
+

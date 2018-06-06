@@ -4,7 +4,11 @@
   "private": true,
   "devDependencies": {
     "gulp": "^4.0.0",
-    "webpack": "4.11.0"
+    "webpack": "4.11.0",
+    "vue-loader": "15.2.4",
+    "vue-template-compiler": "2.5.16",
+    "vue-style-loader": "4.1.0",
+    "css-loader": "0.28.11"
   },
   "dependencies": {
     "bulma": "0.7.1",
@@ -14,6 +18,10 @@
     "lodash": "4.17.10",
     "moment": "2.22.2",
     "q": "2.0.3",
-    "vue":  "2.5.16" 
+    "vue": "2.5.16"
+  },
+  "build": "webpack",
+  "scripts": {
+    "postinstall": "gulp restore"
   }
 }

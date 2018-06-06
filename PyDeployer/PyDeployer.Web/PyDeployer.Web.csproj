@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
+    <Content Include="web-src\views\Home\Home.vue" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="web-src\components\" />
+    <Folder Include="web-src\services\" />
+    <Folder Include="wwwroot\lib\fontawesome\" />
   </ItemGroup>
 
   <ItemGroup>

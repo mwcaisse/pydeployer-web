@@ -1,4 +1,4 @@
-﻿import Proxy from ".Proxy"
+﻿import Proxy from "services/Proxy.js"
 
 var application = {
     get: function (id) {
@@ -22,5 +22,5 @@ var application = {
 }
 
 export {
-    application
+    application as ApplicationService
 }

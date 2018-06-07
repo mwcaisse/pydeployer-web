@@ -1,11 +1,19 @@
 ﻿<template>
     <div>
-        <ul>
-            <li class="box" v-for="application in applications">
-                {{application.name}} ({{application.applicationUuid}})
-            </li>   
-        </ul>
-    </div>
+        <h2 class="title">Applications</h2>
+        <div class="box">
+            <ul>
+                <li class="box" v-for="application in applications">
+                    {{application.name}}
+                    <span class="is-pulled-right">
+                        <i class="fas fa-clone action-icon"></i>
+                        <i class="fas fa-trash action-icon"></i>
+                        <i class="fas fa-chevron-down action-icon"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>    
 </template>
 
 <script>
@@ -33,3 +41,10 @@
         }
     }
 </script>
+
+<style scoped>
+    .action-icon:hover { 
+        font-size: 150%;
+        cursor: pointer;
+    }
+</style>

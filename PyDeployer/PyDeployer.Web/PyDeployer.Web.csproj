@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="web-src\components\" />
     <Folder Include="web-src\services\" />
     <Folder Include="wwwroot\lib\fontawesome\" />
   </ItemGroup>

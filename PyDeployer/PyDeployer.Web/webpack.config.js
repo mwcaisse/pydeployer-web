@@ -17,5 +17,11 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin()
-    ]
+    ],
+    resolve: {
+        modules: [
+            path.resolve("./web-src"),
+            path.resolve("./node_modules")
+        ]
+    }
 };

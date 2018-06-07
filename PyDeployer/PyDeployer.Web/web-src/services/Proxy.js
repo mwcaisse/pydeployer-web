@@ -102,7 +102,7 @@ function del(relativeUrl, body) {
     return deleteAbsolute(baseUrl + relativeUrl, body);
 }
 
-module.exports = {
+export default {
     getAbsolute: getAbsolute,
     get: get,
     getPaged: getPaged,

@@ -21,6 +21,19 @@ var application = {
     }
 }
 
+var applicationEnvironment = {
+    get: function(applicationId) {
+        return Proxy.get("application/" + applicationId + "/environment");
+    },
+    create: function(applicationId, environmentId) {
+        return Proxy.post("application/" + applicationId + "/environment/" + environmentId);
+    },
+    delete: function(applicationId, environmentId) {
+        return Proxy.delete("application/" + applicationId + "/environment/" + environmentId);
+    }
+}
+
 export {
-    application as ApplicationService
+    application as ApplicationService,
+    applicationEnvironment as ApplicationEnvironmentService
 }

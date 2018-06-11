@@ -44,7 +44,7 @@
 
 <style scoped>
     .action-icon:hover { 
-        font-size: 150%;
+        transform:scale(1.5);
         cursor: pointer;
     }
 </style>

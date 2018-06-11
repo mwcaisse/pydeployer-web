@@ -13,10 +13,7 @@
                 <application-details applicationId="1"></application-details>
             </div>
             <div class="column">
-                <div class="box">
-                    <h2>Environments</h2>
-                    <p>A list/grid of the environments that this application is associated with</p>
-                </div>
+                <application-environment-list applicationId="1"></application-environment-list>
             </div>
         </div>
         <div class="box">
@@ -29,6 +26,7 @@
 <script>
 
     import ApplicationDetails from "components/Application/ApplicationDetails.vue"
+    import ApplicationEnvironmentList from "components/Application/ApplicationEnvironmentList.vue"
 
 
     export default {
@@ -38,7 +36,8 @@
             }
         },
         components: {
-            ApplicationDetails
+            ApplicationDetails,
+            ApplicationEnvironmentList
         }
     }
 </script>

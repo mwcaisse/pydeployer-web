@@ -10,20 +10,7 @@
         </section>
         <div class="columns">
             <div class="column">
-                <div class="box">
-                    <div class="field">
-                        <label class="label">Name</label>
-                        <div class="control">
-                            <span>Test Application 1</span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">UUID</label>
-                        <div class="control">
-                            <span>UUID GOES HERE</span>
-                        </div>
-                    </div>
-                </div>
+                <application-details applicationId="1"></application-details>
             </div>
             <div class="column">
                 <div class="box">
@@ -40,11 +27,18 @@
 </template>
 
 <script>
+
+    import ApplicationDetails from "components/Application/ApplicationDetails.vue"
+
+
     export default {
         data: function() {
             return {
                 "message": "Welcome again"
             }
+        },
+        components: {
+            ApplicationDetails
         }
     }
 </script>

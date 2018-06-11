@@ -1,6 +1,6 @@
 ﻿import Q from "q"
 
-var baseUrl = $("#rootPathPrefix").val() + "api/";
+var baseUrl = ($("#rootPathPrefix").val() || "/") + "api/";
 
 //If the server returned a 200, just return the results to the caller
 function successHandler(deferred, data) {

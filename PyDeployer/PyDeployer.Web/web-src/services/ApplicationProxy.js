@@ -33,7 +33,27 @@ var applicationEnvironment = {
     }
 }
 
+var applicationToken = {
+    get: function(applicationId, id) {
+        return Proxy.get("application/" + applicationId + "/token/" + id);
+    },
+    getForApplication: function(applicationId) {
+        return Proxy.get("application/" + applicationId + "/token/");
+    },
+    create: function(applicationId, token) {
+        return Proxy.post("application/" + applicationId + "/token/", token);
+    },
+    update: function(applicationId, token) {
+        return Proxy.put("application/" + applicationId + "/token/", token);
+    },
+    delete: function(applicationId, id) {
+        return Proxy.delete("application/" + applicationId + "/token/" + id);
+    }
+
+}
+
 export {
     application as ApplicationService,
-    applicationEnvironment as ApplicationEnvironmentService
+    applicationEnvironment as ApplicationEnvironmentService,
+    applicationToken as ApplicationTokenService
 }

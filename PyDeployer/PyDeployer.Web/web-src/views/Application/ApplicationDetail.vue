@@ -16,9 +16,13 @@
                 <application-environment-list applicationId="1"></application-environment-list>
             </div>
         </div>
-        <div class="box">
-            <h2>Tokens</h2>
-            <p>A list of all the Tokens that have been defined for this application.</p>
+        <div class="columns">
+            <div class="column">
+                <application-token-list applicationId="1"></application-token-list>
+            </div>
+            <div class="column">
+                <span>Placeholder for the Token values per environment.</span>
+            </div>
         </div>
     </div> 
 </template>
@@ -27,6 +31,7 @@
 
     import ApplicationDetails from "components/Application/ApplicationDetails.vue"
     import ApplicationEnvironmentList from "components/Application/ApplicationEnvironmentList.vue"
+    import ApplicationTokenList from "components/Application/ApplicationTokenList.vue"
 
 
     export default {
@@ -37,7 +42,8 @@
         },
         components: {
             ApplicationDetails,
-            ApplicationEnvironmentList
+            ApplicationEnvironmentList,
+            ApplicationTokenList
         }
     }
 </script>

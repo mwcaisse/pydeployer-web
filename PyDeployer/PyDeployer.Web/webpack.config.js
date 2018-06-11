@@ -5,10 +5,13 @@ const path = require("path");
 
 
 module.exports = {
-    entry: "./web-src/main.js",
+    entry: {
+        "home": "./web-src/views/Home/Home.js",
+        "application-detail": "./web-src/views/Application/ApplicationDetail.js"
+    },
     output: {
         path: path.resolve(__dirname, "wwwroot"),
-        filename: "main-bundle.js"
+        filename: "views/[name].js"
     },
     module: {
         rules: [

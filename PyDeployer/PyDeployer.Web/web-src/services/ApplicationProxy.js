@@ -49,11 +49,29 @@ var applicationToken = {
     delete: function(applicationId, id) {
         return Proxy.delete("application/" + applicationId + "/token/" + id);
     }
+}
 
+var environment = {
+    get: function(id) {
+        return Proxy.get("environment/" + id);
+    },
+    getAll: function() {
+        return Proxy.get("environment/");
+    },
+    create: function(environment) {
+        return Proxy.post("environment/", environment);
+    },
+    update: function (environment) {
+        return Proxy.put("environment/", environment);
+    },
+    delete: function(id) {
+        return Proxy.delete("environment/" + id);
+    }
 }
 
 export {
     application as ApplicationService,
     applicationEnvironment as ApplicationEnvironmentService,
-    applicationToken as ApplicationTokenService
+    applicationToken as ApplicationTokenService,
+    environment as EnvironmnetService
 }

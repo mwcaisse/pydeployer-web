@@ -1,14 +1,14 @@
 ﻿<template>
-    <div class="modal" v-show="show">
-        <div class="modal-background"></div>
+    <div class="modal" v-bind:class="{'is-active': show }">
+        <div class="modal-background"  v-on:click="close"></div>
         <div class="modal-card">
-            <header class="modal-card-header">
+            <header class="modal-card-head">
                 <p class="modal-card-title">Select Environment</p>
                 <button class="delete" aria-label="close" v-on:click="close"></button>
             </header>
             <section class="modal-card-body">
                 <ul>
-                    <li class="box" v-for="environment in environments">
+                    <li class="box action" v-for="environment in environments">
                         {{environment.name}}                 
                     </li>
                 </ul>
@@ -63,3 +63,10 @@
         }
     }
 </script>
+
+<style scoped>
+    .box.action:hover {
+        background-color: rgba(299, 40, 69, 0.7);
+        cursor: pointer
+    }
+</style>

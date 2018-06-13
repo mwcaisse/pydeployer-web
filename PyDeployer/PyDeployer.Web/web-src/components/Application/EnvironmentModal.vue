@@ -48,12 +48,8 @@
         created: function () {
             this.fetchEnvironments();
 
-            console.log(system);
-
-
             system.events.$on("environmentModal:show", function () {
                 this.show = true
-                console.log("Recieved show modal event");
                 console.log(this)
             }.bind(this));
 

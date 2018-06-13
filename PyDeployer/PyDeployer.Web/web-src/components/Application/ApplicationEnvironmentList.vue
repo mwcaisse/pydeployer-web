@@ -12,7 +12,9 @@
                 <li class="box" v-for="environment in environments">
                     {{environment.name}}
                     <span class="is-pulled-right">
-                        <i class="fas fa-trash action-icon"></i>
+                        <span v-on:click="deleteEnvironment(environment)">
+                            <i class="fas fa-trash action-icon"></i>
+                        </span>                        
                     </span>
                 </li>
             </ul>
@@ -53,8 +55,21 @@
                 this.environments = [];
             },
             addEnvironment: function () {
-                console.log("User clicked on add environments");
                 system.events.$emit("environmentModal:show");
+            },
+            deleteEnvironment: function (environment) {
+                ApplicationEnvironmentService.delete(this.applicationId, environment.environmentId).then(function (res) {
+                    if (res) {
+                        var index = this.environments.indexOf(environment);
+                        this.environments.splice(index, 1);
+                    }
+                    else {
+                        console.log("Failed to delete application environment");
+                    }
+                }.bind(this),
+                function (error) {
+                    console.log("Error deleting application environment: " + error)
+                })
             }
         },
         created: function () {

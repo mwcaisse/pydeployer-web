@@ -3,7 +3,9 @@
         <div class="box">
             <p class="subtitle">Environments
                 <span class="is-pulled-right">
-                    <i class="fas fa-plus action-icon"></i>
+                    <span  v-on:click="addEnvironment">
+                        <i class="fas fa-plus action-icon"></i>
+                    </span>                    
                 </span>
             </p>
             <ul>
@@ -15,11 +17,14 @@
                 </li>
             </ul>
         </div>
+        <environment-modal></environment-modal>
     </div>
 </template>
 
 <script>
+    import system from "services/System.js"
     import { ApplicationEnvironmentService } from "services/ApplicationProxy.js"
+    import EnvironmentModal from "components/Application/EnvironmentModal.vue"
 
     export default {
         name: "application-environment-list",
@@ -46,10 +51,17 @@
             },         
             clear: function () {
                 this.environments = [];
+            },
+            addEnvironment: function () {
+                console.log("User clicked on add environments");
+                system.events.$emit("environmentModal:show");
             }
         },
         created: function () {
             this.fetchEnvironments();
+        },
+        components: {
+            EnvironmentModal
         }
     }
 </script>

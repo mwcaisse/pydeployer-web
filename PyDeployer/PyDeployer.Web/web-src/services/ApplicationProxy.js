@@ -44,7 +44,7 @@ var applicationToken = {
         return Proxy.post("application/" + applicationId + "/token/", token);
     },
     update: function(applicationId, token) {
-        return Proxy.put("application/" + applicationId + "/token/", token);
+        return Proxy.put("application/" + applicationId + "/token/" + token.applicationTokenId, token);
     },
     delete: function(applicationId, id) {
         return Proxy.delete("application/" + applicationId + "/token/" + id);

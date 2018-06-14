@@ -12,6 +12,7 @@
                 </slot>
             </section>
             <footer class="modal-card-foot" style="justify-content: flex-end;">              
+                <slot name="footer-buttons"></slot>
                 <button class="button" type="button" v-on:click="close">{{ cancelText }}</button>
             </footer>
         </div>

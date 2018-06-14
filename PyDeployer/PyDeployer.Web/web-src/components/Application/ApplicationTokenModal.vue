@@ -1,71 +1,115 @@
 ﻿<template>
-    <div class="modal" v-bind:class="{'is-active': show }">
-        <div class="modal-background" v-on:click="close"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Select Environment</p>
-                <button class="delete" aria-label="close" v-on:click="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <ul>
-                    <li class="box action" v-for="environment in environments" v-on:click="selectEnvironment(environment)">
-                        {{environment.name}}
-                    </li>
-                </ul>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button" type="button" v-on:click="close">Cancel</button>
-            </footer>
+    <app-modal ref="modal" title="Create Application Token">
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Token name" v-model="name" />
+            </div>
         </div>
-    </div>
+        <template slot="footer-buttons">
+            <button class="button" type="button" v-on:click="save">Save</button>
+        </template>
+    </app-modal>
 </template>
 
 <script>
     import system from "services/System.js"
-    import { EnvironmnetService } from "services/ApplicationProxy.js"
+    import { ApplicationTokenService } from "services/ApplicationProxy.js"
+
+    import Modal from "components/Common/Modal.vue"
 
     export default {
-        name: "environment-modal",
-        data: function() {
+        name: "application-token-modal",
+        data: function () {
             return {
-                show: false,
-                environments: []
+                title: "Create Application Token",
+                applicationTokenId: -1,
+                name: ""
+            }
+        },
+        props: {
+            applicationId: {
+                type: Number,
+                required: true
             }
         },
         methods: {
-            fetchEnvironments: function () {
-                EnvironmnetService.getAll().then(function (data) {
-                    this.environments = data;
-                }.bind(this),
-                function (error) {
-                    console.log("Error fetching environments: " + error)
+            fetchToken: function () {
+                return ApplicationTokenService.get(this.applicationId,
+                    this.applicationTokenId).then(function (data) {
+                        this.update(data);
+                        return true;
+                    }.bind(this), function (error) {
+                        console.log("Error fetching application token: " + error)
+                        return false;
+                    });
+            },
+            save: function () {
+                var func;
+                var created = false;
+                if (this.applicationTokenId < 0) {
+                    func = ApplicationTokenService.create
+                    created = true;
+                }
+                else {
+                    func = ApplicationTokenService.update;
+                    created = false;
+                }
+                return func(this.applicationId, this.createModel()).then(function (data) {
+                    var eventName = ""
+                    if (created) {
+                        eventName = "applicationTokenModal:created";
+                    }
+                    else {
+                        eventName = "applicationTokenModal:updated";
+                    }
+
+                    system.events.$emit(eventName, data);
+                    this.close();
+                    return true;
+                }.bind(this), function (error) {
+                    console.log("Error saving application token: " + error)
+                    return false;
                 });
             },
             close: function () {
-                this.show = false;
+                this.$refs.modal.close();
             },
-            selectEnvironment: function (environment) {
-                this.$emit("environment:selected", environment);
-                this.close();
+            update: function (data) {
+                this.applicationTokenId = data.applicationTokenId;
+                this.name = data.name;
+            },
+            clear: function () {
+                this.applicationTokenId = -1;
+                this.name = "";
+            },
+            createModel: function () {
+                return {
+                    applicationTokenId: this.applicationTokenId,
+                    applicationId: this.applicationId,
+                    name: this.name
+                };
             }
         },
         created: function () {
-            this.fetchEnvironments();
-
-            system.events.$on("environmentModal:show", function () {
-                this.show = true
+            system.events.$on("applicationTokenModal:create", function () {
+                this.clear();
+                this.title = "Create Application Token";
+                this.$refs.modal.open();
             }.bind(this));
 
-            system.events.$on("environmentModal:hide", function () {
-                this.show = false
+            system.events.$on("applicationTokenModal:edit", function (applicationToken) {
+                this.title = "Edit Application Token";
+                this.update(applicationToken);
+                this.$refs.modal.open();
             }.bind(this));
+
+            system.events.$on("applicationTokenModal:hide", function () {
+                this.close();
+            }.bind(this));
+        },
+        components: {
+            "app-modal": Modal
         }
     }
 </script>
-
-<style scoped>
-    .box.action:hover {
-        background-color: rgba(299, 40, 69, 0.7);
-        cursor: pointer
-    }
-</style>

@@ -6,9 +6,9 @@
                 <li class="box" v-for="application in applications">
                     {{application.name}}
                     <span class="is-pulled-right">
-                        <i class="fas fa-clone action-icon"></i>
-                        <i class="fas fa-trash action-icon"></i>
-                        <i class="fas fa-chevron-down action-icon"></i>
+                        <app-icon icon="fa-clone" :action="true"></app-icon>
+                        <app-icon icon="fa-trash" :action="true"></app-icon>
+                        <app-icon icon="fa-chevron-down" :action="true"></app-icon>
                     </span>
                 </li>
             </ul>
@@ -18,6 +18,7 @@
 
 <script>
     import { ApplicationService } from "services/ApplicationProxy.js"
+    import Icon from "components/Common/Icon.vue"
 
     export default {
         name: "application-list",
@@ -38,6 +39,9 @@
         },
         created: function () {
             this.fetchApplications();
+        },
+        components: {
+            "app-icon": Icon
         }
     }
 </script>

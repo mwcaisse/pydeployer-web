@@ -4,15 +4,15 @@
             <p class="subtitle">
                 Application Tokens
                 <span class="is-pulled-right">
-                    <i class="fas fa-plus action-icon"></i>
+                    <app-icon icon="fa-plus" :action="true"></app-icon>
                 </span>
             </p>
             <ul>
                 <li class="box" v-for="token in tokens">
                     {{token.name}}
                     <span class="is-pulled-right">
-                        <i class="fas fa-edit action-icon"></i>
-                        <i class="fas fa-trash action-icon"></i>
+                        <app-icon icon="fa-edit" :action="true"></app-icon>
+                        <app-icon icon="fa-trash" :action="true"></app-icon>
                     </span>
                 </li>
             </ul>
@@ -22,6 +22,7 @@
 
 <script>
     import { ApplicationTokenService } from "services/ApplicationProxy.js"
+    import Icon from "components/Common/Icon.vue"
 
     export default {
         name: "application-token-list",
@@ -52,6 +53,9 @@
         },
         created: function () {
             this.fetchTokens();
+        },
+        components: {
+            "app-icon": Icon
         }
     }
 </script>

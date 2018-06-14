@@ -8,7 +8,7 @@
             </header>
             <section class="modal-card-body">
                 <ul>
-                    <li class="box action" v-for="environment in environments">
+                    <li class="box action" v-for="environment in environments" v-on:click="selectEnvironment(environment)">
                         {{environment.name}}                 
                     </li>
                 </ul>
@@ -43,6 +43,10 @@
             },
             close: function () {
                 this.show = false;
+            },
+            selectEnvironment: function (environment) {
+                this.$emit("environment:selected", environment);
+                this.close();
             }
         },
         created: function () {
@@ -50,7 +54,6 @@
 
             system.events.$on("environmentModal:show", function () {
                 this.show = true
-                console.log(this)
             }.bind(this));
 
             system.events.$on("environmentModal:hide", function () {

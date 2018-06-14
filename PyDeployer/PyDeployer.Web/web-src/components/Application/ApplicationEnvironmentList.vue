@@ -10,12 +10,12 @@
                 <li class="box" v-for="environment in environments">
                     {{environment.name}}
                     <span class="is-pulled-right">                           
-                        <app-icon :icon="fa-trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>                
+                        <app-icon icon="fa-trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>                
                     </span>
                 </li>
             </ul>
         </div>
-        <environment-modal></environment-modal>
+        <environment-modal v-on:environment:selected="environmentSelected"></environment-modal>
     </div>
 </template>
 
@@ -68,6 +68,14 @@
                 function (error) {
                     console.log("Error deleting application environment: " + error)
                 })
+            },
+            environmentSelected: function (environment) {
+                ApplicationEnvironmentService.create(this.applicationId, environment.environmentId).then(function (res) {
+                    this.environments.push(environment);
+                }.bind(this),
+                function (error) {
+                    console.log("Error associating environment with application: " + error)
+                });
             }
         },
         created: function () {

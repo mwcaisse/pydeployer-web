@@ -10,15 +10,15 @@
         </section>
         <div class="columns">
             <div class="column">
-                <application-details applicationId="1"></application-details>
+                <application-details :applicationId="1"></application-details>
             </div>
             <div class="column">
-                <application-environment-list applicationId="1"></application-environment-list>
+                <application-environment-list :applicationId="1"></application-environment-list>
             </div>
         </div>
         <div class="columns">
             <div class="column">
-                <application-token-list applicationId="1"></application-token-list>
+                <application-token-list :applicationId="1"></application-token-list>
             </div>
             <div class="column">
                 <span>Placeholder for the Token values per environment.</span>

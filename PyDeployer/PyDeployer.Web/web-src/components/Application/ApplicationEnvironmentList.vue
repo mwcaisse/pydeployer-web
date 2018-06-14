@@ -2,19 +2,15 @@
     <div>        
         <div class="box">
             <p class="subtitle">Environments
-                <span class="is-pulled-right">
-                    <span  v-on:click="addEnvironment">                        
-                        <app-icon icon="fa-plus" action="true" />
-                    </span>                    
+                <span class="is-pulled-right">                   
+                    <app-icon icon="fa-plus" :action="true" v-on:click.native="addEnvironment"/>
                 </span>
             </p>
             <ul>
                 <li class="box" v-for="environment in environments">
                     {{environment.name}}
-                    <span class="is-pulled-right">
-                        <span v-on:click="deleteEnvironment(environment)">                            
-                            <app-icon :icon="fa-trash" :action="true"></app-icon>
-                        </span>                        
+                    <span class="is-pulled-right">                           
+                        <app-icon :icon="fa-trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>                
                     </span>
                 </li>
             </ul>
@@ -78,8 +74,8 @@
             this.fetchEnvironments();
         },
         components: {
-            EnvironmentModal,
-            Icon
+            "environment-modal": EnvironmentModal,
+            "app-icon": Icon
         }
     }
 </script>

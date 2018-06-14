@@ -5,6 +5,7 @@ const path = require("path");
 
 
 module.exports = {
+    mode: "development",
     entry: {
         "home": "./web-src/views/Home/Home.js",
         "application-detail": "./web-src/views/Application/ApplicationDetail.js"

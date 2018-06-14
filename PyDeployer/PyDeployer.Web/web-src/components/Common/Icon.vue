@@ -15,9 +15,7 @@
      export default {
         name: "app-icon",
         data: function() {
-            return {
-                applications: []
-            }
+            return { }
         },
         props: {
             icon: {

@@ -73,5 +73,5 @@ export {
     application as ApplicationService,
     applicationEnvironment as ApplicationEnvironmentService,
     applicationToken as ApplicationTokenService,
-    environment as EnvironmnetService
+    environment as EnvironmentService
 }

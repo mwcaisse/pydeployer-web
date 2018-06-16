@@ -12,7 +12,7 @@
                     {{application.name}}
                     <span class="is-pulled-right">
                         <app-icon icon="fa-clone" :action="true"></app-icon>
-                        <app-icon icon="fa-trash" :action="true"></app-icon>                     
+                        <app-icon icon="fa-trash" :action="true" v-on:click.native="deleteApplication(application)"></app-icon>                     
                     </span>
                 </li>
             </ul>
@@ -49,6 +49,19 @@
             create: function () {
                 system.events.$emit("applicationModal:create");
             },
+            deleteApplication: function (application) {
+                ApplicationService.delete(application.applicationId).then(function (res) {
+                    if (res) {
+                        var index = this.applications.indexOf(application);
+                        this.applications.splice(index, 1);
+                    }
+                    else {
+                        console.log("Failed to delete application.");
+                    }
+                }.bind(this), function (error) {
+                    console.log("Error deleting application: " + error)
+                })
+            }
         },
         created: function () {
             this.fetchApplications();

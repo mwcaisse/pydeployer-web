@@ -9,7 +9,9 @@
             </div>
         </section> 
         <div class="columns">
-            <div class="column"></div>
+            <div class="column">
+                <environment-list></environment-list>
+            </div>
             <div class="column">
                 <application-list></application-list>
             </div>
@@ -19,6 +21,7 @@
 
 <script>
     import ApplicationList from "components/Application/ApplicationList.vue"
+    import EnvironmentList from "components/Environment/EnvironmentList.vue"
 
     export default {
         data: function() {
@@ -27,7 +30,8 @@
             }
         },
         components: {
-            ApplicationList
+            "application-list": ApplicationList,
+            "environment-list": EnvironmentList
         }
     }
 </script>

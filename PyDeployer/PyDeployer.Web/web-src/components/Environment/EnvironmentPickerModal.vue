@@ -10,7 +10,7 @@
 
 <script>
     import system from "services/System.js"
-    import { EnvironmnetService } from "services/ApplicationProxy.js"
+    import { EnvironmentService } from "services/ApplicationProxy.js"
 
     import Modal from "components/Common/Modal.vue"
 
@@ -23,7 +23,7 @@
         },
         methods: {
             fetchEnvironments: function () {
-                EnvironmnetService.getAll().then(function (data) {
+                EnvironmentService.getAll().then(function (data) {
                     this.environments = data;
                 }.bind(this),
                 function (error) {

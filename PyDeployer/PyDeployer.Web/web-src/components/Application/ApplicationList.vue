@@ -11,7 +11,7 @@
                 <li class="box" v-for="application in applications">
                     {{application.name}}
                     <span class="is-pulled-right">
-                        <app-icon icon="fa-clone" :action="true"></app-icon>
+                        <app-icon icon="fa-clone" :action="true" v-on:click.native="viewApplication(application)"></app-icon>
                         <app-icon icon="fa-trash" :action="true" v-on:click.native="deleteApplication(application)"></app-icon>                     
                     </span>
                 </li>
@@ -61,6 +61,9 @@
                 }.bind(this), function (error) {
                     console.log("Error deleting application: " + error)
                 })
+            },
+            viewApplication: function (application) {
+                window.location = "/application/?applicationId=" + application.applicationId;
             }
         },
         created: function () {

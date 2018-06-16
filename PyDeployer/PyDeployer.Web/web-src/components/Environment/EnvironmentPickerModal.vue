@@ -15,7 +15,7 @@
     import Modal from "components/Common/Modal.vue"
 
     export default {
-        name: "environment-modal",
+        name: "environment-picker-modal",
         data: function() {
             return {
                 environments: []

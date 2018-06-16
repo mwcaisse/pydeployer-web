@@ -15,14 +15,14 @@
                 </li>
             </ul>
         </div>
-        <environment-modal v-on:environment:selected="environmentSelected"></environment-modal>
+        <environment-picker-modal v-on:environment:selected="environmentSelected"></environment-picker-modal>
     </div>
 </template>
 
 <script>
     import system from "services/System.js"
     import { ApplicationEnvironmentService } from "services/ApplicationProxy.js"
-    import EnvironmentModal from "components/Application/EnvironmentModal.vue"
+    import EnvironmentPickerModal from "components/Environment/EnvironmentPickerModal.vue"
 
     import Icon from "components/Common/Icon.vue"
 
@@ -82,15 +82,8 @@
             this.fetchEnvironments();
         },
         components: {
-            "environment-modal": EnvironmentModal,
+            "environment-picker-modal": EnvironmentPickerModal,
             "app-icon": Icon
         }
     }
 </script>
-
-<style scoped>
-    .action-icon:hover {
-        transform:scale(1.5);
-        cursor: pointer;
-    }
-</style>

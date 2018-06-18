@@ -13,6 +13,7 @@ using Mitchell.Common.Converters;
 using PyDeployer.Data;
 using PyDeployer.Logic.Services;
 using PyDeployer.Web.Converters;
+using PyDeployer.Web.Middleware;
 
 namespace PyDeployer.Web
 {
@@ -71,6 +72,8 @@ namespace PyDeployer.Web
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseMvc(routes =>
             {

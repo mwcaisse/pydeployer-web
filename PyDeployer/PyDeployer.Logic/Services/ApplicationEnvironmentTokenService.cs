@@ -27,28 +27,44 @@ namespace PyDeployer.Logic.Services
                 .FirstOrDefault(t => t.ApplicationEnvironmentTokenId == id);
         }
 
-        public IEnumerable<ApplicationEnvironmentToken> GetForEnvironment(long applicationId, 
+        public IEnumerable<ApplicationEnvironmentTokenViewModel> GetForEnvironment(long applicationId, 
             long environmentId)
         {
-            return
-                _db.ApplicationEnvironmentTokens.Active().Build()
-                    .Where(
-                        t =>
-                            t.ApplicationEnvironment.ApplicationId == applicationId &&
-                            t.ApplicationEnvironment.EnvironmentId == environmentId);
+            return _db.ApplicationTokens.Active().Build()
+                .Where(at => at.ApplicationId == applicationId)
+                .Join(
+                    _db.ApplicationEnvironmentTokens.Active()
+                        .Where(ae => ae.ApplicationEnvironment.EnvironmentId == environmentId),
+                    at => at.ApplicationTokenId,
+                    aet => aet.ApplicationTokenId,
+                    (at, aet) => new ApplicationEnvironmentTokenViewModel()
+                    {
+                        ApplicationId = applicationId,
+                        EnvironmentId = environmentId,
+                        Name = at.Name,
+                        Value = aet.Value ?? "",
+                        ApplicationEnvironmentTokenId = aet.ApplicationEnvironmentTokenId
+                    }
+                ).ToList();
         }
 
-        public IEnumerable<ApplicationEnvironmentToken> GetForEnvironmentByUuid(
+        public IEnumerable<ApplicationEnvironmentTokenViewModel> GetForEnvironmentByUuid(
             string applicationUuid, string environmentUuid)
         {
             var applicationGuid = new Guid(applicationUuid);
             var environmentGuid = new Guid(environmentUuid);
-            return
-                _db.ApplicationEnvironmentTokens.Active().Build()
-                    .Where(
-                        t =>
-                            t.ApplicationEnvironment.Application.ApplicationUuid == applicationGuid &&
-                            t.ApplicationEnvironment.Environment.EnvironmentUuid == environmentGuid);
+
+            var applicationEnvironment = _db.ApplicationEnvironments.Active().Build()
+                .FirstOrDefault(ae => ae.Application.ApplicationUuid == applicationGuid
+                                   && ae.Environment.EnvironmentUuid == environmentGuid);
+
+            if (null == applicationEnvironment)
+            {
+                throw new EntityValidationException("The given Application Environment mapping does not exist!");
+            }
+
+
+            return GetForEnvironment(applicationEnvironment.ApplicationId, applicationEnvironment.EnvironmentId);
         }
 
         public ApplicationEnvironmentToken Save(ApplicationEnvironmentTokenViewModel toCreate)

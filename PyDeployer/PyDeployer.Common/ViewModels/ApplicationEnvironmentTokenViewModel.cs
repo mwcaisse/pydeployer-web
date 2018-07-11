@@ -13,8 +13,6 @@ namespace PyDeployer.Common.ViewModels
 
         public long EnvironmentId { get; set; }
 
-        public long ApplicationTokenId { get; set; }
-
         public string Name { get; set; }
 
         public string Value { get; set; }

@@ -44,23 +44,12 @@ namespace PyDeployer.Web.Controllers.Api
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create(long applicationId, long environmentId, 
+        public IActionResult Save(long applicationId, long environmentId, 
             [FromBody] ApplicationEnvironmentTokenViewModel token)
         {
             token.ApplicationId = applicationId;
             token.EnvironmentId = environmentId;
-            return Ok(_tokenService.Create(token));
-        }
-
-        [HttpPut]
-        [Route("{id:long}")]
-        public IActionResult Update(long applicationId, long environmentId, long id,
-            [FromBody] ApplicationEnvironmentTokenViewModel token)
-        {
-            token.ApplicationEnvironmentTokenId = id;
-            token.ApplicationId = applicationId;
-            token.EnvironmentId = environmentId;
-            return Ok(_tokenService.Update(token));
+            return Ok(_tokenService.Save(token));
         }
 
         [HttpDelete]

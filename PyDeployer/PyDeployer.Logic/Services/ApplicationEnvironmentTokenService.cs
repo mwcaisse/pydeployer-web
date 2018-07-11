@@ -51,7 +51,7 @@ namespace PyDeployer.Logic.Services
                             t.ApplicationEnvironment.Environment.EnvironmentUuid == environmentGuid);
         }
 
-        public ApplicationEnvironmentToken Create(ApplicationEnvironmentTokenViewModel toCreate)
+        public ApplicationEnvironmentToken Save(ApplicationEnvironmentTokenViewModel toCreate)
         {
             if (!ApplicationExists(toCreate.ApplicationId))
             {
@@ -65,55 +65,43 @@ namespace PyDeployer.Logic.Services
             {
                 throw new EntityValidationException("The application isn't configured for this environment.");
             }
-            if (!ApplicationTokenExists(toCreate.ApplicationTokenId))
+            var applicationToken =
+                _db.ApplicationTokens.Active()
+                    .FirstOrDefault(x => x.ApplicationId == toCreate.ApplicationId && x.Name == toCreate.Name);
+            if (null == applicationToken)
             {
                 throw new EntityValidationException("The application does not have a definition for this token");
             }
 
-            if (_db.ApplicationEnvironmentTokens.Active().Any(ae => ae.ApplicationTokenId == toCreate.ApplicationTokenId
-                                                                    && ae.ApplicationEnvironment.EnvironmentId == toCreate.EnvironmentId))
+            var environmentToken = _db.ApplicationEnvironmentTokens.Active()
+                .FirstOrDefault(ae => ae.ApplicationTokenId == applicationToken.ApplicationTokenId 
+                                   && ae.ApplicationEnvironment.EnvironmentId == toCreate.EnvironmentId);
+
+            if (null == environmentToken)
             {
-                throw new EntityValidationException("A value is already defined for this application token in this environment");   
+                var applicationEnvironment =
+                    _db.ApplicationEnvironments.Active()
+                        .First(
+                            ae => ae.ApplicationId == toCreate.ApplicationId &&
+                                  ae.EnvironmentId == toCreate.EnvironmentId);
+
+                environmentToken = new ApplicationEnvironmentToken()
+                {
+                    ApplicationEnvironment = applicationEnvironment,
+                    ApplicationTokenId = applicationToken.ApplicationTokenId,
+                    Value = toCreate.Value,
+                    Active = true
+                };
+
+                _db.ApplicationEnvironmentTokens.Add(environmentToken);
             }
-
-            var applicationEnvironment =
-                _db.ApplicationEnvironments.Active()
-                    .First(
-                        ae => ae.ApplicationId == toCreate.ApplicationId && 
-                        ae.EnvironmentId == toCreate.EnvironmentId);
-
-            var token = new ApplicationEnvironmentToken()
+            else
             {
-                ApplicationEnvironment = applicationEnvironment,
-                ApplicationTokenId = toCreate.ApplicationTokenId,
-                Value = toCreate.Value,
-                Active = true
-            };
-
-            _db.ApplicationEnvironmentTokens.Add(token);
+                environmentToken.Value = toCreate.Value;
+            }
+            
             _db.SaveChanges();
-
-            return Get(token.ApplicationEnvironmentTokenId);
-        }
-
-        public ApplicationEnvironmentToken Update(ApplicationEnvironmentTokenViewModel toUpdate)
-        {
-            var token = GetOrException(toUpdate.ApplicationEnvironmentTokenId);
-
-            if (token.ApplicationEnvironment.EnvironmentId != toUpdate.EnvironmentId ||
-                token.ApplicationEnvironment.ApplicationId != toUpdate.ApplicationId)
-            {
-                throw new EntityValidationException("Cannot change the Application/Environment the token is associated with.");
-            }
-            if (token.ApplicationTokenId != toUpdate.ApplicationTokenId)
-            {
-                throw new EntityValidationException("Cannot change the Application token this value is associated with.");
-            }
-
-            token.Value = toUpdate.Value;
-            _db.SaveChanges();
-
-            return token;
+            return Get(environmentToken.ApplicationEnvironmentTokenId);
         }
 
         public bool Delete(long id)

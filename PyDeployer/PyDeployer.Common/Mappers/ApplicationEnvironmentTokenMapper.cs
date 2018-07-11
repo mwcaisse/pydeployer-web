@@ -18,7 +18,6 @@ namespace PyDeployer.Common.Mappers
                 ApplicationEnvironmentTokenId = token.ApplicationEnvironmentTokenId,
                 Name = token.ApplicationToken.Name,
                 Value = token.Value,
-                ApplicationTokenId = token.ApplicationTokenId,
                 ApplicationId = token.ApplicationEnvironment.ApplicationId,
                 EnvironmentId = token.ApplicationEnvironment.EnvironmentId
             };

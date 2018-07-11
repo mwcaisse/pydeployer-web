@@ -22,13 +22,6 @@ namespace PyDeployer.Web.Controllers.Api
         }
 
         [HttpGet]
-        [Route("{id:long}")]
-        public IActionResult Get(long id)
-        {
-            return Ok(_tokenService.Get(id));
-        }
-
-        [HttpGet]
         [Route("")]
         public IActionResult GetAll(long applicationId, long environmentId)
         {
@@ -37,7 +30,7 @@ namespace PyDeployer.Web.Controllers.Api
 
         [HttpGet]
         [Route("~/api/application/{applicationUuid}/environment/{environmentUuid}/token/")]
-        public IActionResult GetllByUuid(string applicationUuid, string environmentUuid)
+        public IActionResult GetAllByUuid(string applicationUuid, string environmentUuid)
         {
             return Ok(_tokenService.GetForEnvironmentByUuid(applicationUuid, environmentUuid));
         }

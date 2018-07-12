@@ -45,12 +45,5 @@ namespace PyDeployer.Web.Controllers.Api
             return Ok(_tokenService.Save(token));
         }
 
-        [HttpDelete]
-        [Route("{id}")]
-        public IActionResult Delete(long id)
-        {
-            return Ok(_tokenService.Delete(id));
-        }
-
     }
 }

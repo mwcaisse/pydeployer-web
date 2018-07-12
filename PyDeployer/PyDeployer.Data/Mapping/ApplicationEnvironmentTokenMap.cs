@@ -13,7 +13,7 @@ namespace PyDeployer.Data.Mapping
         public void Configure(EntityTypeBuilder<ApplicationEnvironmentToken> builder)
         {
 
-            builder.ToTable("APPLICATION_ENVIRONMENt_TOKEN")
+            builder.ToTable("APPLICATION_ENVIRONMENT_TOKEN")
                 .HasKey(ate => ate.ApplicationEnvironmentTokenId);
 
             builder.Property(ate => ate.ApplicationEnvironmentTokenId)

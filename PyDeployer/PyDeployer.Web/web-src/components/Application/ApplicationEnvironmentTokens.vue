@@ -17,7 +17,7 @@
                 <div class="field" v-for="token in tokens">
                     <label class="label">{{ token.name }}</label>
                     <div class="control">
-                        <input class="input" type="text"/>
+                        <input class="input" type="text" v-model="token.value" v-on:blur="saveToken(token)"/>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
 
 <script>
     import system from "services/System.js"
-    import { ApplicationEnvironmentService, ApplicationTokenService } from "services/ApplicationProxy.js" 
+    import { ApplicationEnvironmentService, ApplicationEnvironmentTokenService } from "services/ApplicationProxy.js" 
 
     import Icon from "components/Common/Icon.vue"
 
@@ -46,22 +46,39 @@
                 required: true
             }
         },
+        computed: {
+            environmentId: function () {
+                if (null !== this.selectedEnvironment && this.selectedEnvironment.environmentId > 0) {
+                    return this.selectedEnvironment.environmentId;
+                }
+                return -1;
+            }
+        },
+        watch: {
+            selectedEnvironment: function (val) {
+                if (null == val || val.environmentId <= 0) {
+                    this.tokens = [];
+                }
+                else {
+                    this.fetchTokens();
+                }
+            }
+        },
         methods: {
             fetchEnvironments: function () {
                 ApplicationEnvironmentService.get(this.applicationId).then(function (data) {
                     this.environments = data;
-                    // If there is only one environment, then automatically select it
-                    if (this.environments.length == 1) {
+                    // Automatically select the first environment
+                    if (this.environments.length > 0) {
                         this.selectedEnvironment = this.environments[0];
                     }
                 }.bind(this),
                 function (error) {
                     console.log("Error fetching environments for application: " + error)
                 });
-
             },
             fetchTokens: function () {
-                ApplicationTokenService.getForApplication(this.applicationId).then(function (data) {
+                ApplicationEnvironmentTokenService.getAll(this.applicationId, this.environmentId).then(function (data) {
                     this.tokens = data;
                 }.bind(this),
                 function (error) {
@@ -73,11 +90,16 @@
             },   
             selectEnvironment: function (environment) {
                 this.selectedEnvironment = environment;
+            },
+            saveToken: function (token) {
+                ApplicationEnvironmentTokenService.save(this.applicationId, this.environmentId, token).then(function (data) {
+                    console.log("saved it");
+                    console.log(data)
+                }.bind(this));
             }
         },
         created: function () {
-            this.fetchEnvironments();
-            this.fetchTokens();
+            this.fetchEnvironments();           
         },
         components: {
             "app-icon": Icon

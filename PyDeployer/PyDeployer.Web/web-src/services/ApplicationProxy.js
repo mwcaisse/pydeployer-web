@@ -69,9 +69,19 @@ var environment = {
     }
 }
 
+var applicationEnvironmentToken = {
+    getAll: function(applicationId, environmentId) {
+        return Proxy.get("application/" + applicationId + "/environment/" + environmentId + "/token/",);
+    },
+    save: function(applicationId, environmentId, token) {
+        return Proxy.post("application/" + applicationId + "/environment/" + environmentId +"/token/", token);
+    }
+}
+
 export {
     application as ApplicationService,
     applicationEnvironment as ApplicationEnvironmentService,
     applicationToken as ApplicationTokenService,
-    environment as EnvironmentService
+    environment as EnvironmentService,
+    applicationEnvironmentToken as ApplicationEnvironmentTokenService
 }

@@ -30,22 +30,21 @@ namespace PyDeployer.Logic.Services
         public IEnumerable<ApplicationEnvironmentTokenViewModel> GetForEnvironment(long applicationId, 
             long environmentId)
         {
-            return _db.ApplicationTokens.Active().Build()
-                .Where(at => at.ApplicationId == applicationId)
-                .Join(
-                    _db.ApplicationEnvironmentTokens.Active()
-                        .Where(ae => ae.ApplicationEnvironment.EnvironmentId == environmentId),
-                    at => at.ApplicationTokenId,
-                    aet => aet.ApplicationTokenId,
-                    (at, aet) => new ApplicationEnvironmentTokenViewModel()
+            return (from at in _db.ApplicationTokens.Active().Build()
+                    join aet in
+                        _db.ApplicationEnvironmentTokens.Active()
+                            .Where(ae => ae.ApplicationEnvironment.EnvironmentId == environmentId)
+                    on at.ApplicationTokenId equals aet.ApplicationTokenId into aetj
+                    from aet in aetj.DefaultIfEmpty()
+                    select new ApplicationEnvironmentTokenViewModel()
                     {
                         ApplicationId = applicationId,
                         EnvironmentId = environmentId,
                         Name = at.Name,
-                        Value = aet.Value ?? "",
-                        ApplicationEnvironmentTokenId = aet.ApplicationEnvironmentTokenId
-                    }
-                ).ToList();
+                        Value = (null == aet) ? "" : aet.Value,
+                        ApplicationEnvironmentTokenId = (null == aet) ? -1 : aet.ApplicationEnvironmentTokenId
+                    }).ToList();
+
         }
 
         public IEnumerable<ApplicationEnvironmentTokenViewModel> GetForEnvironmentByUuid(

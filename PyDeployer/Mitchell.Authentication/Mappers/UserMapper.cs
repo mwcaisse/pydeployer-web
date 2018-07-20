@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Mitchell.Authentication.Entities;
+using Mitchell.Authentication.ViewModels;
 
 namespace Mitchell.Authentication.Mappers
 {

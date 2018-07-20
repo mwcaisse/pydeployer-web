@@ -15,5 +15,7 @@ namespace Mitchell.Authentication.Data
         DbSet<UserRegistrationKey> UserRegistrationKeys { get; }
 
         DbSet<UserRegistrationKeyUse> UserRegistrationKeyUses { get; }
+
+        int SaveChanges();
     }
 }

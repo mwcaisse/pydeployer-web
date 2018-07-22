@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mitchell.Authentication\Mitchell.Authentication.csproj" />
     <ProjectReference Include="..\PyDeployer.Common\PyDeployer.Common.csproj" />
     <ProjectReference Include="..\PyDeployer.Logic\PyDeployer.Logic.csproj" />
   </ItemGroup>

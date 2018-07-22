@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PyDeployer.Common.Mappers;
 using PyDeployer.Common.ViewModels;
@@ -9,9 +10,10 @@ using PyDeployer.Logic.Services;
 
 namespace PyDeployer.Web.Controllers.Api
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/application")]
-    public class ApplicationApiController : Controller
+    public class ApplicationApiController : BaseApiController
     {
 
         private readonly ApplicationService _applicationService;

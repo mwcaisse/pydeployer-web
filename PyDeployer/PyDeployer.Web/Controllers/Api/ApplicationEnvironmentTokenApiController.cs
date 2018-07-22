@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PyDeployer.Common.ViewModels;
@@ -9,9 +10,10 @@ using PyDeployer.Logic.Services;
 
 namespace PyDeployer.Web.Controllers.Api
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/application/{applicationId:long}/environment/{environmentId:long}/token/")]
-    public class ApplicationEnvironmentTokenApiController : Controller
+    public class ApplicationEnvironmentTokenApiController : BaseApiController
     {
 
         private readonly ApplicationEnvironmentTokenService _tokenService;

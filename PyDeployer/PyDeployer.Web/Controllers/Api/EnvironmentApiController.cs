@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PyDeployer.Common.ViewModels;
 using PyDeployer.Logic.Services;
 
 namespace PyDeployer.Web.Controllers.Api
 {
-
+    [Authorize]
     [Produces("application/json")]
     [Route("api/environment")]
-    public class EnvironmentApiController : Controller
+    public class EnvironmentApiController : BaseApiController
     {
 
         private readonly EnvironmentService _environmentService;

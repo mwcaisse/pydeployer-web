@@ -14,7 +14,24 @@
                 </div>
                 <div class="field">
                     <label>Username</label>
-                    <input class="input" type="text" v-model="username" placeholder="Username" />
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" type="text" placeholder="Username" 
+                               v-model="username"  v-on:blur="validateUsernameAvailable()"
+                               v-bind:class="{ 'is-danger': !usernameAvailable }"/>
+                        <span class="icon is-small is-left">
+                            <app-icon icon="fa-user" :action="false"></app-icon>
+                        </span>
+                        <span class="icon is-small is-right" v-if="usernameAvailable && username">
+                            <app-icon icon="fa-user" :action="false"></app-icon>
+                        </span>
+                        <span class="icon is-small is-right" v-else>
+                            <app-icon icon="fa-exclamation-triangle" :action="false"></app-icon>
+                        </span>
+                    </div>
+                    <div v-if="username">
+                        <p class="help is-success" v-if="usernameAvailable">This username is available</p>
+                        <p class="help is-danger" v-else>This username is not available</p>
+                    </div>
                 </div>
                 <div class="field">
                     <label>Password</label>
@@ -23,19 +40,31 @@
                 <div class="field">
                     <label>Confirm Password</label>
                     <input class="input" type="password" v-model="passwordConfirm" placeholder="Password" />
+                    <p class="help is-danger" v-if="!passwordsMatch">Passwords do not match!</p>
                 </div>
 
                 <div class="field">
                     <label>Email</label>
-                    <input class="input" type="email" v-model="email"placeholder="Email" />
+                    <div class="control has-icons-left">
+                        <input class="input" type="email" v-model="email" placeholder="Email" />
+                        <span class="icon is-small is-left">
+                            <app-icon icon="fa-envelope" :action="false"></app-icon>
+                        </span>
+                    </div>
                 </div>
                 <div class="field">
                     <label>Confirm Email</label>
                     <input class="input" type="email" v-model="emailConfirm" placeholder="Email" />
+                    <p class="help is-danger" v-if="!emailsMatch">Emails do not match!</p>
                 </div>
                 <div class="field">
                     <label>Registration Key</label>
-                    <input class="input" type="text" v-model="registrationKey" placeholder="Registration Key" />
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" v-model="registrationKey" placeholder="Registration Key" />
+                        <span class="icon is-small is-left">
+                            <app-icon icon="fa-key" :action="false"></app-icon>
+                        </span>
+                    </div>                 
                 </div>
 
                 <div class="field is-grouped is-grouped-right">
@@ -53,6 +82,9 @@
 
 <script>
     import { UserService } from "services/ApplicationProxy.js"
+    import util from "services/Util.js"
+
+    import Icon from "components/Common/Icon.vue"
 
     export default {
         data: function() {
@@ -73,9 +105,15 @@
         },
         computed: {
             passwordsMatch: function () {
+                if (util.isStringNullOrBlank(this.password) || util.isStringNullOrBlank(this.passwordConfirm)) {
+                    return true;
+                }
                 return this.password === this.passwordConfirm;
             },
             emailsMatch: function () {
+                if (util.isStringNullOrBlank(this.email) || util.isStringNullOrBlank(this.emailConfirm)) {
+                    return true;
+                }
                 return this.email === this.emailConfirm;
             }
         },
@@ -113,7 +151,15 @@
             },
             cancel: function () {
                 window.location = "/";
+            },
+            validateUsernameAvailable: function () {
+                UserService.usernameAvailable(this.username).then(function (res) {
+                    this.usernameAvailable = res === true;                    
+                }.bind(this));
             }
+        },
+        components: {
+            "app-icon": Icon
         }
     }
 </script>

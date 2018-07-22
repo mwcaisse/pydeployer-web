@@ -8,6 +8,15 @@
     return results == null ? def : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+function isStringNullOrBlank(string) {
+    return (typeof string === "undefined" ||
+        string === null ||
+        typeof string !== "string" ||
+        string.length === 0 ||
+        string.trim().length === 0);
+};
+
 export default {
-    getURLParameter: getURLParameter
+    getURLParameter: getURLParameter,
+    isStringNullOrBlank: isStringNullOrBlank
 }

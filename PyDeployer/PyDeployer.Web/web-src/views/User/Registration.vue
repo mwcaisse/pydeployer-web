@@ -101,7 +101,7 @@
 
                 UserService.register(this.createModel()).then(function (res) {
                     if (res) {
-                        window.location = "/login?source=registered"; // TODO: Change this up
+                        window.location = "/login?registered"; // TODO: Change this up
                     }
                     else {
                         alert("Failed to register. Error occured");

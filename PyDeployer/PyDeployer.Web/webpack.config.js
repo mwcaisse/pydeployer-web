@@ -8,7 +8,8 @@ module.exports = {
     mode: "development",
     entry: {
         "home": "./web-src/views/Home/Home.js",
-        "application-detail": "./web-src/views/Application/ApplicationDetail.js"
+        "application-detail": "./web-src/views/Application/ApplicationDetail.js",
+        "registration": "./web-src/views/User/Registration.js"
     },
     output: {
         path: path.resolve(__dirname, "wwwroot"),

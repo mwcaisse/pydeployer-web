@@ -71,10 +71,22 @@ var environment = {
 
 var applicationEnvironmentToken = {
     getAll: function(applicationId, environmentId) {
-        return Proxy.get("application/" + applicationId + "/environment/" + environmentId + "/token/",);
+        return Proxy.get("application/" + applicationId + "/environment/" + environmentId + "/token/");
     },
     save: function(applicationId, environmentId, token) {
         return Proxy.post("application/" + applicationId + "/environment/" + environmentId +"/token/", token);
+    }
+}
+
+var user = {
+    register: function(registration) {
+        return Proxy.post("user/register", registration);
+    },
+    usernameAvailable: function(username) {
+        return Proxy.get("user/available?username=" + username);
+    },
+    me: function() {
+        return Proxy.get("user/me");
     }
 }
 
@@ -83,5 +95,6 @@ export {
     applicationEnvironment as ApplicationEnvironmentService,
     applicationToken as ApplicationTokenService,
     environment as EnvironmentService,
-    applicationEnvironmentToken as ApplicationEnvironmentTokenService
+    applicationEnvironmentToken as ApplicationEnvironmentTokenService,
+    user as UserService
 }

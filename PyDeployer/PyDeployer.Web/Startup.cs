@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Mitchell.Authentication;
+using Mitchell.Authentication.Data;
 using Mitchell.Authentication.Managers;
 using Mitchell.Authentication.Middleware;
 using Mitchell.Authentication.Models;
@@ -48,6 +49,8 @@ namespace PyDeployer.Web
             services.AddDbContext<PyDeployerDbContext>(options =>
                 options.UseMySql(Configuration.GetSection("connectionString").Value)
             );
+            //Alias the DbContext to its interface
+            services.AddScoped<IAuthenticationDbContext>(provider => provider.GetService<PyDeployerDbContext>());
 
             var applicationConfig = new ApplicationConfiguration()
             {

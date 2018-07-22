@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mitchell.Authentication\Mitchell.Authentication.csproj" />
     <ProjectReference Include="..\PyDeployer.Common\PyDeployer.Common.csproj" />
   </ItemGroup>
 

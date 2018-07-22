@@ -21,5 +21,8 @@ namespace Mitchell.Authentication.Entities
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
 
+        public virtual ICollection<UserAuthenticationToken> UserAuthenticationTokens { get; set; }
+        public virtual ICollection<UserRegistrationKeyUse> UserRegistrationKeyUses { get; set; }
+
     }
 }

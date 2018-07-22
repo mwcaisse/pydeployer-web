@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+
+    var rootPathPrefix = ViewBag.RootPathPrefix;
+}
+
+<section class="section">
+    <div class="container" style="max-width: 500px">
+        <h2 class="title">Please Login</h2>
+
+        @if (ViewBag.IsError)
+        {
+            <!-- If there was an error logging in, show an error alert -->
+            <div class="notification is-danger">
+                Invalid username and/or password.
+            </div>
+        }
+
+        @if (ViewBag.IsLogout)
+        {
+            <!-- Show a message if you have been logged out -->
+            <div class="notification is-success">
+                You have been logged out!
+            </div>
+        }
+
+        @if (ViewBag.IsRegistered)
+        {
+            <!-- Show a message if you have registered successfully -->
+            <div class="notification is-success">
+                Registered Successfully! You can now log in!
+            </div>
+        }
+
+        <form name="f" action="@rootPathPrefix/login" method="post">
+            <div class="field">
+                <label>Username</label>
+                <input class="input" type="text" name="username" placeholder="Username" />
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input class="input" type="password" name="password" />
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button class="button is-link" type="submit">Login</button>
+                </div>
+            </div>
+        </form>
+
+        <div style="padding-top: 15px"></div>
+        <div class="notification is-primary">
+            Don't have an account? <a href="@rootPathPrefix/register">Register</a>
+        </div>
+    </div>
+</section>
+

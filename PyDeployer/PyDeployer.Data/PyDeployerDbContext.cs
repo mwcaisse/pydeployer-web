@@ -1,11 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Mitchell.Authentication.Data;
+using Mitchell.Authentication.Data.Mapping;
+using Mitchell.Authentication.Entities;
 using PyDeployer.Common.Entities;
 using PyDeployer.Data.Mapping;
 
 namespace PyDeployer.Data
 {
-    public class PyDeployerDbContext : DbContext
+    public class PyDeployerDbContext : DbContext, IAuthenticationDbContext
     {
 
         public DbSet<Application> Applications { get; set; }
@@ -17,6 +20,16 @@ namespace PyDeployer.Data
         public DbSet<ApplicationToken> ApplicationTokens { get; set; }
 
         public DbSet<Common.Entities.Environment> Environments { get; set; }
+
+        //Authentication Entities
+        public DbSet<User> Users { get; set;  }
+
+        public DbSet<UserAuthenticationToken> UserAuthenticationTokens { get; set;  }
+
+        public DbSet<UserRegistrationKey> UserRegistrationKeys { get; set;  }
+
+        public DbSet<UserRegistrationKeyUse> UserRegistrationKeyUses { get; set;  }
+
 
         public PyDeployerDbContext(DbContextOptions<PyDeployerDbContext> options) : base(options)
         {
@@ -30,6 +43,12 @@ namespace PyDeployer.Data
             modelBuilder.ApplyConfiguration(new ApplicationTokenMap());
             modelBuilder.ApplyConfiguration(new ApplicationEnvironmentMap());
             modelBuilder.ApplyConfiguration(new ApplicationEnvironmentTokenMap());
+
+            //Authentication Mappers
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new UserAuthenticationTokenMap());
+            modelBuilder.ApplyConfiguration(new UserRegistrationKeyMap());
+            modelBuilder.ApplyConfiguration(new UserRegistrationKeyUseMap());
         }
 
     }

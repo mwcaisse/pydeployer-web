@@ -19,19 +19,19 @@
                                v-model="username"  v-on:blur="validateUsernameAvailable()"
                                v-bind:class="{ 'is-danger': !usernameAvailable }"/>
                         <span class="icon is-small is-left">
-                            <app-icon icon="fa-user" :action="false"></app-icon>
+                            <app-icon icon="user" :action="false"></app-icon>
                         </span>
-                        <span class="icon is-small is-right" v-if="usernameAvailable && username">
-                            <app-icon icon="fa-user" :action="false"></app-icon>
-                        </span>
-                        <span class="icon is-small is-right" v-else>
-                            <app-icon icon="fa-exclamation-triangle" :action="false"></app-icon>
-                        </span>
+                        <template v-if="username">
+                            <span class="icon is-small is-right" >
+                                <app-icon id="hi1" icon="check" :action="false" v-if="usernameAvailable"></app-icon>                 
+                                <app-icon id="hi2" icon="exclamation-triangle" :action="false" v-else></app-icon>
+                            </span>
+                        </template>
                     </div>
-                    <div v-if="username">
+                    <template v-if="username">
                         <p class="help is-success" v-if="usernameAvailable">This username is available</p>
                         <p class="help is-danger" v-else>This username is not available</p>
-                    </div>
+                    </template>
                 </div>
                 <div class="field">
                     <label>Password</label>
@@ -48,7 +48,7 @@
                     <div class="control has-icons-left">
                         <input class="input" type="email" v-model="email" placeholder="Email" />
                         <span class="icon is-small is-left">
-                            <app-icon icon="fa-envelope" :action="false"></app-icon>
+                            <app-icon icon="envelope" :action="false"></app-icon>
                         </span>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     <div class="control has-icons-left">
                         <input class="input" type="text" v-model="registrationKey" placeholder="Registration Key" />
                         <span class="icon is-small is-left">
-                            <app-icon icon="fa-key" :action="false"></app-icon>
+                            <app-icon icon="key" :action="false"></app-icon>
                         </span>
                     </div>                 
                 </div>

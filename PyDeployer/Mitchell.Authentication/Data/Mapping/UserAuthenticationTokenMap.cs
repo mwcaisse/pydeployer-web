@@ -29,10 +29,10 @@ namespace Mitchell.Authentication.Data.Mapping
                 .IsRequired()
                 .HasMaxLength(64);
 
-            builder.Property(u => u.DeviceUuid)
-                .HasColumnName("DEVICE_UUID")
+            builder.Property(u => u.Description)
+                .HasColumnName("DESCRIPTION")
                 .IsRequired()
-                .HasMaxLength(64);
+                .HasMaxLength(1000);
 
             builder.Property(u => u.LastLogin)
                 .HasColumnName("LAST_LOGIN");

@@ -11,7 +11,7 @@ namespace Mitchell.Authentication.Entities
 
         public long UserId { get; set; }
         public string Token { get; set; }
-        public string DeviceUuid { get; set; }
+        public string Description { get; set; }
         public bool Active { get; set; }
         public DateTime? LastLogin { get; set; }
         public string LastLoginAddress { get; set; }

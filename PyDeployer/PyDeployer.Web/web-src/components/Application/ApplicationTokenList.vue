@@ -4,15 +4,15 @@
             <p class="subtitle">
                 Application Tokens
                 <span class="is-pulled-right">
-                    <app-icon icon="fa-plus" :action="true" v-on:click.native="create"></app-icon>
+                    <app-icon icon="plus" :action="true" v-on:click.native="create"></app-icon>
                 </span>
             </p>
             <ul>
                 <li class="box" v-for="token in tokens">
                     {{token.name}}
                     <span class="is-pulled-right">
-                        <app-icon icon="fa-edit" :action="true" v-on:click.native="edit(token)"></app-icon>
-                        <app-icon icon="fa-trash" :action="true" v-on:click.native="deleteToken(token)"></app-icon>
+                        <app-icon icon="edit" :action="true" v-on:click.native="edit(token)"></app-icon>
+                        <app-icon icon="trash" :action="true" v-on:click.native="deleteToken(token)"></app-icon>
                     </span>
                 </li>
             </ul>

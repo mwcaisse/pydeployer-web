@@ -4,15 +4,15 @@
             <p class="subtitle">
                 Applications
                 <span class="is-pulled-right">
-                    <app-icon icon="fa-plus" :action="true" v-on:click.native="create"></app-icon>
+                    <app-icon icon="plus" :action="true" v-on:click.native="create"></app-icon>
                 </span>
             </p>
             <ul v-if="applications.length > 0">
                 <li class="box" v-for="application in applications">
                     {{application.name}}
                     <span class="is-pulled-right">
-                        <app-icon icon="fa-clone" :action="true" v-on:click.native="viewApplication(application)"></app-icon>
-                        <app-icon icon="fa-trash" :action="true" v-on:click.native="deleteApplication(application)"></app-icon>                     
+                        <app-icon icon="clone" :action="true" v-on:click.native="viewApplication(application)"></app-icon>
+                        <app-icon icon="trash" :action="true" v-on:click.native="deleteApplication(application)"></app-icon>                     
                     </span>
                 </li>
             </ul>

@@ -3,14 +3,14 @@
         <div class="box">
             <p class="subtitle">Environments
                 <span class="is-pulled-right">                   
-                    <app-icon icon="fa-plus" :action="true" v-on:click.native="addEnvironment"/>
+                    <app-icon icon="plus" :action="true" v-on:click.native="addEnvironment"/>
                 </span>
             </p>
             <ul>
                 <li class="box" v-for="environment in environments">
                     {{environment.name}}
                     <span class="is-pulled-right">                           
-                        <app-icon icon="fa-trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>                
+                        <app-icon icon="trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>                
                     </span>
                 </li>
             </ul>

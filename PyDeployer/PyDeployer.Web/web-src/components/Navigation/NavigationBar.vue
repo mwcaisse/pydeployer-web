@@ -39,7 +39,7 @@
     import { UserService } from "services/ApplicationProxy.js"
     import NavigationLink from "components/Navigation/NavigationLink.vue"
 
-    var isAuthenticated = true
+    var isAuthenticated = $("#isAuthenticated").val() === "true";
 
     export default {
         name: "navigation-bar",

@@ -32,11 +32,9 @@ namespace Mitchell.Authentication.Services
             return _db.UserAuthenticationTokens.FirstOrDefault(ut => ut.UserAuthenticationTokenId == id);
         }
 
-        public IEnumerable<UserAuthenticationToken> GetActiveTokensForUserDevice(long userId, string deviceUuid)
+        public UserAuthenticationToken Get(long userId, string token)
         {
-            return _db.UserAuthenticationTokens
-                .Active()
-                .Where(ut => ut.UserId == userId && ut.DeviceUuid == deviceUuid);
+            return _db.UserAuthenticationTokens.Active().FirstOrDefault(ut => ut.UserId == userId && ut.Token == token);
         }
 
         public PagedViewModel<UserAuthenticationToken> GetActiveForUser(long userId, int skip, int take, SortParam sort)
@@ -47,7 +45,7 @@ namespace Mitchell.Authentication.Services
                 .PageAndSort(skip, take, sort);
         }
 
-        public string CreateToken(long userId, string deviceUuid)
+        public string CreateToken(long userId, string description)
         {
 
             var user = _db.Users.Active().FirstOrDefault(u => u.UserId == userId);
@@ -55,9 +53,9 @@ namespace Mitchell.Authentication.Services
             {
                 throw new EntityValidationException("Cannot create Authentication Token. User does not exist.");
             }
-            if (string.IsNullOrWhiteSpace(deviceUuid))
+            if (string.IsNullOrWhiteSpace(description))
             {
-                throw new EntityValidationException("Cannot create Authentication Token. DeviceUuid cannot be null.");
+                throw new EntityValidationException("Cannot create Authentication Token. Description cannot be null.");
             }
 
             var token = CreateRandomTokenValue();
@@ -65,7 +63,7 @@ namespace Mitchell.Authentication.Services
             {
                 User = user,
                 Active = true,
-                DeviceUuid = deviceUuid,
+                Description = description,
                 Token = _passwordHasher.HashPassword(token)
             };
             _db.UserAuthenticationTokens.Add(authToken);
@@ -111,5 +109,6 @@ namespace Mitchell.Authentication.Services
             return token;
         }
 
+       
     }
 }

@@ -39,21 +39,19 @@ namespace Mitchell.Authentication.Managers
             return false;
         }
 
-        public bool LoginToken(string username, string deviceUuid, string token)
+        public bool LoginToken(string username, string description, string token)
         {
             var user = _userService.Get(username);
             if (null != user)
             {
-                var authenticationTokens =
-                    _userAuthenticationTokenService.GetActiveTokensForUserDevice(user.UserId, deviceUuid);
-
-                foreach (var authenticationToken in authenticationTokens)
+                var authenticationToken =
+                    _userAuthenticationTokenService.Get(user.UserId, description);
+                
+                if (null != authenticationToken &&
+                    _passwordHasher.VerifyPassword(authenticationToken.Token, token))
                 {
-                    if (_passwordHasher.VerifyPassword(authenticationToken.Token, token))
-                    {
-                        _userAuthenticationTokenService.RecordUserLogin(authenticationToken);
-                        return true;
-                    }
+                    _userAuthenticationTokenService.RecordUserLogin(authenticationToken);
+                    return true;
                 }
             }
 

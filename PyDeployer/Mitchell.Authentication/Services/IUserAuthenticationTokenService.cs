@@ -15,14 +15,8 @@ namespace Mitchell.Authentication.Services
         /// <returns></returns>
         UserAuthenticationToken Get(long id);
 
-        /// <summary>
-        /// Fetches the active tokens for the give user and device uuid
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="deviceUuid"></param>
-        /// <returns></returns>
-        IEnumerable<UserAuthenticationToken> GetActiveTokensForUserDevice(long userId, string deviceUuid);
-
+        UserAuthenticationToken Get(long userId, string token);
+        
         /// <summary>
         /// Fetches Active tokens for the given user
         /// </summary>
@@ -35,12 +29,12 @@ namespace Mitchell.Authentication.Services
             SortParam sort);
 
         /// <summary>
-        /// Creates a token for the given user and device
+        /// Creates a token for the given user with the given description
         /// </summary>
         /// <param name="userId"></param>
-        /// <param name="deviceUuid"></param>
+        /// <param name="description"></param>
         /// <returns></returns>
-        string CreateToken(long userId, string deviceUuid);
+        string CreateToken(long userId, string description);
 
         /// <summary>
         /// Updates the given User Authentication Token

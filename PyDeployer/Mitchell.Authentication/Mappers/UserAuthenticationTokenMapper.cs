@@ -17,7 +17,7 @@ namespace Mitchell.Authentication.Mappers
             {
                 Active = token.Active,
                 ExpirationDate = token.ExpirationDate,
-                DeviceUuid = token.DeviceUuid,
+                Description = token.Description,
                 UserId = token.UserId,
                 UserAuthenticationTokenId = token.UserAuthenticationTokenId,
                 LastLogin = token.LastLogin,

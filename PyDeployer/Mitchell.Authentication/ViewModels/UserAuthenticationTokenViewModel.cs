@@ -8,7 +8,7 @@ namespace Mitchell.Authentication.ViewModels
     {
         public long UserAuthenticationTokenId { get; set; }
         public long UserId { get; set; }
-        public string DeviceUuid { get; set; }
+        public string Description { get; set; }
         public bool Active { get; set; }
         public DateTime? LastLogin { get; set; }
         public string LastLoginAddress { get; set; }

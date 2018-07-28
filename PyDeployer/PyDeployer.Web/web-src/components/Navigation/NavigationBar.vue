@@ -37,6 +37,7 @@
 
 <script>  
     import { UserService } from "services/ApplicationProxy.js"
+    import Links from "services/Links.js"
     import NavigationLink from "components/Navigation/NavigationLink.vue"
 
     var isAuthenticated = $("#isAuthenticated").val() === "true";
@@ -54,7 +55,7 @@
                 if (isAuthenticated) {
                     this.fetchCurrentUser().then(function (user) {
                         this.navigationLinks.push({
-                            id: "Home", name: "Home", link: "/"
+                            id: "Home", name: "Home", link: Links.home
                         })
 
                         var userNav = {
@@ -65,7 +66,7 @@
                             id: "User/Tokens", name: "Tokens", link: "#"
                         });
                         userNav.subLinks.push({
-                            id: "User/Logout", name: "Logout", link: "/logout"
+                            id: "User/Logout", name: "Logout", link: Links.logout
                         });
 
                         this.rightNavigationLinks.push(userNav);

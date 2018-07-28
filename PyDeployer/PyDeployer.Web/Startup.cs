@@ -34,7 +34,8 @@ namespace PyDeployer.Web
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("dbConfig.json");
+                .AddJsonFile("dbConfig.json")
+                .AddJsonFile("deploymentConfig.json");
 
             Configuration = builder.Build();
         }
@@ -52,9 +53,11 @@ namespace PyDeployer.Web
             //Alias the DbContext to its interface
             services.AddScoped<IAuthenticationDbContext>(provider => provider.GetService<PyDeployerDbContext>());
 
+            var rootPathPrefix = Configuration.GetValue<string>("rootPathPrefix", "");
+
             var applicationConfig = new ApplicationConfiguration()
             {
-                RootPathPrefix = ""
+                RootPathPrefix = rootPathPrefix
             };
             services.AddSingleton(applicationConfig);
 

@@ -3,7 +3,7 @@ import VueConfig from "services/VueCommon.js"
 
 class Links {
     constructor() {
-        this._rootPathPrefix = ($("#rootPathPrefix").val() || "/");
+        this._rootPathPrefix = ($("#rootPathPrefix").val() || "") + "/";
 
         VueConfig();
     }

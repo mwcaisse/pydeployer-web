@@ -1,5 +1,5 @@
 ﻿<template>
-    <a class="navbar-item" href="/" v-if="!hasSubLinks">
+    <a class="navbar-item" :href="link" v-if="!hasSubLinks">
         {{ name }}
     </a>
     <div class="navbar-item has-dropdown is-hoverable" v-else>

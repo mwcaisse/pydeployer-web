@@ -23,6 +23,10 @@ class Links {
     get login() {
         return this._rootPathPrefix + "login";
     }
+
+    application(id) {
+        return this._rootPathPrefix + "application/?applicationId=" + id;
+    }
 }
 
 export default new Links();

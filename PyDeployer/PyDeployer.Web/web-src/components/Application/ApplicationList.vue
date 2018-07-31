@@ -26,6 +26,7 @@
 
 <script>
     import system from "services/System.js"
+    import Links from "services/Links.js"
     import { ApplicationService } from "services/ApplicationProxy.js"
     import Icon from "components/Common/Icon.vue"
     import ApplicationModal from "components/Application/ApplicationModal.vue"
@@ -62,8 +63,8 @@
                     console.log("Error deleting application: " + error)
                 })
             },
-            viewApplication: function (application) {
-                window.location = "/application/?applicationId=" + application.applicationId;
+            viewApplication: function (application) {                
+                window.location = Links.application(application.applicationId);
             }
         },
         created: function () {

@@ -19,6 +19,10 @@ class Links {
     get logout() {
         return this._rootPathPrefix + "logout";
     }
+
+    get login() {
+        return this._rootPathPrefix + "login";
+    }
 }
 
 export default new Links();

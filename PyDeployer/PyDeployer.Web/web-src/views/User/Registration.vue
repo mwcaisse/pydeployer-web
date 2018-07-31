@@ -125,6 +125,7 @@
 
 <script>
     import { UserService } from "services/ApplicationProxy.js"
+    import Links from "services/Links.js"
     import util from "services/Util.js"
 
     import Icon from "components/Common/Icon.vue"
@@ -194,7 +195,7 @@
 
                 UserService.register(this.createModel()).then(function (res) {
                     if (res) {
-                        window.location = "/login?registered"; // TODO: Change this up
+                        window.location = Links.login + "?registered";
                     }
                     else {
                         alert("Failed to register. Error occured");
@@ -205,7 +206,7 @@
                 });
             },
             cancel: function () {
-                window.location = "/";
+                window.location = Links.home;
             },
             validateUsernameAvailable: function () {
                 UserService.usernameAvailable(this.username).then(function (res) {

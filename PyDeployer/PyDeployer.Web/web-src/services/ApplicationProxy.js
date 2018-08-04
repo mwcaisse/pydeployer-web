@@ -90,11 +90,21 @@ var user = {
     }
 }
 
+var userAuthenticationToken = {
+    getActive: function() {
+        return Proxy.get("user/token/active?take=100");
+    },
+    create: function(description) {
+        return Proxy.post("user/token", description);
+    }
+};
+
 export {
     application as ApplicationService,
     applicationEnvironment as ApplicationEnvironmentService,
     applicationToken as ApplicationTokenService,
     environment as EnvironmentService,
     applicationEnvironmentToken as ApplicationEnvironmentTokenService,
-    user as UserService
+    user as UserService,
+    userAuthenticationToken as UserAuthenticationTokenService
 }

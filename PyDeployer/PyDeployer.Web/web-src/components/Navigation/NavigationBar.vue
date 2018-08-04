@@ -64,7 +64,7 @@
                         };
 
                         userNav.subLinks.push({
-                            id: "User/Tokens", name: "Tokens", link: "#"
+                            id: "User/Tokens", name: "Tokens", link: Links.userAuthenticationTokens
                         });
                         userNav.subLinks.push({
                             id: "User/Logout", name: "Logout", link: Links.logout

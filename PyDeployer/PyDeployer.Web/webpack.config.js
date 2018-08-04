@@ -10,7 +10,8 @@ module.exports = {
         "navigation": "./web-src/views/Navigation/Navigation.js",
         "home": "./web-src/views/Home/Home.js",
         "application-detail": "./web-src/views/Application/ApplicationDetail.js",
-        "registration": "./web-src/views/User/Registration.js"
+        "registration": "./web-src/views/User/Registration.js",
+        "user/authentication-token": "./web-src/views/User/UserAuthenticationTokens.js"
     },
     output: {
         path: path.resolve(__dirname, "wwwroot"),

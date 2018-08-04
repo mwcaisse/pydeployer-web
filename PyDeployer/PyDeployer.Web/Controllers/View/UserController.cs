@@ -77,11 +77,11 @@ namespace PyDeployer.Web.Controllers.View
             return Redirect(ApplicationConfiguration.PrefixUrl("/Login?source=" + SOURCE_LOGOUT));
         }
 
-        /*
+        
         [Route("user/tokens")]
         public IActionResult Tokens()
         {
-            return View();
-        }*/
+            return View("AuthenticationTokens");
+        }
     }
 }

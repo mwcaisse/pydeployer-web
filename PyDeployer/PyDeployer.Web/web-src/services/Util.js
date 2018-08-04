@@ -16,7 +16,26 @@ function isStringNullOrBlank(string) {
         string.trim().length === 0);
 };
 
+function formatDateTime(date, formatString) {
+    if (typeof formatString === "undefined") {
+        formatString = "YYYY-MM-DD HH:mm:ss";
+    }
+    if (date && date.isValid()) {
+        return date.format(formatString);
+    }
+    return "";
+};
+
+function round(num, places) {
+    if (!places) {
+        places = 2;
+    }
+    return parseFloat(num).toFixed(places);
+};
+
 export default {
     getURLParameter: getURLParameter,
-    isStringNullOrBlank: isStringNullOrBlank
+    isStringNullOrBlank: isStringNullOrBlank,
+    formatDateTime: formatDateTime,
+    round: round
 }

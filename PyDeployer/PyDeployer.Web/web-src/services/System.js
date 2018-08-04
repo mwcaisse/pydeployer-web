@@ -1,5 +1,6 @@
 ﻿import Vue from "vue"
 import VueConfig from "services/VueCommon.js"
+import "services/CustomDirectives.js"
 
 class System {
     constructor() {

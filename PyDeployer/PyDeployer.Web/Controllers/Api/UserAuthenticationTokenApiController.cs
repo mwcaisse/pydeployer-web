@@ -31,9 +31,9 @@ namespace PyDeployer.Web.Controllers.Api
 
         [HttpPost]
         [Route("")]
-        public IActionResult CreateToken([FromBody]string deviceUuid)
+        public IActionResult CreateToken([FromBody]string description)
         {
-            return Ok(_tokenService.CreateToken(GetCurrentUserId(), deviceUuid));
+            return Ok(_tokenService.CreateToken(GetCurrentUserId(), description));
         }
 
     }

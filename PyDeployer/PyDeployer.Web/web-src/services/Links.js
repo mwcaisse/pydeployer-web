@@ -20,6 +20,10 @@ class Links {
         return this._rootPathPrefix + "logout";
     }
 
+    get userAuthenticationTokens() {
+        return this._rootPathPrefix + "user/tokens";
+    }
+
     get login() {
         return this._rootPathPrefix + "login";
     }

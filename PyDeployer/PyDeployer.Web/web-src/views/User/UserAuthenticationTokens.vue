@@ -4,10 +4,8 @@
             <div class="container">
                 <h1 class="title">Authentication Tokens</h1>
             </div>
-        </section>
-        <section class="section">
-            <user-authentication-token-list></user-authentication-token-list>
-        </section>
+        </section>  
+        <user-authentication-token-list></user-authentication-token-list>  
     </div>
 </template>
 

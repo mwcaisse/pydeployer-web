@@ -2,11 +2,11 @@
     <div>           
         <ul>
             <li class="box" v-for="token in tokens">
-                <div class="columns is-vcentered">
+                <div class="columns is-vcentered is-mobile">
                     <div class="column is-size-2">
                         <app-icon icon="key" :action="false"></app-icon>
                     </div>
-                    <div class="column is-four-fifths">
+                    <div class="column is-four-fifths-tablet is-two-thirds-mobile">
                         <p class="is-size-5 has-text-weight-bold">{{token.description}}</p>
                         <p class="is-size-6" v-if="token.lastLogin">Last used on {{ token.lastLogin | formatDateTime }} from {{ token.lastLoginAddress }}</p>
                         <p class="is-size-6" v-else>This token has never been used</p>

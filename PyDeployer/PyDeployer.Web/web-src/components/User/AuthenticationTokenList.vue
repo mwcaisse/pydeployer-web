@@ -2,17 +2,19 @@
     <div>           
         <ul>
             <li class="box" v-for="token in tokens">
-                <div class="columns">
-                    <div class="column"></div>
-                    <div class="column is-four-fifths">
-                        <p>{{token.description}}</p>
-                        <p>Added on {{ token.createDate | formatDate }}</p>
-                        <p v-if="token.lastLogin">Last used on {{ token.lastLogin | formatDateTime }} from {{ token.lastLoginAddress }}</p>
-                        <p v-else>This token has never been used</p>
-                        <p v-if="token.expirationDate">Expires on {{ token.expirationDate | formatDateTime }}</p>
+                <div class="columns is-vcentered">
+                    <div class="column is-size-2">
+                        <app-icon icon="key" :action="false"></app-icon>
                     </div>
-                    <div class="column">
-                        <span class="is-pulled-right">
+                    <div class="column is-four-fifths">
+                        <p class="is-size-5 has-text-weight-bold">{{token.description}}</p>
+                        <p class="is-size-6" v-if="token.lastLogin">Last used on {{ token.lastLogin | formatDateTime }} from {{ token.lastLoginAddress }}</p>
+                        <p class="is-size-6" v-else>This token has never been used</p>
+                        <p class="is-size-7">Added on {{ token.createDate | formatDate }}</p>
+                        <p class="is-size-7" v-if="token.expirationDate">Expires on {{ token.expirationDate | formatDateTime }}</p>
+                    </div>
+                    <div class="column">       
+                        <span class="is-pulled-right is-size-5">
                             <app-icon icon="trash" :action="true"></app-icon>
                         </span>
                     </div>

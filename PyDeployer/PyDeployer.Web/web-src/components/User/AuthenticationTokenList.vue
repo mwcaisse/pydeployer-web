@@ -1,5 +1,15 @@
 ﻿<template>
-    <div>           
+    <div>
+        <section class="section">
+            <div class="container">
+                <div class="title">
+                    <span>Authentication Tokens</span>
+                    <span class="is-pulled-right has-text-left is-size-3">
+                        <app-icon icon="plus" :action="true"></app-icon>
+                    </span>
+                </div>                
+            </div>
+        </section>
         <ul>
             <li class="box" v-for="token in tokens">
                 <div class="columns is-vcentered is-mobile">
@@ -8,19 +18,19 @@
                     </div>
                     <div class="column is-four-fifths-tablet is-two-thirds-mobile">
                         <p class="is-size-5 has-text-weight-bold">{{token.description}}</p>
-                        <p class="is-size-6" v-if="token.lastLogin">Last used on {{ token.lastLogin | formatDateTime }} from {{ token.lastLoginAddress }}</p>
+                        <p class="is-size-6" v-if="token.lastLogin">Last used on <span class="has-text-weight-bold">{{ token.lastLogin | formatDateTime }}</span> from <span class="has-text-weight-bold">{{ token.lastLoginAddress }}</span></p>
                         <p class="is-size-6" v-else>This token has never been used</p>
                         <p class="is-size-7">Added on {{ token.createDate | formatDate }}</p>
                         <p class="is-size-7" v-if="token.expirationDate">Expires on {{ token.expirationDate | formatDateTime }}</p>
                     </div>
-                    <div class="column">       
+                    <div class="column">
                         <span class="is-pulled-right is-size-5">
                             <app-icon icon="trash" :action="true"></app-icon>
                         </span>
                     </div>
                 </div>
             </li>
-        </ul>          
+        </ul>
     </div>
 </template>
 

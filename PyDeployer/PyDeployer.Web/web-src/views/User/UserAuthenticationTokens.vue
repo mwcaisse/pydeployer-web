@@ -1,10 +1,5 @@
 ﻿<template>
-    <div>
-        <section class="section">
-            <div class="container">
-                <h1 class="title">Authentication Tokens</h1>
-            </div>
-        </section>  
+    <div>      
         <user-authentication-token-list></user-authentication-token-list>  
     </div>
 </template>

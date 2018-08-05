@@ -96,6 +96,9 @@ var userAuthenticationToken = {
     },
     create: function(description) {
         return Proxy.post("user/token", description);
+    },
+    delete: function(id) {
+        return Proxy.delete("user/token/" + id);
     }
 };
 

@@ -20,21 +20,19 @@ namespace Mitchell.Authentication.Services
         /// <summary>
         /// Fetches Active tokens for the given user
         /// </summary>
-        /// <param name="userId"></param>
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <param name="sort"></param>
         /// <returns></returns>
-        PagedViewModel<UserAuthenticationToken> GetActiveForUser(long userId, int skip, int take,
+        PagedViewModel<UserAuthenticationToken> GetActiveForUser(int skip, int take,
             SortParam sort);
 
         /// <summary>
         /// Creates a token for the given user with the given description
         /// </summary>
-        /// <param name="userId"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        string CreateToken(long userId, string description);
+        string CreateToken(string description);
 
         /// <summary>
         /// Updates the given User Authentication Token
@@ -42,6 +40,13 @@ namespace Mitchell.Authentication.Services
         /// <param name="token"></param>
         /// <returns></returns>
         UserAuthenticationToken Update(UserAuthenticationToken token);
+
+        /// <summary>
+        /// Deletes the given authentication token
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        bool DeleteToken(long id);
 
         /// <summary>
         /// Records a log in using the given authentication token

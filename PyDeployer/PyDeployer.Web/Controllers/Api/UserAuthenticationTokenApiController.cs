@@ -26,14 +26,21 @@ namespace PyDeployer.Web.Controllers.Api
         public IActionResult GetActiveForUser(int skip = DefaultSkip, int take = DefaultTake,
             SortParam sort = null)
         {
-            return Ok(_tokenService.GetActiveForUser(GetCurrentUserId(), skip, take, sort));
+            return Ok(_tokenService.GetActiveForUser(skip, take, sort));
         }
 
         [HttpPost]
         [Route("")]
         public IActionResult CreateToken([FromBody]string description)
         {
-            return Ok(_tokenService.CreateToken(GetCurrentUserId(), description));
+            return Ok(_tokenService.CreateToken(description));
+        }
+
+        [HttpDelete]
+        [Route("{id:long}")]
+        public IActionResult DeleteToken(long id)
+        {
+            return Ok(_tokenService.DeleteToken(id));
         }
 
     }

@@ -37,18 +37,18 @@ namespace Mitchell.Authentication.Services
             return _db.UserAuthenticationTokens.Active().FirstOrDefault(ut => ut.UserId == userId && ut.Token == token);
         }
 
-        public PagedViewModel<UserAuthenticationToken> GetActiveForUser(long userId, int skip, int take, SortParam sort)
+        public PagedViewModel<UserAuthenticationToken> GetActiveForUser(int skip, int take, SortParam sort)
         {
             return _db.UserAuthenticationTokens
                 .Active()
-                .Where(ut => ut.UserId == userId)
+                .Where(ut => ut.UserId == _requestInformation.UserId)
                 .PageAndSort(skip, take, sort);
         }
 
-        public string CreateToken(long userId, string description)
+        public string CreateToken(string description)
         {
 
-            var user = _db.Users.Active().FirstOrDefault(u => u.UserId == userId);
+            var user = _db.Users.Active().FirstOrDefault(u => u.UserId == _requestInformation.UserId);
             if (null == user)
             {
                 throw new EntityValidationException("Cannot create Authentication Token. User does not exist.");
@@ -109,6 +109,17 @@ namespace Mitchell.Authentication.Services
             return token;
         }
 
-       
+        public bool DeleteToken(long id)
+        {
+            var token = Get(id);
+            if (token.UserId != _requestInformation.UserId)
+            {
+                throw new EntityValidationException("You do not have permission to delete this token!");
+            }
+
+            token.Active = false;
+            _db.SaveChanges();
+            return true;
+        }
     }
 }

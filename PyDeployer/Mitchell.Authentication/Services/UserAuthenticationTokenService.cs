@@ -32,9 +32,9 @@ namespace Mitchell.Authentication.Services
             return _db.UserAuthenticationTokens.FirstOrDefault(ut => ut.UserAuthenticationTokenId == id);
         }
 
-        public UserAuthenticationToken Get(long userId, string token)
+        public IEnumerable<UserAuthenticationToken> GetActive(long userId)
         {
-            return _db.UserAuthenticationTokens.Active().FirstOrDefault(ut => ut.UserId == userId && ut.Token == token);
+            return _db.UserAuthenticationTokens.Active().Where(ut => ut.UserId == userId).ToList();
         }
 
         public PagedViewModel<UserAuthenticationToken> GetActiveForUser(int skip, int take, SortParam sort)

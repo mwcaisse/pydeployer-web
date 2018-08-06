@@ -39,20 +39,23 @@ namespace Mitchell.Authentication.Managers
             return false;
         }
 
-        public bool LoginToken(string username, string description, string token)
+        public bool LoginToken(string username, string token)
         {
             var user = _userService.Get(username);
             if (null != user)
             {
-                var authenticationToken =
-                    _userAuthenticationTokenService.Get(user.UserId, description);
+                var authenticationTokens =
+                    _userAuthenticationTokenService.GetActive(user.UserId);
                 
-                if (null != authenticationToken &&
-                    _passwordHasher.VerifyPassword(authenticationToken.Token, token))
+                foreach (var authenticationToken in authenticationTokens)
                 {
-                    _userAuthenticationTokenService.RecordUserLogin(authenticationToken);
-                    return true;
+                    if (_passwordHasher.VerifyPassword(authenticationToken.Token, token))
+                    {
+                        _userAuthenticationTokenService.RecordUserLogin(authenticationToken);
+                        return true;
+                    }
                 }
+                
             }
 
             _passwordHasher.VerifyPassword("", token);
@@ -78,9 +81,9 @@ namespace Mitchell.Authentication.Managers
             return GetTokenForUser(username);
         }
 
-        public ISessionToken LoginTokenForSessionToken(string username, string deviceUuid, string token)
+        public ISessionToken LoginTokenForSessionToken(string username,string token)
         {
-            if (!LoginToken(username, deviceUuid, token))
+            if (!LoginToken(username, token))
             {
                 return null;
             }

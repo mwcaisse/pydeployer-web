@@ -62,8 +62,7 @@ namespace PyDeployer.Web.Controllers.Api
         [Route("login/token")]
         public IActionResult LoginToken([FromBody] AuthenticationTokenViewModel token)
         {
-            var sessionToken = _authenticationManager.LoginTokenForSessionToken(token.Username, token.DeviceUuid,
-                token.AuthenticationToken);
+            var sessionToken = _authenticationManager.LoginTokenForSessionToken(token.Username, token.AuthenticationToken);
             return Ok(HandleLoginResponse(sessionToken));
         }
 

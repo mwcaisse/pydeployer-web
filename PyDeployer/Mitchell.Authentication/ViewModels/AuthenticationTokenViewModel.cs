@@ -8,6 +8,5 @@ namespace Mitchell.Authentication.ViewModels
     {
         public string Username { get; set; }
         public string AuthenticationToken { get; set; }
-        public string DeviceUuid { get; set; }
     }
 }

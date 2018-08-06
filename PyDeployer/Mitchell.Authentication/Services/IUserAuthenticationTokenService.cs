@@ -15,7 +15,12 @@ namespace Mitchell.Authentication.Services
         /// <returns></returns>
         UserAuthenticationToken Get(long id);
 
-        UserAuthenticationToken Get(long userId, string token);
+        /// <summary>
+        ///  Fetches the active User Authentication Tokens for the given user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        IEnumerable<UserAuthenticationToken> GetActive(long userId);
         
         /// <summary>
         /// Fetches Active tokens for the given user

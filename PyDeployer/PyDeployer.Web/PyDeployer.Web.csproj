@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="dbConfig.pyb" />
+    <None Remove="deploymentConfig.pyb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="dbConfig.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="deploymentConfig.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="web-src\views\Home\Home.vue" />
   </ItemGroup>
 

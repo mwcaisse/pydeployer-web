@@ -34,8 +34,10 @@ namespace PyDeployer.Logic.Services
                     join aet in
                         _db.ApplicationEnvironmentTokens.Active()
                             .Where(ae => ae.ApplicationEnvironment.EnvironmentId == environmentId)
-                    on at.ApplicationTokenId equals aet.ApplicationTokenId into aetj
+                    on new {at.ApplicationTokenId, environmentId} 
+                    equals new {aet.ApplicationTokenId, environmentId=aet.ApplicationEnvironment.EnvironmentId} into aetj
                     from aet in aetj.DefaultIfEmpty()
+                    where at.ApplicationId == applicationId
                     select new ApplicationEnvironmentTokenViewModel()
                     {
                         ApplicationId = applicationId,

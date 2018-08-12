@@ -5,6 +5,7 @@ subProjects:
       type: web
       packageManager: yarn
       webpack: true
+      serviceName: pydeployer-web
     - name: PyDeployer.Database
       type: database
       scriptDirectory: VersionedScripts

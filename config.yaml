@@ -1,0 +1,12 @@
+name: PyDeployer
+uuid: f216d7b5-069d-4a28-a149-605a6b955fbb
+subProjects:
+    - name: PyDeployer.Web
+      type: web
+      packageManager: yarn
+      webpack: true
+    - name: PyDeployer.Database
+      type: database
+      scriptDirectory: VersionedScripts
+      versionPrefix: V
+      versionSeparator: _

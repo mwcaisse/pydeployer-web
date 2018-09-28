@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Mitchell.Common.Data;
+using OwlTin.Common.Data;
 using Environment = PyDeployer.Common.Entities.Environment;
 
 namespace PyDeployer.Data.Mapping

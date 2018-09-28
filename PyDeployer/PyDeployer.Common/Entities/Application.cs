@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Mitchell.Common.Entities;
+using OwlTin.Common.Entities;
 
 namespace PyDeployer.Common.Entities
 {

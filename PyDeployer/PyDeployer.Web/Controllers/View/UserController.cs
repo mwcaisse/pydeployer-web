@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Mitchell.Authentication.Managers;
+using OwlTin.Authentication.Managers;
 using PyDeployer.Web.Configuration;
 
 namespace PyDeployer.Web.Controllers.View

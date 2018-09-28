@@ -24,10 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="OwlTin.Authentication" Version="1.0.0-CI-20180928-020558" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mitchell.Authentication\Mitchell.Authentication.csproj" />
     <ProjectReference Include="..\PyDeployer.Common\PyDeployer.Common.csproj" />
     <ProjectReference Include="..\PyDeployer.Logic\PyDeployer.Logic.csproj" />
   </ItemGroup>

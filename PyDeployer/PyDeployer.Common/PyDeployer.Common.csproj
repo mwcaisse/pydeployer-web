@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Mitchell.Common\Mitchell.Common.csproj" />
+    <PackageReference Include="OwlTin.Common" Version="1.0.0-CI-20180928-020558" />
   </ItemGroup>
 
 </Project>

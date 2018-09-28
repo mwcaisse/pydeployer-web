@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Mitchell.Authentication;
-using Mitchell.Authentication.Managers;
-using Mitchell.Authentication.Mappers;
-using Mitchell.Authentication.Services;
-using Mitchell.Authentication.ViewModels;
+using OwlTin.Authentication;
+using OwlTin.Authentication.Managers;
+using OwlTin.Authentication.Mappers;
+using OwlTin.Authentication.Services;
+using OwlTin.Authentication.ViewModels;
 
 namespace PyDeployer.Web.Controllers.Api
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Mitchell.Authentication.Data;
-using Mitchell.Authentication.Data.Mapping;
-using Mitchell.Authentication.Entities;
+using OwlTin.Authentication.Data;
+using OwlTin.Authentication.Data.Mapping;
+using OwlTin.Authentication.Entities;
 using PyDeployer.Common.Entities;
 using PyDeployer.Data.Mapping;
 

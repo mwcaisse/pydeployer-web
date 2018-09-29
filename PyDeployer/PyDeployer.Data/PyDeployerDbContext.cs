@@ -21,6 +21,8 @@ namespace PyDeployer.Data
 
         public DbSet<Common.Entities.Environment> Environments { get; set; }
 
+        public DbSet<BuildToken> BuildTokens { get; set; }
+
         //Authentication Entities
         public DbSet<User> Users { get; set;  }
 
@@ -43,6 +45,7 @@ namespace PyDeployer.Data
             modelBuilder.ApplyConfiguration(new ApplicationTokenMap());
             modelBuilder.ApplyConfiguration(new ApplicationEnvironmentMap());
             modelBuilder.ApplyConfiguration(new ApplicationEnvironmentTokenMap());
+            modelBuilder.ApplyConfiguration(new BuildTokenMap());
 
             //Authentication Mappers
             modelBuilder.ApplyConfiguration(new UserMap());

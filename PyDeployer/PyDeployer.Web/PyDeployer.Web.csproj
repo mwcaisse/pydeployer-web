@@ -10,12 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="dbConfig.pyb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="deploymentConfig.pyb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="web-src\views\Home\Home.vue" />
   </ItemGroup>
 
@@ -38,6 +32,15 @@
   <ItemGroup>
     <ProjectReference Include="..\PyDeployer.Common\PyDeployer.Common.csproj" />
     <ProjectReference Include="..\PyDeployer.Logic\PyDeployer.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="dbConfig.json.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="deploymentConfig.json.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

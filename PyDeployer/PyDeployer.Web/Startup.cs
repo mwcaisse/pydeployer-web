@@ -90,6 +90,7 @@ namespace PyDeployer.Web
             services.AddTransient<EnvironmentService>();
             services.AddTransient<ApplicationEnvironmentService>();
             services.AddTransient<ApplicationEnvironmentTokenService>();
+            services.AddTransient<BuildTokenService>();
 
             // Authentication Stuff
             services.AddTransient<IRegistrationKeyService, RegistrationKeyService>();
@@ -107,6 +108,7 @@ namespace PyDeployer.Web
                 options.SerializerSettings.Converters.Add(new JsonApplicationEnvironmentTokenConverter());
                 options.SerializerSettings.Converters.Add(new JsonApplicationTokenConverter());
                 options.SerializerSettings.Converters.Add(new JsonEnvironmentConverter());
+                options.SerializerSettings.Converters.Add(new JsonBuildTokenConverter());
 
                 //General Serializers
                 options.SerializerSettings.Converters.Add(new JsonDateEpochConverter());

@@ -11,7 +11,8 @@ module.exports = {
         "home": "./web-src/views/Home/Home.js",
         "application-detail": "./web-src/views/Application/ApplicationDetail.js",
         "registration": "./web-src/views/User/Registration.js",
-        "user/authentication-token": "./web-src/views/User/UserAuthenticationTokens.js"
+        "user/authentication-token": "./web-src/views/User/UserAuthenticationTokens.js",
+        "build-token": "./web-src/views/BuildToken/BuildToken.js"
     },
     output: {
         path: path.resolve(__dirname, "wwwroot"),

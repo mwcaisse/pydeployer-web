@@ -78,6 +78,25 @@ var applicationEnvironmentToken = {
     }
 }
 
+var buildToken = {
+    get: function(id) {
+        return Proxy.get("build/token/" + id);
+    },
+    getAll: function() {
+        return Proxy.get("build/token/");
+    },
+    create: function(token) {
+        return Proxy.post("build/token/", token);
+    },
+    update: function (token) {
+        var id = token.buildTokenId;
+        return Proxy.put("build/token/" + id, token);
+    },
+    delete: function(id) {
+        return Proxy.delete("build/token/" + id);
+    }
+}
+
 var user = {
     register: function(registration) {
         return Proxy.post("user/register", registration);
@@ -108,6 +127,7 @@ export {
     applicationToken as ApplicationTokenService,
     environment as EnvironmentService,
     applicationEnvironmentToken as ApplicationEnvironmentTokenService,
+    buildToken as BuildTokenService,
     user as UserService,
     userAuthenticationToken as UserAuthenticationTokenService
 }

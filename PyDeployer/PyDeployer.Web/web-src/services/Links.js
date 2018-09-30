@@ -16,6 +16,10 @@ class Links {
         return this._rootPathPrefix;
     }
 
+    get buildToken() {
+        return this._rootPathPrefix + "build-token/";
+    }
+
     get logout() {
         return this._rootPathPrefix + "logout";
     }

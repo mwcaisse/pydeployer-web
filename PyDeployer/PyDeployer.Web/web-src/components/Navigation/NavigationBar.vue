@@ -59,6 +59,10 @@
                             id: "Home", name: "Home", link: Links.home
                         })
 
+                        this.navigationLinks.push({
+                            id: "build-token", name: "Build Tokens", link: Links.buildToken
+                        });
+
                         var userNav = {
                             id: "User", name: user.name, link: "", subLinks: []
                         };

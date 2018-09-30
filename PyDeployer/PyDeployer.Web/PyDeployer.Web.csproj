@@ -35,7 +35,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="dbConfig.json.ptd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="dbConfig.json.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="deploymentConfig.json.ptd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="deploymentConfig.json.pyb">

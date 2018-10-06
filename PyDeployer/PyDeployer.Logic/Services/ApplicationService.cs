@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using OwlTin.Common;
 using OwlTin.Common.Exceptions;
+using PyDeployer.Common.Encryption;
 using PyDeployer.Common.Entities;
 using PyDeployer.Common.ViewModels;
 using PyDeployer.Data;
@@ -14,10 +15,12 @@ namespace PyDeployer.Logic.Services
     {
 
         private readonly PyDeployerDbContext _db;
+        private readonly AesEncrypter _encrypter;
 
-        public ApplicationService(PyDeployerDbContext db)
+        public ApplicationService(PyDeployerDbContext db, AesEncrypter encrypter)
         {
             this._db = db;
+            this._encrypter = encrypter;
         }
 
         public Application Get(long id)
@@ -47,6 +50,7 @@ namespace PyDeployer.Logic.Services
             {
                 Name = toCreate.Name,
                 ApplicationUuid = Guid.NewGuid(),
+                EncryptionKey = _encrypter.GenerateKey(),
                 Active = true
             };
 
@@ -93,6 +97,29 @@ namespace PyDeployer.Logic.Services
             }
 
             return app;
+        }
+
+        public void EncryptApplications()
+        {
+            var applications = _db.Applications.Where(a => a.EncryptionKey == null);
+            foreach (var application in applications)
+            {
+                application.EncryptionKey = _encrypter.GenerateKey();
+
+                var tokens =
+                    _db.ApplicationEnvironmentTokens.Where(
+                        aet => aet.ApplicationToken.ApplicationId == application.ApplicationId);
+
+                foreach (var token in tokens)
+                {
+                    if (!_encrypter.IsEncrypted(token.Value))
+                    {
+                        token.Value = _encrypter.Encrypt(token.Value, application.EncryptionKey);
+                    }
+                }
+            }
+
+            _db.SaveChanges();
         }
 
     }

@@ -14,6 +14,8 @@ namespace PyDeployer.Common.Entities
 
         public Guid ApplicationUuid { get; set; }
 
+        public string EncryptionKey { get; set; }
+
         public DateTime CreateDate { get; set; }
 
         public DateTime ModifiedDate { get; set; }

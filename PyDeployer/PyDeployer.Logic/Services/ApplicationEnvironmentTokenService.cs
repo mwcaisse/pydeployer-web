@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using OwlTin.Common;
 using OwlTin.Common.Exceptions;
+using PyDeployer.Common.Encryption;
 using PyDeployer.Common.Entities;
 using PyDeployer.Common.ViewModels;
 using PyDeployer.Data;
@@ -15,22 +17,18 @@ namespace PyDeployer.Logic.Services
     {
 
         private readonly PyDeployerDbContext _db;
+        private readonly AesEncrypter _encrypter;
 
-        public ApplicationEnvironmentTokenService(PyDeployerDbContext db)
+        public ApplicationEnvironmentTokenService(PyDeployerDbContext db, AesEncrypter encrypter)
         {
             this._db = db;
-        }
-
-        public ApplicationEnvironmentToken Get(long id)
-        {
-            return _db.ApplicationEnvironmentTokens.Active().Build()
-                .FirstOrDefault(t => t.ApplicationEnvironmentTokenId == id);
+            this._encrypter = encrypter;
         }
 
         public IEnumerable<ApplicationEnvironmentTokenViewModel> GetForEnvironment(long applicationId, 
             long environmentId)
         {
-            return (from at in _db.ApplicationTokens.Active().Build()
+            var tokens =  (from at in _db.ApplicationTokens.Active().Build()
                     join aet in
                         _db.ApplicationEnvironmentTokens.Active()
                             .Where(ae => ae.ApplicationEnvironment.EnvironmentId == environmentId)
@@ -43,9 +41,20 @@ namespace PyDeployer.Logic.Services
                         ApplicationId = applicationId,
                         EnvironmentId = environmentId,
                         Name = at.Name,
-                        Value = (null == aet) ? "" : aet.Value,
+                        Value = (null == aet) ? null : aet.Value,
                         ApplicationEnvironmentTokenId = (null == aet) ? -1 : aet.ApplicationEnvironmentTokenId
                     }).ToList();
+
+            //Decrypt all of the tokens
+            foreach (var token in tokens)
+            {
+                if (_encrypter.IsEncrypted(token.Value))
+                {
+                    token.Value = _encrypter.Decrypt(token.Value, GetEncryptionKey(token.ApplicationId));
+                }
+            }
+       
+            return tokens;
 
         }
 
@@ -94,6 +103,8 @@ namespace PyDeployer.Logic.Services
                 .FirstOrDefault(ae => ae.ApplicationTokenId == applicationToken.ApplicationTokenId 
                                    && ae.ApplicationEnvironment.EnvironmentId == toCreate.EnvironmentId);
 
+            var encryptedValue = _encrypter.Encrypt(toCreate.Value, GetEncryptionKey(toCreate.ApplicationId));
+
             if (null == environmentToken)
             {
                 var applicationEnvironment =
@@ -106,7 +117,7 @@ namespace PyDeployer.Logic.Services
                 {
                     ApplicationEnvironment = applicationEnvironment,
                     ApplicationTokenId = applicationToken.ApplicationTokenId,
-                    Value = toCreate.Value,
+                    Value = encryptedValue,
                     Active = true
                 };
 
@@ -114,11 +125,11 @@ namespace PyDeployer.Logic.Services
             }
             else
             {
-                environmentToken.Value = toCreate.Value;
+                environmentToken.Value = encryptedValue;
             }
             
             _db.SaveChanges();
-            return Get(environmentToken.ApplicationEnvironmentTokenId);
+            return Get(environmentToken.ApplicationEnvironmentTokenId, true);
         }
 
         public bool Delete(long id)
@@ -129,6 +140,19 @@ namespace PyDeployer.Logic.Services
             _db.SaveChanges();
 
             return true;
+        }
+
+        protected ApplicationEnvironmentToken Get(long id, bool decrypt = false)
+        {
+            var token = _db.ApplicationEnvironmentTokens.Active().Build()
+                .FirstOrDefault(t => t.ApplicationEnvironmentTokenId == id);
+
+            if (null != token && decrypt && _encrypter.IsEncrypted(token.Value))
+            {
+                token.Value = _encrypter.Decrypt(token.Value, GetEncryptionKey(token.ApplicationToken.ApplicationId));
+            }
+
+            return token;
         }
 
         protected ApplicationEnvironmentToken GetOrException(long id,
@@ -166,5 +190,17 @@ namespace PyDeployer.Logic.Services
             return _db.ApplicationTokens.Active().Any(t => t.ApplicationTokenId == applicationTokenId);
         }
 
+        protected string GetEncryptionKey(long applicationId)
+        {
+            var application = _db.Applications.First(a => a.ApplicationId == applicationId);
+            if (null == application.EncryptionKey)
+            {
+                application.EncryptionKey = _encrypter.GenerateKey();
+                _db.SaveChanges();
+            }
+
+            return application.EncryptionKey;
+        }
+        
     }
 }

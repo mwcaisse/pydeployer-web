@@ -30,6 +30,9 @@ namespace PyDeployer.Data.Mapping
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(a => a.EncryptionKey)
+                .HasColumnName("ENCRYPTION_KEY")
+                .HasMaxLength(1000);
 
             builder.AddActiveEntityProperties();
             builder.AddTrackedEntityProperties();

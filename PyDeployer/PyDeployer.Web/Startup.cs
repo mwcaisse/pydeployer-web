@@ -20,6 +20,7 @@ using OwlTin.Authentication.Models;
 using OwlTin.Authentication.PasswordHasher;
 using OwlTin.Authentication.Services;
 using OwlTin.Common.Converters;
+using PyDeployer.Common.Encryption;
 using PyDeployer.Data;
 using PyDeployer.Logic.Services;
 using PyDeployer.Web.Configuration;
@@ -101,6 +102,9 @@ namespace PyDeployer.Web
             services.AddTransient<UserAuthenticationManager>();
             services.AddSingleton<SessionTokenManager>();
 
+            //Encryption
+            services.AddTransient<AesEncrypter>();
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 //View Model serializers for entities
@@ -143,6 +147,12 @@ namespace PyDeployer.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //Encrypt any non-encrypted applications on start up
+            var scope = app.ApplicationServices.CreateScope();
+            var appService = scope.ServiceProvider.GetRequiredService<ApplicationService>();
+            appService.EncryptApplications();
+            scope.Dispose();
         }
     }
 }

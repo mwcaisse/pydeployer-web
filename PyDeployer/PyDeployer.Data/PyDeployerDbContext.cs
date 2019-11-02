@@ -23,7 +23,7 @@ namespace PyDeployer.Data
 
         public DbSet<BuildToken> BuildTokens { get; set; }
         
-        public DbSet<Database> Databases { get; set; }
+        public virtual DbSet<Database> Databases { get; set; }
 
         //Authentication Entities
         public DbSet<User> Users { get; set;  }

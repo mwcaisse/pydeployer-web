@@ -14,7 +14,7 @@ namespace PyDeployer.Common.Encryption
         /// </summary>
         /// <param name="length">Number of bits to use. Must be multiple of 8</param>
         /// <returns></returns>
-        public string GenerateKey(int length=256)
+        public virtual string GenerateKey(int length=256)
         {
             byte[] key = new byte[length/ 8];
             RandomNumberGenerator.Create().GetBytes(key);

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using OwlTin.Common.Entities;
+using PyDeployer.Common.Encryption;
 
 namespace PyDeployer.Common.Entities
 {
-    public class Application : ITrackedEntity, IActiveEntity
+    public class Application : ITrackedEntity, IActiveEntity, IEncryptionContextEntity
     {
 
         public long ApplicationId { get; set; }

@@ -22,6 +22,8 @@ namespace PyDeployer.Common.Entities
         public bool Active { get; set; }
 
         public ICollection<ApplicationEnvironment> ApplicationEnvironments { get; set; }
+        
+        public ICollection<Database> Databases { get; set; }
 
     }
 }

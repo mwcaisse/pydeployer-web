@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +22,8 @@ using OwlTin.Authentication.PasswordHasher;
 using OwlTin.Authentication.Services;
 using OwlTin.Common.Converters;
 using PyDeployer.Common.Encryption;
+using PyDeployer.Common.Entities;
+using PyDeployer.Common.ViewModels;
 using PyDeployer.Data;
 using PyDeployer.Logic.Services;
 using PyDeployer.Web.Configuration;
@@ -104,6 +107,14 @@ namespace PyDeployer.Web
 
             //Encryption
             services.AddTransient<AesEncrypter>();
+            
+            //Entity Mapper
+            var entityMapperConfig = new MapperConfiguration(config =>
+            {
+                config.CreateMap<Database, DatabaseViewModel>();
+            });
+            var entityMapper = new Mapper(entityMapperConfig);
+            services.AddSingleton(entityMapper);
 
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -113,6 +124,9 @@ namespace PyDeployer.Web
                 options.SerializerSettings.Converters.Add(new JsonApplicationTokenConverter());
                 options.SerializerSettings.Converters.Add(new JsonEnvironmentConverter());
                 options.SerializerSettings.Converters.Add(new JsonBuildTokenConverter());
+                
+                //Entity View Model serializers using AutoMapper
+                options.SerializerSettings.Converters.Add(new MapperJsonConverter<Database, DatabaseViewModel>(entityMapper));
 
                 //General Serializers
                 options.SerializerSettings.Converters.Add(new JsonDateEpochConverter());

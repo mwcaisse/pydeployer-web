@@ -30,6 +30,11 @@ namespace PyDeployer.Logic.Services
         {
             return _db.Databases.Active().Where(d => d.EnvironmentId == environmentId);
         }
+        
+        public IEnumerable<Database> GetAll()
+        {
+            return _db.Databases.Active();
+        }
 
         public Database Create(DatabaseViewModel toCreate)
         {
@@ -70,11 +75,6 @@ namespace PyDeployer.Logic.Services
             _db.SaveChanges();
             
             return database;
-        }
-
-        public IEnumerable<Database> GetAll()
-        {
-            return _db.Databases.Active();
         }
 
         public void Delete(long id)

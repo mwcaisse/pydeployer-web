@@ -7,7 +7,7 @@ namespace PyDeployer.Logic.Tests
 {
     public static class MockUtils
     {
-        public static Mock<DbSet<T>> CreateDbSetMock<T>(IEnumerable<T> elements) where T: class
+        public static Mock<DbSet<T>> CreateDbSetMock<T>(List<T> elements) where T: class
         {
             var querableElements = elements.AsQueryable();
 
@@ -17,7 +17,7 @@ namespace PyDeployer.Logic.Tests
             dbSetMock.As<IQueryable<T>>().Setup(m => m.Expression).Returns(querableElements.Expression);
             dbSetMock.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(querableElements.ElementType);
             dbSetMock.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(querableElements.GetEnumerator());
-                
+            
             return dbSetMock;
         }
     }

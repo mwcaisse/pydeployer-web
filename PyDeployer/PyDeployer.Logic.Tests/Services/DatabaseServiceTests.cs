@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using PyDeployer.Common.Encryption;
 using PyDeployer.Common.Entities;
+using PyDeployer.Common.Exceptions;
 using PyDeployer.Common.ViewModels;
 using PyDeployer.Data;
 using PyDeployer.Logic.Services;
@@ -236,7 +237,14 @@ namespace PyDeployer.Logic.Tests.Services
             [Fact]
             public void CreateAddsEncryptionKey()
             {
-                var created = subject.Create(new DatabaseViewModel());
+                var created = subject.Create(new DatabaseViewModel()
+                {
+                    Name = "Dev Database",
+                    Host = "localhost",
+                    Port = "3306",
+                    Password = "password",
+                    User = "hello world"
+                });
                 
                 Assert.Equal(testEncryptionKey, created.EncryptionKey);
             }
@@ -244,13 +252,69 @@ namespace PyDeployer.Logic.Tests.Services
             [Fact]
             public void TestCreateAddsDatabase()
             {
-                var created = subject.Create(new DatabaseViewModel());
+                var created = subject.Create(new DatabaseViewModel()
+                {
+                    Name = "Dev Database",
+                    Host = "localhost",
+                    Port = "3306",
+                    Password = "password",
+                    User = "hello world"
+                });
                 
                 Assert.True(created.Active);
                 mockDatabaseContext.Verify(m => m.SaveChanges(), Times.Once());
                 mockDbSet.Verify(m => m.Add(created), Times.Once());
-                
-                
+            }
+
+            [Fact]
+            public void TestCannotCreateDatabaseWithoutName()
+            {
+                var viewModel = new DatabaseViewModel()
+                {
+                    Host = "localhost",
+                    Port = "3306",
+                    Password = "password",
+                    User = "hello world"
+                };
+
+                Assert.Throws<EntityValidationException>(() => subject.Create(viewModel));
+            }
+            
+            [Fact]
+            public void TestCannotCreateDatabaseWithTooLongName()
+            {
+                var viewModel = new DatabaseViewModel()
+                {
+                    Name = "very long string here. too much work to create a random string generator so I will just keep typing stuff until it seems we are over 100 characters",
+                    Host = "localhost",
+                    Port = "3306",
+                    Password = "password",
+                    User = "hello world"
+                };
+
+                Assert.Throws<EntityValidationException>(() => subject.Create(viewModel));
+            }
+            
+            [Fact]
+            public void TestCannotCreateDatabaseWithoutRequiredFields()
+            {
+                try
+                {
+                    subject.Create(new DatabaseViewModel());
+                    Assert.True(false, "Should of thrown a validation exception");
+                }
+                catch (EntityValidationException ex)
+                {
+                    Assert.NotEmpty(ex.ValidationResults);
+                    Assert.Equal(5, ex.ValidationResults.Count());
+       
+                    Assert.Collection(ex.ValidationResults, 
+                        item => Assert.Contains("Name field is required", item.ErrorMessage),
+                        item => Assert.Contains( "Host field is required", item.ErrorMessage),
+                        item => Assert.Contains( "Port field is required", item.ErrorMessage),
+                        item => Assert.Contains( "User field is required", item.ErrorMessage),
+                        item => Assert.Contains("Password field is required", item.ErrorMessage));
+                }
             }
         }
     }

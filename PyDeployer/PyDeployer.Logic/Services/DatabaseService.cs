@@ -38,7 +38,7 @@ namespace PyDeployer.Logic.Services
 
         public Database Create(DatabaseViewModel toCreate)
         {
-            //TODO: Handle validation
+            ValidationUtils.ValidateViewModel(toCreate);
             
             var database = new Database()
             {
@@ -63,7 +63,7 @@ namespace PyDeployer.Logic.Services
         {
             var database = GetOrException(toUpdate.DatabaseId);
             
-            //TODO: Handle validation
+            ValidationUtils.ValidateViewModel(toUpdate);
 
             database.Name = toUpdate.Name;
             database.Type = toUpdate.Type;
@@ -85,7 +85,7 @@ namespace PyDeployer.Logic.Services
             _db.SaveChanges();
         }
 
-        protected Database GetOrException(long id, string exceptionText = "Database does not exist!")
+        private Database GetOrException(long id, string exceptionText = "Database does not exist!")
         {
             var database = Get(id);
 

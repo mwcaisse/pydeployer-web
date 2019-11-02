@@ -14,6 +14,7 @@ namespace PyDeployer.Common.ViewModels
         [StringLength(100)]
         public string Name { get; set; }
         
+        [Required]
         public DatabaseType Type { get; set; }
         
         [Required]

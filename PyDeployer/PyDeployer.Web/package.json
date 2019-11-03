@@ -5,6 +5,8 @@
   "devDependencies": {
     "css-loader": "0.28.11",
     "gulp": "^4.0.0",
+    "file-loader": "4.2.0",
+    "style-loader": "0.23.1",
     "vue-loader": "15.2.4",
     "vue-style-loader": "4.1.0",
     "vue-template-compiler": "2.5.16",
@@ -23,6 +25,7 @@
     "lodash": "4.17.10",
     "moment": "2.22.2",
     "q": "2.0.3",
+    "requirejs": "2.3.6",
     "vue": "2.5.16"
   },
   "build": "webpack",

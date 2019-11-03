@@ -3,20 +3,24 @@
 const { VueLoaderPlugin } = require("vue-loader");
 const path = require("path");
 
+const glob = require("glob");
+var mypath = path.resolve(__dirname, "wwwroot");
+
+var views = {};
+for (var file of glob.sync("./web-src/views/**/*.vue")) {
+    views[file.replace("./web-src/", "").replace(".vue", "")] = file;
+}
+
 
 module.exports = {
     mode: "development",
-    entry: {
-        "navigation": "./web-src/views/Navigation/Navigation.js",
-        "home": "./web-src/views/Home/Home.js",
-        "application-detail": "./web-src/views/Application/ApplicationDetail.js",
-        "registration": "./web-src/views/User/Registration.js",
-        "user/authentication-token": "./web-src/views/User/UserAuthenticationTokens.js",
-        "build-token": "./web-src/views/BuildToken/BuildToken.js"
-    },
+    entry: views,
     output: {
         path: path.resolve(__dirname, "wwwroot"),
-        filename: "views/[name].js"
+        filename: "[name].js",
+        libraryTarget: "amd",
+        library: "[name]",
+        umdNamedDefine: true
     },
     module: {
         rules: [
@@ -25,6 +29,12 @@ module.exports = {
                 test: /\.css$/, use: [
                     "vue-style-loader",
                     "css-loader"
+                ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    "file-loader"
                 ]
             }
         ]

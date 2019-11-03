@@ -49,6 +49,12 @@ gulp.task('restore:q', function () {
     ]).pipe(gulp.dest(libs + 'q/js'));
 });
 
+gulp.task('restore:requirejs', function () {
+    return gulp.src([
+        'node_modules/requirejs/require.js'
+    ]).pipe(gulp.dest(libs + 'require/js'));
+});
+
 gulp.task('restore:vue', function () {
     return gulp.src([
         'node_modules/vue/dist/vue.js',
@@ -64,5 +70,6 @@ gulp.task('restore', gulp.series(
     'restore:lodash',
     'restore:moment',
     'restore:q',
+    'restore:requirejs',
     'restore:vue'
 ));

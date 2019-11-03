@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using PyDeployer.Web.Configuration;
+using PyDeployer.Web.ViewComponents;
 
 namespace PyDeployer.Web.Controllers.View
 {
@@ -26,6 +27,14 @@ namespace PyDeployer.Web.Controllers.View
             ViewBag.RootPathPrefix = ApplicationConfiguration.RootPathPrefix;
 
             //ViewBag.BuildInformation = BuildInformation;
+        }
+
+        protected IActionResult VueView(string viewName, string title = "", params VueViewProperty[] properties)
+        {
+            ViewBag.ViewName = viewName;
+            ViewBag.ViewTitle = title;
+            ViewBag.Properties = properties;
+            return View("VueView");
         }
 
         protected bool IsAuthenticated()

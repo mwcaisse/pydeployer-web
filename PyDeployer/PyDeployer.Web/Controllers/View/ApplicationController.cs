@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PyDeployer.Web.Configuration;
+using PyDeployer.Web.Models;
 
 namespace PyDeployer.Web.Controllers.View
 {
+    [Route("/application")]
     public class ApplicationController : BaseViewController
     {
         public ApplicationController(ApplicationConfiguration applicationConfiguration) 
@@ -16,9 +18,14 @@ namespace PyDeployer.Web.Controllers.View
         }
 
         [Authorize]
-        public IActionResult Index()
+        [Route("{id:long}")]
+        public IActionResult Index(long id)
         {
-            return VueView("views/ApplicationDetail", "Application Details");
+            return VueView("views/ApplicationDetail", "Application Details", new VueViewProperty()
+            {
+                Name = "applicationId",
+                Value = id.ToString()
+            });
         }
     }
 }

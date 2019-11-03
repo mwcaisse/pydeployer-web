@@ -26,14 +26,13 @@
     </div> 
 </template>
 
-<script>
-    import util from "services/Util.js"
+<script>    
     import ApplicationDetails from "components/Application/ApplicationDetails.vue"
     import ApplicationEnvironmentList from "components/Application/ApplicationEnvironmentList.vue"
     import ApplicationTokenList from "components/Application/ApplicationTokenList.vue"
     import ApplicationEnvironmentTokens from "components/Application/ApplicationEnvironmentTokens.vue"
-
-    var applicationId = parseInt(util.getURLParameter("applicationId", -1), 10)
+    
+    const applicationId = parseInt($("#applicationId").val(), 10);
 
     export default {
         data: function() {

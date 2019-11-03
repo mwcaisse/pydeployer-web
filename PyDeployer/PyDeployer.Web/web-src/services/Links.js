@@ -33,7 +33,11 @@ class Links {
     }
 
     application(id) {
-        return this._rootPathPrefix + "application/?applicationId=" + id;
+        return `${this._rootPathPrefix}application/${id}`;
+    }
+
+    environment(id) {
+        return `${this._rootPathPrefix}environment/${id}`;
     }
 }
 

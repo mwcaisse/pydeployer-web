@@ -21,7 +21,7 @@ namespace PyDeployer.Common.Encryption
             return EncodeKey(key);
         }
 
-        public bool IsEncrypted(string value)
+        public virtual bool IsEncrypted(string value)
         {
             return !string.IsNullOrEmpty(value) && value.StartsWith(EncodedCipherPrefix);
         }
@@ -32,7 +32,7 @@ namespace PyDeployer.Common.Encryption
         /// <param name="plainText"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string Encrypt(string plainText, string key)
+        public virtual string Encrypt(string plainText, string key)
         {
 
             byte[] encrypted;
@@ -66,7 +66,7 @@ namespace PyDeployer.Common.Encryption
         /// <param name="cipherText"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string Decrypt(string cipherText, string key)
+        public virtual string Decrypt(string cipherText, string key)
         {
             string plainText;
             dynamic decoded = DecodeCipher(cipherText);

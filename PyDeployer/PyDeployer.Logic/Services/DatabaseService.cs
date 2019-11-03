@@ -21,19 +21,23 @@ namespace PyDeployer.Logic.Services
             this._encrypter = encrypter;
         }
 
-        public Database Get(long id)
+        public Database Get(long id, bool decrypt = true)
         {
-            return _db.Databases.Active().FirstOrDefault(d => d.DatabaseId == id);
+            var database = _db.Databases.Active().FirstOrDefault(d => d.DatabaseId == id);
+            database?.Decrypt(_encrypter);
+
+            return database;
         }
 
         public IEnumerable<Database> GetAllForEnvironment(long environmentId)
         {
-            return _db.Databases.Active().Where(d => d.EnvironmentId == environmentId);
+            return _db.Databases.Active().Where(d => d.EnvironmentId == environmentId)
+                .AsEnumerable().Decrypt(_encrypter);
         }
         
         public IEnumerable<Database> GetAll()
         {
-            return _db.Databases.Active();
+            return _db.Databases.Active().AsEnumerable().Decrypt(_encrypter);
         }
 
         public Database Create(DatabaseViewModel toCreate)
@@ -44,19 +48,16 @@ namespace PyDeployer.Logic.Services
             {
                 Name = toCreate.Name,
                 Type = toCreate.Type,
-                //TODO: Handle encryption of these fields
-                Host = toCreate.Host,
-                Port = toCreate.Port,
-                User = toCreate.User,
-                Password = toCreate.Password,
                 Active = true,
                 EncryptionKey = _encrypter.GenerateKey()
             };
+            
+            AddEncryptedValues(database, toCreate);
 
             _db.Databases.Add(database);
             _db.SaveChanges();
 
-            return database;
+            return database.Decrypt(_encrypter);
         }
 
         public Database Update(DatabaseViewModel toUpdate)
@@ -67,14 +68,11 @@ namespace PyDeployer.Logic.Services
 
             database.Name = toUpdate.Name;
             database.Type = toUpdate.Type;
-            database.Host = toUpdate.Host;
-            database.Port = toUpdate.Port;
-            database.User = toUpdate.User;
-            database.Password = toUpdate.Password;
+            AddEncryptedValues(database, toUpdate);
 
             _db.SaveChanges();
-            
-            return database;
+
+            return database.Decrypt(_encrypter);
         }
 
         public void Delete(long id)
@@ -85,9 +83,23 @@ namespace PyDeployer.Logic.Services
             _db.SaveChanges();
         }
 
-        private Database GetOrException(long id, string exceptionText = "Database does not exist!")
+        /// <summary>
+        /// Encrypts the unencrypted values on the viewmodel and sets them on the entity
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="viewModel"></param>
+        
+        private void AddEncryptedValues(Database database, DatabaseViewModel viewModel)
         {
-            var database = Get(id);
+            database.Host = _encrypter.Encrypt(viewModel.Host, database.EncryptionKey);
+            database.Port = _encrypter.Encrypt(viewModel.Port, database.EncryptionKey);
+            database.User = _encrypter.Encrypt(viewModel.User, database.EncryptionKey);
+            database.Password = _encrypter.Encrypt(viewModel.Password, database.EncryptionKey);
+        }
+        
+        private Database GetOrException(long id, string exceptionText = "Database does not exist!", bool decypt = false)
+        {
+            var database = Get(id, decypt);
 
             if (null == database)
             {

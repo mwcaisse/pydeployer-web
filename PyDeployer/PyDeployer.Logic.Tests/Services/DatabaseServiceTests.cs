@@ -35,7 +35,11 @@ namespace PyDeployer.Logic.Tests.Services
             mockEncrypter = new Mock<AesEncrypter>();
 
          
-            mockEncrypter.Setup(x => x.GenerateKey(256)).Returns(testEncryptionKey);
+            mockEncrypter.Setup(x => x.GenerateKey(It.IsAny<int>())).Returns(testEncryptionKey);
+            mockEncrypter.Setup(x => x.Decrypt(It.IsAny<string>(), testEncryptionKey)).Returns("decrypted");
+            mockEncrypter.Setup(x => x.Encrypt(It.IsAny<string>(), testEncryptionKey)).Returns("encrypted");
+            mockEncrypter.Setup(x => x.IsEncrypted(It.IsAny<string>())).Returns(true);
+            
             mockDatabaseContext.Setup(x => x.SaveChanges()).Verifiable(); // Make SaveChanges do nothing
 
             testDatabases = new List<Database>()

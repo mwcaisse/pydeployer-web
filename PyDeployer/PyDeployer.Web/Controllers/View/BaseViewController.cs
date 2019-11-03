@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using PyDeployer.Web.Configuration;
-using PyDeployer.Web.ViewComponents;
+using PyDeployer.Web.Utils;
 
 namespace PyDeployer.Web.Controllers.View
 {

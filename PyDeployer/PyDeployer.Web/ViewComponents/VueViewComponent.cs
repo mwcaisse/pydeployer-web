@@ -6,7 +6,8 @@ namespace PyDeployer.Web.ViewComponents
     public class VueViewComponent : ViewComponent
     {
 
-        public IViewComponentResult Invoke(string viewName)
+
+        public IViewComponentResult Invoke(string viewName) 
         {
             var elm = new VueElement()
             {
@@ -15,18 +16,18 @@ namespace PyDeployer.Web.ViewComponents
             };
             return View(elm);
         }
-
-        private string GetRandomViewElementId()
+        
+        protected string GetRandomViewElementId()
         {
             var guid = Guid.NewGuid();
-            return $"pageVm_{guid}";
+            return string.Format("pageVm_{0}", guid.ToString());
         }
-
+        
         public class VueElement
         {
             public string ViewName { get; set; }
             public string VmElementId { get; set; }
         }
-        
     }
+    
 }

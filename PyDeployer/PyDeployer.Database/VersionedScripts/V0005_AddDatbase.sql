@@ -2,7 +2,7 @@ CREATE TABLE DATABASE_INSTANCE (
     DATABASE_ID         BIGINT          NOT NULL AUTO_INCREMENT,
     ENVIRONMENT_ID      BIGINT          NOT NULL,
     NAME                VARCHAR(100)    NOT NULL,
-    TYPE                VARCHAR(20)     NOT NULL,
+    TYPE                BIGINT          NOT NULL,
     HOST                VARCHAR(500)    NOT NULL,
     PORT                VARCHAR(500)    NOT NULL,
     USER                VARCHAR(500)    NOT NULL,

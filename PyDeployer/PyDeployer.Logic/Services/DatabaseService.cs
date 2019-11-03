@@ -42,10 +42,13 @@ namespace PyDeployer.Logic.Services
 
         public Database Create(DatabaseViewModel toCreate)
         {
+            
+            //TODO: Handle checking if the environment exists
             ValidationUtils.ValidateViewModel(toCreate);
             
             var database = new Database()
             {
+                EnvironmentId = toCreate.EnvironmentId,
                 Name = toCreate.Name,
                 Type = toCreate.Type,
                 Active = true,

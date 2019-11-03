@@ -2,6 +2,6 @@ namespace PyDeployer.Common.Models
 {
     public enum DatabaseType
     {
-        MaraiDb
+        MariaDb = 2,
     }
 }

@@ -95,6 +95,7 @@ namespace PyDeployer.Web
             services.AddTransient<ApplicationEnvironmentService>();
             services.AddTransient<ApplicationEnvironmentTokenService>();
             services.AddTransient<BuildTokenService>();
+            services.AddTransient<DatabaseService>();
 
             // Authentication Stuff
             services.AddTransient<IRegistrationKeyService, RegistrationKeyService>();

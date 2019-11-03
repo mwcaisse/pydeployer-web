@@ -12,6 +12,7 @@
                 <li class="box" v-for="environment in environments">
                     {{environment.name}}
                     <span class="is-pulled-right">
+                        <app-icon icon="clone" :action="true" v-on:click.native="viewEnvironment(environment)"></app-icon>
                         <app-icon icon="trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>
                     </span>
                 </li>
@@ -26,6 +27,7 @@
 
 <script>
     import system from "@app/services/System.js"
+    import Links from "@app/services/Links.js"
     import { EnvironmentService } from "@app/services/ApplicationProxy.js"
     import Icon from "@app/components/Common/Icon.vue"
     import EnvironmentModal from "@app/components/Environment/EnvironmentModal.vue"
@@ -60,6 +62,9 @@
                 }.bind(this), function (error) {
                     console.log("Error deleting environment: " + error)
                 })
+            },
+            viewEnvironment: function (environment) {
+                window.location = Links.environment(environment.environmentId);
             }
         },
         created: function () {

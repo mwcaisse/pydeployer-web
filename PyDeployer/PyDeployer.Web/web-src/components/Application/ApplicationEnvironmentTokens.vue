@@ -65,7 +65,7 @@
         },
         methods: {
             fetchEnvironments: function () {
-                ApplicationEnvironmentService.get(this.applicationId).then(function (data) {
+                ApplicationEnvironmentService.getEnvironmentsForApplication(this.applicationId).then(function (data) {
                     this.environments = data;
                     // Automatically select the first environment
                     if (this.environments.length > 0) {

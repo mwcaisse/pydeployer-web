@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="web-src\components\Database" />
     <Folder Include="wwwroot\lib\fontawesome\" />
   </ItemGroup>
 

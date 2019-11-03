@@ -30,6 +30,11 @@ namespace PyDeployer.Logic.Services
             return _db.ApplicationEnvironments.Active().Build().Where(ae => ae.ApplicationId == applicationId);
         }
 
+        public IEnumerable<ApplicationEnvironment> GetForEnvironment(long environmentId)
+        {
+            return _db.ApplicationEnvironments.Active().Build().Where(ae => ae.EnvironmentId == environmentId);
+        }
+
         public ApplicationEnvironment Create(long applicationId, long environmentId)
         {
             if (!ApplicationExists(applicationId))

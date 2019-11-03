@@ -11,7 +11,6 @@ namespace PyDeployer.Web.Controllers.Api
 
     [Authorize]
     [Produces("application/json")]
-    [Route("api/application/{applicationId:long}/environment/")]
     public class ApplicationEnvironmentApiController : BaseApiController
     {
 
@@ -23,15 +22,24 @@ namespace PyDeployer.Web.Controllers.Api
         }
 
         [HttpGet]
-        [Route("")]
-        public IActionResult Get(long applicationId)
+        [Route("api/application/{applicationId:long}/environment/")]
+        public IActionResult GetEnvironmentsForApplication(long applicationId)
         {
             return Ok(_applicationEnvironmentService.GetForApplication(applicationId)
                 .Select(ae => ae.Environment).ToList());
         }
 
+        [HttpGet]
+        [Route("api/environment/{environmentId:long}/application")]
+        public IActionResult GetApplicationsForEnvironment(long environmentId)
+        {
+            return Ok(_applicationEnvironmentService.GetForEnvironment(environmentId)
+                .Select(ae => ae.Application).ToList());
+        }
+
         [HttpPost]
-        [Route("{environmentId:long}")]
+        [Route("api/application/{applicationId:long}/environment/{environmentId:long}")]
+        [Route("api/environment/{environmentId:long}/application/{applicationId:long}")]
         public IActionResult Create(long applicationId, long environmentId)
         {
             _applicationEnvironmentService.Create(applicationId, environmentId);
@@ -39,7 +47,8 @@ namespace PyDeployer.Web.Controllers.Api
         }
 
         [HttpDelete]
-        [Route("{environmentId:long}")]
+        [Route("api/application/{applicationId:long}/environment/{environmentId:long}")]
+        [Route("api/environment/{environmentId:long}/application/{applicationId:long}")]
         public IActionResult Delete(long applicationId, long environmentId)
         {
             return Ok(_applicationEnvironmentService.Delete(applicationId, environmentId));

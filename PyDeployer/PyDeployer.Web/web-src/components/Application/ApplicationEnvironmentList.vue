@@ -9,7 +9,8 @@
             <ul>
                 <li class="box" v-for="environment in environments">
                     {{environment.name}}
-                    <span class="is-pulled-right">                           
+                    <span class="is-pulled-right">          
+                        <app-icon icon="clone" :action="true" v-on:click.native="viewEnvironment(environment)"></app-icon>
                         <app-icon icon="trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>                
                     </span>
                 </li>
@@ -21,8 +22,9 @@
 
 <script>
     import system from "@app/services/System.js"
+    import Links from "@app/services/Links.js"
     import { ApplicationEnvironmentService } from "@app/services/ApplicationProxy.js"
-    import EnvironmentPickerModal from "@app/components/Environment/EnvironmentPickerModal.vue"
+    import EnvironmentPickerModal from "@app/components/Environment/EnvironmentPickerModal.vue"    
 
     import Icon from "@app/components/Common/Icon.vue"
 
@@ -41,7 +43,7 @@
         },
         methods: {
             fetchEnvironments: function () {
-                ApplicationEnvironmentService.get(this.applicationId).then(function (data) {
+                ApplicationEnvironmentService.getEnvironmentsForApplication(this.applicationId).then(function (data) {
                     this.environments = data;
                 }.bind(this),
                 function (error) {
@@ -58,7 +60,7 @@
             deleteEnvironment: function (environment) {
                 ApplicationEnvironmentService.delete(this.applicationId, environment.environmentId).then(function (res) {
                     if (res) {
-                        var index = this.environments.indexOf(environment);
+                        let index = this.environments.indexOf(environment);
                         this.environments.splice(index, 1);
                     }
                     else {
@@ -68,6 +70,9 @@
                 function (error) {
                     console.log("Error deleting application environment: " + error)
                 })
+            },
+            viewEnvironment: function (environment) {
+                window.location = Links.environment(environment.environmentId);
             },
             environmentSelected: function (environment) {
                 ApplicationEnvironmentService.create(this.applicationId, environment.environmentId).then(function (res) {

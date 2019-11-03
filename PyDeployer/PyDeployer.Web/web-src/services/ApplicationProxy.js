@@ -22,8 +22,11 @@ var application = {
 }
 
 var applicationEnvironment = {
-    get: function(applicationId) {
+    getEnvironmentsForApplication: function(applicationId) {
         return Proxy.get("application/" + applicationId + "/environment");
+    },
+    getApplicationsForEnvironment: function (environmentId) {
+        return Proxy.get("environment/" + environmentId + "/application");
     },
     create: function(applicationId, environmentId) {
         return Proxy.post("application/" + applicationId + "/environment/" + environmentId);

@@ -20,8 +20,8 @@
 </template>
 
 <script>
-    import ApplicationList from "components/Application/ApplicationList.vue"
-    import EnvironmentList from "components/Environment/EnvironmentList.vue"
+    import ApplicationList from "@app/components/Application/ApplicationList.vue"
+    import EnvironmentList from "@app/components/Environment/EnvironmentList.vue"
 
     export default {
         data: function() {

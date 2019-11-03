@@ -1,4 +1,5 @@
-﻿<template>
+﻿<template>   
+
     <div>
         <div class="box">
             <p class="subtitle">
@@ -24,10 +25,10 @@
 </template>
 
 <script>
-    import system from "services/System.js"
-    import { EnvironmentService } from "services/ApplicationProxy.js"
-    import Icon from "components/Common/Icon.vue"
-    import EnvironmentModal from "components/Environment/EnvironmentModal.vue"
+    import system from "@app/services/System.js"
+    import { EnvironmentService } from "@app/services/ApplicationProxy.js"
+    import Icon from "@app/components/Common/Icon.vue"
+    import EnvironmentModal from "@app/components/Environment/EnvironmentModal.vue"
 
     export default {
         name: "environment-list",

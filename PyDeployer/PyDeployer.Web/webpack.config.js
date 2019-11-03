@@ -46,8 +46,7 @@ module.exports = {
         alias: {
             "@app": path.resolve(__dirname, "web-src/")
         },
-        modules: [
-            path.resolve("./web-src"),
+        modules: [         
             path.resolve("./node_modules")
         ]
     }

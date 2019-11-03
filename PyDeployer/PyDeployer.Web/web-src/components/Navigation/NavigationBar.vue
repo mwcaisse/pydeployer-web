@@ -36,9 +36,9 @@
 </template>
 
 <script>  
-    import { UserService } from "services/ApplicationProxy.js"
-    import Links from "services/Links.js"
-    import NavigationLink from "components/Navigation/NavigationLink.vue"
+    import { UserService } from "@app/services/ApplicationProxy.js"
+    import Links from "@app/services/Links.js"
+    import NavigationLink from "@app/components/Navigation/NavigationLink.vue"
 
     var isAuthenticated = $("#isAuthenticated").val() === "true";
 

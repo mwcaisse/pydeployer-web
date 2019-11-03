@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import system from "services/System.js"
+    import system from "@app/services/System.js"
 
 
     export default {

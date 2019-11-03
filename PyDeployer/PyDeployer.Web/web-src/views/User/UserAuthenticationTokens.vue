@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import UserAuthenticationTokenList from "components/User/AuthenticationTokenList.vue" 
+    import UserAuthenticationTokenList from "@app/components/User/AuthenticationTokenList.vue" 
 
     export default {
         data: function () {

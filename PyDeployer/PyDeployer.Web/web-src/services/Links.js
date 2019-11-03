@@ -1,5 +1,5 @@
 ﻿import Vue from "vue"
-import VueConfig from "services/VueCommon.js"
+import VueConfig from "@app/services/VueCommon.js"
 
 class Links {
     constructor() {

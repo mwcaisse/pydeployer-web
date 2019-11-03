@@ -30,10 +30,10 @@
 </template>
 
 <script>
-    import system from "services/System.js"
-    import { BuildTokenService } from "services/ApplicationProxy.js"
-    import Icon from "components/Common/Icon.vue"
-    import BuildTokenModal from "components/BuildToken/BuildTokenModal.vue"
+    import system from "@app/services/System.js"
+    import { BuildTokenService } from "@app/services/ApplicationProxy.js"
+    import Icon from "@app/components/Common/Icon.vue"
+    import BuildTokenModal from "@app/components/BuildToken/BuildTokenModal.vue"
 
 
     export default {

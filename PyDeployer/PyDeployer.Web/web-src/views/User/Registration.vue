@@ -124,11 +124,11 @@
 </template>
 
 <script>
-    import { UserService } from "services/ApplicationProxy.js"
-    import Links from "services/Links.js"
-    import util from "services/Util.js"
+    import { UserService } from "@app/services/ApplicationProxy.js"
+    import Links from "@app/services/Links.js"
+    import util from "@app/services/Util.js"
 
-    import Icon from "components/Common/Icon.vue"
+    import Icon from "@app/components/Common/Icon.vue"
 
     export default {
         data: function() {

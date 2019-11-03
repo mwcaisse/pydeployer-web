@@ -36,10 +36,10 @@
 </template>
 
 <script>
-    import system from "services/System.js"
-    import { UserAuthenticationTokenService } from "services/ApplicationProxy.js"
-    import AuthenticationTokenModal from "components/User/AuthenticationTokenModal.vue"
-    import Icon from "components/Common/Icon.vue"
+    import system from "@app/services/System.js"
+    import { UserAuthenticationTokenService } from "@app/services/ApplicationProxy.js"
+    import AuthenticationTokenModal from "@app/components/User/AuthenticationTokenModal.vue"
+    import Icon from "@app/components/Common/Icon.vue"
 
 
     export default {

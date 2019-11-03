@@ -9,10 +9,10 @@
 </template>
 
 <script>
-    import system from "services/System.js"
-    import { EnvironmentService } from "services/ApplicationProxy.js"
+    import system from "@app/services/System.js"
+    import { EnvironmentService } from "@app/services/ApplicationProxy.js"
 
-    import Modal from "components/Common/Modal.vue"
+    import Modal from "@app/components/Common/Modal.vue"
 
     export default {
         name: "environment-picker-modal",

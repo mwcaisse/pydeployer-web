@@ -25,11 +25,11 @@
 </template>
 
 <script>
-    import system from "services/System.js"
-    import Links from "services/Links.js"
-    import { ApplicationService } from "services/ApplicationProxy.js"
-    import Icon from "components/Common/Icon.vue"
-    import ApplicationModal from "components/Application/ApplicationModal.vue"
+    import system from "@app/services/System.js"
+    import Links from "@app/services/Links.js"
+    import { ApplicationService } from "@app/services/ApplicationProxy.js"
+    import Icon from "@app/components/Common/Icon.vue"
+    import ApplicationModal from "@app/components/Application/ApplicationModal.vue"
 
     export default {
         name: "application-list",

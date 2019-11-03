@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import NavigationBar from "components/Navigation/NavigationBar.vue"
+    import NavigationBar from "@app/components/Navigation/NavigationBar.vue"
 
     export default {
         data: function () {  

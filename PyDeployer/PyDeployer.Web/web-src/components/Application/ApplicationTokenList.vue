@@ -22,10 +22,10 @@
 </template>
 
 <script>
-    import system from "services/System.js"
-    import { ApplicationTokenService } from "services/ApplicationProxy.js"
-    import Icon from "components/Common/Icon.vue"
-    import ApplicationTokenModal from "components/Application/ApplicationTokenModal.vue"
+    import system from "@app/services/System.js"
+    import { ApplicationTokenService } from "@app/services/ApplicationProxy.js"
+    import Icon from "@app/components/Common/Icon.vue"
+    import ApplicationTokenModal from "@app/components/Application/ApplicationTokenModal.vue"
 
     export default {
         name: "application-token-list",

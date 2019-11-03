@@ -20,11 +20,11 @@
 </template>
 
 <script>
-    import system from "services/System.js"
-    import { ApplicationEnvironmentService } from "services/ApplicationProxy.js"
-    import EnvironmentPickerModal from "components/Environment/EnvironmentPickerModal.vue"
+    import system from "@app/services/System.js"
+    import { ApplicationEnvironmentService } from "@app/services/ApplicationProxy.js"
+    import EnvironmentPickerModal from "@app/components/Environment/EnvironmentPickerModal.vue"
 
-    import Icon from "components/Common/Icon.vue"
+    import Icon from "@app/components/Common/Icon.vue"
 
     export default {
         name: "application-environment-list",

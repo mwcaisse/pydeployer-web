@@ -1,7 +1,7 @@
 ﻿import Vue from "vue"
 import Moment from "moment"
 
-import Util from "services/Util.js"
+import Util from "@app/services/Util.js"
 
 function formatDateFilter(value, formatString) {
     if (typeof value === "undefined" || null == value) {

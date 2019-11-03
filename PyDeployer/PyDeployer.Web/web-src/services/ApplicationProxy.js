@@ -1,4 +1,4 @@
-﻿import Proxy from "services/Proxy.js"
+﻿import Proxy from "@app/services/Proxy.js"
 
 var application = {
     get: function (id) {

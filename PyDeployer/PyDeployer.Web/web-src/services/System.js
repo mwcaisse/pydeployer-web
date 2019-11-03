@@ -1,6 +1,6 @@
 ﻿import Vue from "vue"
-import VueConfig from "services/VueCommon.js"
-import "services/CustomDirectives.js"
+import VueConfig from "@app/services/VueCommon.js"
+import "@app/services/CustomDirectives.js"
 
 class System {
     constructor() {

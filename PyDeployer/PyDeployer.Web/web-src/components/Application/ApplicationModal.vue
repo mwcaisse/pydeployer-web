@@ -13,10 +13,10 @@
 </template>
 
 <script>
-    import system from "services/System.js"
-    import { ApplicationService } from "services/ApplicationProxy.js"
+    import system from "@app/services/System.js"
+    import { ApplicationService } from "@app/services/ApplicationProxy.js"
 
-    import Modal from "components/Common/Modal.vue"
+    import Modal from "@app/components/Common/Modal.vue"
 
     export default {
         name: "application-modal",

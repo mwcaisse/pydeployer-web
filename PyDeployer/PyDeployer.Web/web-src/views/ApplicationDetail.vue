@@ -27,10 +27,10 @@
 </template>
 
 <script>    
-    import ApplicationDetails from "components/Application/ApplicationDetails.vue"
-    import ApplicationEnvironmentList from "components/Application/ApplicationEnvironmentList.vue"
-    import ApplicationTokenList from "components/Application/ApplicationTokenList.vue"
-    import ApplicationEnvironmentTokens from "components/Application/ApplicationEnvironmentTokens.vue"
+    import ApplicationDetails from "@app/components/Application/ApplicationDetails.vue"
+    import ApplicationEnvironmentList from "@app/components/Application/ApplicationEnvironmentList.vue"
+    import ApplicationTokenList from "@app/components/Application/ApplicationTokenList.vue"
+    import ApplicationEnvironmentTokens from "@app/components/Application/ApplicationEnvironmentTokens.vue"
     
     const applicationId = parseInt($("#applicationId").val(), 10);
 

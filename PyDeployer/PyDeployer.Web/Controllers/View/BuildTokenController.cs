@@ -19,7 +19,7 @@ namespace PyDeployer.Web.Controllers.View
         [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return VueView("views/BuildToken", "Build Tokens");
         }
     }
 }

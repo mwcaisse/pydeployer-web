@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using OwlTin.Authentication;
 using OwlTin.Authentication.Data;
 using OwlTin.Authentication.Managers;
@@ -53,7 +52,6 @@ namespace PyDeployer.Web
             services.AddDbContext<PyDeployerDbContext>(options =>
                 options.UseMySql(Configuration.GetSection("connectionString").Value)
             );
-            services.AddLogging(config => { config.SetMinimumLevel(LogLevel.Trace); });
             
             //Alias the DbContext to its interface
             services.AddScoped<IAuthenticationDbContext>(provider => provider.GetService<PyDeployerDbContext>());

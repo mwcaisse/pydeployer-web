@@ -18,7 +18,7 @@ namespace PyDeployer.Web.Controllers.View
         [Authorize]
         public IActionResult Index()
         {
-            return VueView("views/Home/Home", "Index");
+            return VueView("views/Home", "Index");
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace PyDeployer.Web.Utils
+namespace PyDeployer.Web.Models
 {
     public class VueViewProperty
     {

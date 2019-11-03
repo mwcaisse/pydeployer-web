@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="web-src\views\Home\Home.vue" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\lib\fontawesome\" />
   </ItemGroup>
 
@@ -48,6 +44,16 @@
     <None Update="deploymentConfig.json.pyb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Application\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\BuildToken\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="web-src\views\Home.vue" />
   </ItemGroup>
 
 </Project>

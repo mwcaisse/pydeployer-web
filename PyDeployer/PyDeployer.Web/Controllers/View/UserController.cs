@@ -65,7 +65,7 @@ namespace PyDeployer.Web.Controllers.View
         [Route("register")]
         public IActionResult Register()
         {
-            return View();
+            return VueView("views/User/Registration", "Register");
         }
 
         [Route("logout")]
@@ -81,7 +81,7 @@ namespace PyDeployer.Web.Controllers.View
         [Route("user/tokens")]
         public IActionResult Tokens()
         {
-            return View("AuthenticationTokens");
+            return VueView("views/User/UserAuthenticationTokens", "Authentication Tokens");
         }
     }
 }

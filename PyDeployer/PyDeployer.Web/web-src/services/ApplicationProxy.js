@@ -81,6 +81,24 @@ var applicationEnvironmentToken = {
     }
 }
 
+let database = {
+    get: function(id) {
+        return Proxy.get(`database/${id}`);
+    },
+    getForEnvironment: function (environmentId) {
+        return Proxy.get(`environment/${environmentId}/database`);
+    },
+    create: function (environmentId, database) {
+        return Proxy.post(`environment/${environmentId}/database`, database);
+    },
+    update: function (id, database) {
+        return Proxy.put(`database/${id}`, database)
+    },
+    delete: function (id) {
+        return Proxy.delete(`database/${id}`);
+    }
+};
+
 var buildToken = {
     get: function(id) {
         return Proxy.get("build/token/" + id);
@@ -130,6 +148,7 @@ export {
     applicationToken as ApplicationTokenService,
     environment as EnvironmentService,
     applicationEnvironmentToken as ApplicationEnvironmentTokenService,
+    database as DatabaseService,
     buildToken as BuildTokenService,
     user as UserService,
     userAuthenticationToken as UserAuthenticationTokenService

@@ -48,6 +48,7 @@ module.exports = {
         },
         modules: [         
             path.resolve("./node_modules")
-        ]
+        ],
+        extensions: [".js", ".vue"]
     }
 };

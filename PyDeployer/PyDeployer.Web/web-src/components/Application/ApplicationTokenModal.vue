@@ -1,5 +1,5 @@
 ﻿<template>
-    <app-modal ref="modal" title="Create Application Token">
+    <app-modal ref="modal" :title="title">
         <div class="field">
             <label class="label">Name</label>
             <div class="control">

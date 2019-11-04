@@ -21,6 +21,7 @@ namespace PyDeployer.Web.Controllers.Api
         
         [HttpGet]
         [Route("{id:long}")]
+        [Route("~/api/database/{id:long}")]
         public IActionResult Get(long id)
         {
             var database = _databaseService.Get(id);
@@ -48,15 +49,20 @@ namespace PyDeployer.Web.Controllers.Api
 
         [HttpPut]
         [Route("{id:long}")]
-        public IActionResult Update(long id, long environmentId, [FromBody] DatabaseViewModel toUpdate)
+        [Route("~/api/database/{id:long}")]
+        public IActionResult Update(long id, [FromBody] DatabaseViewModel toUpdate, long environmentId = -1)
         {
             toUpdate.DatabaseId = id;
-            toUpdate.EnvironmentId = environmentId;
+            if (environmentId != -1)
+            {
+                toUpdate.EnvironmentId = environmentId;
+            }
             return Ok(_databaseService.Update(toUpdate));
         }
 
         [HttpDelete]
         [Route("{id:long}")]
+        [Route("~/api/database/{id:long}")]
         public IActionResult Delete(long id)
         {
             _databaseService.Delete(id);

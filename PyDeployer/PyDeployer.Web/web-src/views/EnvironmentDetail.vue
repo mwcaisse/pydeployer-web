@@ -14,6 +14,9 @@
             <div class="column">
                 <environment-application-list :environmentId="environmentId"></environment-application-list>
             </div>
+            <div class="column">
+                <database-list :environment-id="environmentId"></database-list>
+            </div>
         </div>
     </div>
 </template>
@@ -21,6 +24,7 @@
 <script>
     import EnvironmentDetails from "@app/components/Environment/EnvironmentDetails.vue"
     import EnvironmentApplicationList from "@app/components/Environment/EnvironmentApplicationList.vue"
+    import DatabaseList from "@app/components/Database/DatabaseList.vue"
     
     const environmentId = parseInt($("#environmentId").val(), 10);
     
@@ -32,7 +36,8 @@
         },
         components: {
             EnvironmentDetails,
-            EnvironmentApplicationList
+            EnvironmentApplicationList,
+            DatabaseList
         }        
     }
 </script>

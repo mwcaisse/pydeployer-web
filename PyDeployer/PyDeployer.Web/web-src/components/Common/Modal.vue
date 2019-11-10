@@ -20,33 +20,33 @@
 </template>
 
 <script>
-     export default {
-        name: "app-modal",
-        data: function() {
-            return {
-                show: false
-            }
-        },     
-        props: {
-            title: {
-                type: String,
-                required: true
-            },
-            cancelText: {
-                type: String,
-                required: false,
-                default: "Cancel"
-            }
+ export default {
+    name: "app-modal",
+    data: function() {
+        return {
+            show: false
+        }
+    },     
+    props: {
+        title: {
+            type: String,
+            required: true
         },
-        methods: {
-            open: function () {
-                this.show = true;
-            },
-            close: function () {
-                this.show = false;
-            }
+        cancelText: {
+            type: String,
+            required: false,
+            default: "Cancel"
+        }
+    },
+    methods: {
+        open: function () {
+            this.show = true;
+        },
+        close: function () {
+            this.show = false;
         }
     }
+}
 </script>
 
 <style scoped>

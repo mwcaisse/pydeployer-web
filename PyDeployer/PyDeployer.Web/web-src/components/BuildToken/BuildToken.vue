@@ -30,70 +30,70 @@
 </template>
 
 <script>
-    import system from "@app/services/System.js"
-    import { BuildTokenService } from "@app/services/ApplicationProxy.js"
-    import Icon from "@app/components/Common/Icon.vue"
-    import BuildTokenModal from "@app/components/BuildToken/BuildTokenModal.vue"
+import system from "@app/services/System.js"
+import { BuildTokenService } from "@app/services/ApplicationProxy.js"
+import Icon from "@app/components/Common/Icon.vue"
+import BuildTokenModal from "@app/components/BuildToken/BuildTokenModal.vue"
 
 
-    export default {
-        name: "build-token-list",
-        data: function () {
-            return {
-                tokens: []
-            }
-        }, 
-        methods: {
-            fetchTokens: function () {
-                BuildTokenService.getAll().then(function (data) {
-                    this.tokens = data;
-                }.bind(this),
-                    function (error) {
-                        console.log("Error fetching build tokens: " + error)
-                    });
-
-            },
-            clear: function () {
-                this.tokens = [];
-            },
-            create: function () {
-                system.events.$emit("buildTokenModal:create");
-            },
-            edit: function (buildToken) {
-                system.events.$emit("buildTokenModal:edit", buildToken);
-            },
-            deleteToken: function (buildToken) {
-                return BuildTokenService.delete(buildToken.buildTokenId).then(function () {                  
-                    var index = this.tokens.indexOf(buildToken);
-                    this.tokens.splice(index, 1);                    
-                    return true;
-                }.bind(this), function (error) {
-                    console.log("Error deleting build token: " + error);
-                    return false;
-                });
-            }
-        },
-        created: function () {
-            this.fetchTokens();
-
-            system.events.$on("buildTokenModal:created", function (buildToken) {
-                this.tokens.push(buildToken);
-            }.bind(this));
-
-            system.events.$on("buildTokenModal:updated", function (buildToken) {
-                var index = this.tokens.findIndex(function (elm) {
-                    return elm.buildTokenId == buildToken.buildTokenId;
-                });
-                if (index >= 0) {
-                    this.tokens.splice(index, 1, buildToken);
-                }
-            }.bind(this));
-        },
-        components: {
-            "app-icon": Icon,
-            "build-token-modal": BuildTokenModal
+export default {
+    name: "build-token-list",
+    data: function () {
+        return {
+            tokens: []
         }
+    }, 
+    methods: {
+        fetchTokens: function () {
+            BuildTokenService.getAll().then(function (data) {
+                this.tokens = data;
+            }.bind(this),
+                function (error) {
+                    console.log("Error fetching build tokens: " + error)
+                });
+
+        },
+        clear: function () {
+            this.tokens = [];
+        },
+        create: function () {
+            system.events.$emit("buildTokenModal:create");
+        },
+        edit: function (buildToken) {
+            system.events.$emit("buildTokenModal:edit", buildToken);
+        },
+        deleteToken: function (buildToken) {
+            return BuildTokenService.delete(buildToken.buildTokenId).then(function () {                  
+                var index = this.tokens.indexOf(buildToken);
+                this.tokens.splice(index, 1);                    
+                return true;
+            }.bind(this), function (error) {
+                console.log("Error deleting build token: " + error);
+                return false;
+            });
+        }
+    },
+    created: function () {
+        this.fetchTokens();
+
+        system.events.$on("buildTokenModal:created", function (buildToken) {
+            this.tokens.push(buildToken);
+        }.bind(this));
+
+        system.events.$on("buildTokenModal:updated", function (buildToken) {
+            var index = this.tokens.findIndex(function (elm) {
+                return elm.buildTokenId == buildToken.buildTokenId;
+            });
+            if (index >= 0) {
+                this.tokens.splice(index, 1, buildToken);
+            }
+        }.bind(this));
+    },
+    components: {
+        "app-icon": Icon,
+        "build-token-modal": BuildTokenModal
     }
+}
 </script>
 
 <style scoped>

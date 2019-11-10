@@ -20,18 +20,18 @@
 </template>
 
 <script>
-    import ApplicationList from "@app/components/Application/ApplicationList.vue"
-    import EnvironmentList from "@app/components/Environment/EnvironmentList.vue"
+import ApplicationList from "@app/components/Application/ApplicationList.vue"
+import EnvironmentList from "@app/components/Environment/EnvironmentList.vue"
 
-    export default {
-        data: function() {
-            return {
-                "message": "Welcome again"
-            }
-        },
-        components: {
-            "application-list": ApplicationList,
-            "environment-list": EnvironmentList
+export default {
+    data: function() {
+        return {
+            "message": "Welcome again"
         }
+    },
+    components: {
+        "application-list": ApplicationList,
+        "environment-list": EnvironmentList
     }
+}
 </script>

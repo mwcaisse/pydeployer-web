@@ -21,50 +21,50 @@
 </template>
 
 <script>
-    import system from "@app/services/System.js"
-    import { UserAuthenticationTokenService } from "@app/services/ApplicationProxy.js"
+import system from "@app/services/System.js"
+import { UserAuthenticationTokenService } from "@app/services/ApplicationProxy.js"
 
-    import Modal from "@app/components/Common/Modal.vue"
+import Modal from "@app/components/Common/Modal.vue"
 
-    export default {
-        name: "application-token-modal",
-        data: function () {
-            return {       
-                description: "",
-                tokenValue: ""
-            }
-        },
-        methods: {      
-            create: function () {          
-                return UserAuthenticationTokenService.create(this.description).then(function (tokenValue) {
-                    system.events.$emit("authenticationTokenModal:created");
-                    this.tokenValue = tokenValue;
-                    return true;
-                }.bind(this), function (error) {
-                    console.log("Error saving authentication token: " + error)
-                    return false;
-                });
-            },            
-            close: function () {
-                this.$refs.modal.close();
-            },     
-            clear: function () {  
-                this.description = "";
-                this.tokenValue = "";
-            }    
-        },
-        created: function () {
-            system.events.$on("authenticationTokenModal:create", function () {
-                this.clear();     
-                this.$refs.modal.open();
-            }.bind(this));   
-
-            system.events.$on("authenticationTokenModal:hide", function () {
-                this.close();
-            }.bind(this));
-        },
-        components: {
-            "app-modal": Modal
+export default {
+    name: "application-token-modal",
+    data: function () {
+        return {       
+            description: "",
+            tokenValue: ""
         }
+    },
+    methods: {      
+        create: function () {          
+            return UserAuthenticationTokenService.create(this.description).then(function (tokenValue) {
+                system.events.$emit("authenticationTokenModal:created");
+                this.tokenValue = tokenValue;
+                return true;
+            }.bind(this), function (error) {
+                console.log("Error saving authentication token: " + error)
+                return false;
+            });
+        },            
+        close: function () {
+            this.$refs.modal.close();
+        },     
+        clear: function () {  
+            this.description = "";
+            this.tokenValue = "";
+        }    
+    },
+    created: function () {
+        system.events.$on("authenticationTokenModal:create", function () {
+            this.clear();     
+            this.$refs.modal.open();
+        }.bind(this));   
+
+        system.events.$on("authenticationTokenModal:hide", function () {
+            this.close();
+        }.bind(this));
+    },
+    components: {
+        "app-modal": Modal
     }
+}
 </script>

@@ -27,24 +27,24 @@
 </template>
 
 <script>    
-    import ApplicationDetails from "@app/components/Application/ApplicationDetails.vue"
-    import ApplicationEnvironmentList from "@app/components/Application/ApplicationEnvironmentList.vue"
-    import ApplicationTokenList from "@app/components/Application/ApplicationTokenList.vue"
-    import ApplicationEnvironmentTokens from "@app/components/Application/ApplicationEnvironmentTokens.vue"
-    
-    const applicationId = parseInt($("#applicationId").val(), 10);
+import ApplicationDetails from "@app/components/Application/ApplicationDetails.vue"
+import ApplicationEnvironmentList from "@app/components/Application/ApplicationEnvironmentList.vue"
+import ApplicationTokenList from "@app/components/Application/ApplicationTokenList.vue"
+import ApplicationEnvironmentTokens from "@app/components/Application/ApplicationEnvironmentTokens.vue"
 
-    export default {
-        data: function() {
-            return {
-                applicationId: applicationId
-            }
-        },
-        components: {
-            ApplicationDetails,
-            ApplicationEnvironmentList,
-            ApplicationTokenList,
-            ApplicationEnvironmentTokens
+const applicationId = parseInt($("#applicationId").val(), 10);
+
+export default {
+    data: function() {
+        return {
+            applicationId: applicationId
         }
+    },
+    components: {
+        ApplicationDetails,
+        ApplicationEnvironmentList,
+        ApplicationTokenList,
+        ApplicationEnvironmentTokens
     }
+}
 </script>

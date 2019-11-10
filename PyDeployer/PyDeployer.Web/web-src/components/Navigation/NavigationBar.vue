@@ -36,60 +36,60 @@
 </template>
 
 <script>  
-    import { UserService } from "@app/services/ApplicationProxy.js"
-    import Links from "@app/services/Links.js"
-    import NavigationLink from "@app/components/Navigation/NavigationLink.vue"
+import { UserService } from "@app/services/ApplicationProxy.js"
+import Links from "@app/services/Links.js"
+import NavigationLink from "@app/components/Navigation/NavigationLink.vue"
 
-    var isAuthenticated = $("#isAuthenticated").val() === "true";
+var isAuthenticated = $("#isAuthenticated").val() === "true";
 
-    export default {
-        name: "navigation-bar",
-        data: function() {
-            return {     
-                navigationLinks: [],
-                rightNavigationLinks: [],
-                rootLink: Links.home
-            }
-        },
-        methods: {
-            initializeLinks: function () {
-                if (isAuthenticated) {
-                    this.fetchCurrentUser().then(function (user) {
-                        this.navigationLinks.push({
-                            id: "Home", name: "Home", link: Links.home
-                        })
-
-                        this.navigationLinks.push({
-                            id: "build-token", name: "Build Tokens", link: Links.buildToken
-                        });
-
-                        var userNav = {
-                            id: "User", name: user.name, link: "", subLinks: []
-                        };
-
-                        userNav.subLinks.push({
-                            id: "User/Tokens", name: "Tokens", link: Links.userAuthenticationTokens
-                        });
-                        userNav.subLinks.push({
-                            id: "User/Logout", name: "Logout", link: Links.logout
-                        });
-
-                        this.rightNavigationLinks.push(userNav);
-                    }.bind(this));
-                }                
-            },
-            fetchCurrentUser: function () {
-                return UserService.me().then(function (user) {
-                    return user;
-                }.bind(this))
-            }
-        },
-        components: {
-            "navigation-link": NavigationLink
-        },
-        created: function () {
-            this.initializeLinks();
+export default {
+    name: "navigation-bar",
+    data: function() {
+        return {     
+            navigationLinks: [],
+            rightNavigationLinks: [],
+            rootLink: Links.home
         }
+    },
+    methods: {
+        initializeLinks: function () {
+            if (isAuthenticated) {
+                this.fetchCurrentUser().then(function (user) {
+                    this.navigationLinks.push({
+                        id: "Home", name: "Home", link: Links.home
+                    })
 
+                    this.navigationLinks.push({
+                        id: "build-token", name: "Build Tokens", link: Links.buildToken
+                    });
+
+                    var userNav = {
+                        id: "User", name: user.name, link: "", subLinks: []
+                    };
+
+                    userNav.subLinks.push({
+                        id: "User/Tokens", name: "Tokens", link: Links.userAuthenticationTokens
+                    });
+                    userNav.subLinks.push({
+                        id: "User/Logout", name: "Logout", link: Links.logout
+                    });
+
+                    this.rightNavigationLinks.push(userNav);
+                }.bind(this));
+            }                
+        },
+        fetchCurrentUser: function () {
+            return UserService.me().then(function (user) {
+                return user;
+            }.bind(this))
+        }
+    },
+    components: {
+        "navigation-link": NavigationLink
+    },
+    created: function () {
+        this.initializeLinks();
     }
+
+}
 </script>

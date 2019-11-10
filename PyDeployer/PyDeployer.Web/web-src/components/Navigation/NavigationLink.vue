@@ -15,51 +15,51 @@
 </template>
 
 <script>
-    import system from "@app/services/System.js"
+import system from "@app/services/System.js"
 
 
-    export default {
-        name: "navigation-bar",
-        data: function() {
-            return {     
-            }
-        },
-        props: {
-            linkId: {
-                type: String,
-                required: true
-            },
-            name: {
-                type: String,
-                required: true
-            },
-            link: {
-                type: String,
-                required: false,
-                default: function () {
-                    return "#";
-                }
-            },
-            subLinks: {
-                type: Array,
-                required: false,
-                default: function () {
-                    return [];
-                }
-            },
-            right: {
-                type: Boolean,
-                default: false
-            }
-        },
-        computed: {
-            hasSubLinks: function () {
-                return this.subLinks.length > 0;
-            }
-        },
-        methods: {   
-        },
-        created: function () {
+export default {
+    name: "navigation-bar",
+    data: function() {
+        return {     
         }
+    },
+    props: {
+        linkId: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        link: {
+            type: String,
+            required: false,
+            default: function () {
+                return "#";
+            }
+        },
+        subLinks: {
+            type: Array,
+            required: false,
+            default: function () {
+                return [];
+            }
+        },
+        right: {
+            type: Boolean,
+            default: false
+        }
+    },
+    computed: {
+        hasSubLinks: function () {
+            return this.subLinks.length > 0;
+        }
+    },
+    methods: {   
+    },
+    created: function () {
     }
+}
 </script>

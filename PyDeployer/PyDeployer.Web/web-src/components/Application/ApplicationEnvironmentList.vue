@@ -21,74 +21,74 @@
 </template>
 
 <script>
-    import system from "@app/services/System.js"
-    import Links from "@app/services/Links.js"
-    import { ApplicationEnvironmentService } from "@app/services/ApplicationProxy.js"
-    import EnvironmentPickerModal from "@app/components/Environment/EnvironmentPickerModal.vue"    
+import system from "@app/services/System.js"
+import Links from "@app/services/Links.js"
+import { ApplicationEnvironmentService } from "@app/services/ApplicationProxy.js"
+import EnvironmentPickerModal from "@app/components/Environment/EnvironmentPickerModal.vue"    
 
-    import Icon from "@app/components/Common/Icon.vue"
+import Icon from "@app/components/Common/Icon.vue"
 
-    export default {
-        name: "application-environment-list",
-        data: function() {
-            return {
-                environments: []
-            }
-        },
-        props: {
-            applicationId: {
-                type: Number,
-                required: true
-            }
-        },
-        methods: {
-            fetchEnvironments: function () {
-                ApplicationEnvironmentService.getEnvironmentsForApplication(this.applicationId).then(function (data) {
-                    this.environments = data;
-                }.bind(this),
-                function (error) {
-                    console.log("Error fetching environments for application: " + error)
-                });
-
-            },
-            clear: function () {
-                this.environments = [];
-            },
-            addEnvironment: function () {
-                system.events.$emit("environmentModal:show");
-            },
-            deleteEnvironment: function (environment) {
-                ApplicationEnvironmentService.delete(this.applicationId, environment.environmentId).then(function (res) {
-                    if (res) {
-                        let index = this.environments.indexOf(environment);
-                        this.environments.splice(index, 1);
-                    }
-                    else {
-                        console.log("Failed to delete application environment");
-                    }
-                }.bind(this),
-                function (error) {
-                    console.log("Error deleting application environment: " + error)
-                })
-            },
-            viewEnvironment: function (environment) {
-                window.location = Links.environment(environment.environmentId);
-            },
-            environmentSelected: function (environment) {
-                ApplicationEnvironmentService.create(this.applicationId, environment.environmentId).then(function (res) {
-                    this.environments.push(environment);
-                }.bind(this),
-                function (error) {
-                    console.log("Error associating environment with application: " + error)
-                });
-            }
-        },
-        created: function () {
-            this.fetchEnvironments();
-        },
-        components: {
-            "environment-picker-modal": EnvironmentPickerModal,
-            "app-icon": Icon
+export default {
+    name: "application-environment-list",
+    data: function() {
+        return {
+            environments: []
         }
+    },
+    props: {
+        applicationId: {
+            type: Number,
+            required: true
+        }
+    },
+    methods: {
+        fetchEnvironments: function () {
+            ApplicationEnvironmentService.getEnvironmentsForApplication(this.applicationId).then(function (data) {
+                this.environments = data;
+            }.bind(this),
+            function (error) {
+                console.log("Error fetching environments for application: " + error)
+            });
+
+        },
+        clear: function () {
+            this.environments = [];
+        },
+        addEnvironment: function () {
+            system.events.$emit("environmentModal:show");
+        },
+        deleteEnvironment: function (environment) {
+            ApplicationEnvironmentService.delete(this.applicationId, environment.environmentId).then(function (res) {
+                if (res) {
+                    let index = this.environments.indexOf(environment);
+                    this.environments.splice(index, 1);
+                }
+                else {
+                    console.log("Failed to delete application environment");
+                }
+            }.bind(this),
+            function (error) {
+                console.log("Error deleting application environment: " + error)
+            })
+        },
+        viewEnvironment: function (environment) {
+            window.location = Links.environment(environment.environmentId);
+        },
+        environmentSelected: function (environment) {
+            ApplicationEnvironmentService.create(this.applicationId, environment.environmentId).then(function (res) {
+                this.environments.push(environment);
+            }.bind(this),
+            function (error) {
+                console.log("Error associating environment with application: " + error)
+            });
+        }
+    },
+    created: function () {
+        this.fetchEnvironments();
+    },
+    components: {
+        "environment-picker-modal": EnvironmentPickerModal,
+        "app-icon": Icon
     }
+}
 </script>

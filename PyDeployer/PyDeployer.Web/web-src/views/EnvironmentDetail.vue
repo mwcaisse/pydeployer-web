@@ -22,23 +22,23 @@
 </template>
 
 <script>
-    import EnvironmentDetails from "@app/components/Environment/EnvironmentDetails.vue"
-    import EnvironmentApplicationList from "@app/components/Environment/EnvironmentApplicationList.vue"
-    import DatabaseList from "@app/components/Database/DatabaseList.vue"
-    
-    const environmentId = parseInt($("#environmentId").val(), 10);
-    
-    export default {
-        data: function () {
-            return {
-                environmentId: environmentId
-            }
-        },
-        components: {
-            EnvironmentDetails,
-            EnvironmentApplicationList,
-            DatabaseList
-        }        
-    }
+import EnvironmentDetails from "@app/components/Environment/EnvironmentDetails.vue"
+import EnvironmentApplicationList from "@app/components/Environment/EnvironmentApplicationList.vue"
+import DatabaseList from "@app/components/Database/DatabaseList.vue"
+
+const environmentId = parseInt($("#environmentId").val(), 10);
+
+export default {
+    data: function () {
+        return {
+            environmentId: environmentId
+        }
+    },
+    components: {
+        EnvironmentDetails,
+        EnvironmentApplicationList,
+        DatabaseList
+    }        
+}
 </script>
 

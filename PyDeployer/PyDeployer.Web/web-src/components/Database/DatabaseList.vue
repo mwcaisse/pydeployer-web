@@ -25,76 +25,76 @@
 </template>
 
 <script>
-    import system from "@app/services/System"
-    import { DatabaseService } from "@app/services/ApplicationProxy"
-    
-    import Icon from "@app/components/Common/Icon"
-    import DatabaseModal, { DatabaseCreatedEvent, DatabaseUpdatedEvent, CreateDatabaseEvent, UpdateDatabaseEvent } from "@app/components/Database/DatabaseModal"
-    
-    export default {
-        name: "database-list",
-        data: function () {
-            return {
-                databases: []
-            }
-        },
-        props: {
-            environmentId: {
-                type: Number,
-                required: true
-            }
-        },
-        methods: {
-            fetchDatabases: function () {
-                DatabaseService.getForEnvironment(this.environmentId).then(function(databases) {
-                   this.databases = databases; 
-                }.bind(this),
-                function (error) {
-                    console.log("Error fetching databases for environment: " + error);
-                });
-            },
-            clear: function () {
-                this.databases = [];
-            },
-            create: function () {
-                system.events.$emit(CreateDatabaseEvent);
-            },
-            edit: function (database) {
-                system.events.$emit(UpdateDatabaseEvent, database);
-            },
-            deleteDatabase: function (database) {
-                return DatabaseService.delete(database.databaseId).then(function () {
-                    let index = this.tokens.indexOf(database);
-                    this.tokens.splice(index, 1);
-                    return true;
-                }.bind(this),
-                function (error) {
-                    console.log("Error deleting database: " + error);
-                    return false;
-                });
-            }
-        },
-        created: function () {
-            this.fetchDatabases();
-            
-            system.events.$on(DatabaseCreatedEvent, function (database) {
-                this.databases.push(database);
-            }.bind(this));
-            
-            system.events.$on(DatabaseUpdatedEvent, function (database) {
-                let index = this.databases.findIndex(function (elm) {
-                    return elm.databaseId === database.databaseId;
-                });
-                if (index >= 0) {
-                    this.databases.splice(index, 1, database);
-                }
-            }.bind(this));
-        },
-        components: {
-            "app-icon": Icon,
-            "database-modal": DatabaseModal
+import system from "@app/services/System"
+import { DatabaseService } from "@app/services/ApplicationProxy"
+
+import Icon from "@app/components/Common/Icon"
+import DatabaseModal, { DatabaseCreatedEvent, DatabaseUpdatedEvent, CreateDatabaseEvent, UpdateDatabaseEvent } from "@app/components/Database/DatabaseModal"
+
+export default {
+    name: "database-list",
+    data: function () {
+        return {
+            databases: []
         }
+    },
+    props: {
+        environmentId: {
+            type: Number,
+            required: true
+        }
+    },
+    methods: {
+        fetchDatabases: function () {
+            DatabaseService.getForEnvironment(this.environmentId).then(function(databases) {
+               this.databases = databases; 
+            }.bind(this),
+            function (error) {
+                console.log("Error fetching databases for environment: " + error);
+            });
+        },
+        clear: function () {
+            this.databases = [];
+        },
+        create: function () {
+            system.events.$emit(CreateDatabaseEvent);
+        },
+        edit: function (database) {
+            system.events.$emit(UpdateDatabaseEvent, database);
+        },
+        deleteDatabase: function (database) {
+            return DatabaseService.delete(database.databaseId).then(function () {
+                let index = this.tokens.indexOf(database);
+                this.tokens.splice(index, 1);
+                return true;
+            }.bind(this),
+            function (error) {
+                console.log("Error deleting database: " + error);
+                return false;
+            });
+        }
+    },
+    created: function () {
+        this.fetchDatabases();
+        
+        system.events.$on(DatabaseCreatedEvent, function (database) {
+            this.databases.push(database);
+        }.bind(this));
+        
+        system.events.$on(DatabaseUpdatedEvent, function (database) {
+            let index = this.databases.findIndex(function (elm) {
+                return elm.databaseId === database.databaseId;
+            });
+            if (index >= 0) {
+                this.databases.splice(index, 1, database);
+            }
+        }.bind(this));
+    },
+    components: {
+        "app-icon": Icon,
+        "database-modal": DatabaseModal
     }
+}
 </script>
 
 <style scoped>

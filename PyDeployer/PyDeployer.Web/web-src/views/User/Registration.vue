@@ -124,98 +124,98 @@
 </template>
 
 <script>
-    import { UserService } from "@app/services/ApplicationProxy.js"
-    import Links from "@app/services/Links.js"
-    import util from "@app/services/Util.js"
+import { UserService } from "@app/services/ApplicationProxy.js"
+import Links from "@app/services/Links.js"
+import util from "@app/services/Util.js"
 
-    import Icon from "@app/components/Common/Icon.vue"
+import Icon from "@app/components/Common/Icon.vue"
 
-    export default {
-        data: function() {
-            return {
-                name: "",
-                username: "",
-                password: "",
-                passwordConfirm: "",
-                email: "",
-                emailConfirm: "",
-                registrationKey: "",
+export default {
+    data: function() {
+        return {
+            name: "",
+            username: "",
+            password: "",
+            passwordConfirm: "",
+            email: "",
+            emailConfirm: "",
+            registrationKey: "",
 
-                // Validation stuff
-                usernameAvailable: true,       
-                clickedRegister: false
-            }
-        },
-        computed: {
-            passwordsMatch: function () {
-                if (util.isStringNullOrBlank(this.password) || util.isStringNullOrBlank(this.passwordConfirm)) {
-                    return true;
-                }
-                return this.password === this.passwordConfirm;
-            },
-            emailsMatch: function () {
-                if (util.isStringNullOrBlank(this.email) || util.isStringNullOrBlank(this.emailConfirm)) {
-                    return true;
-                }
-                return this.email === this.emailConfirm;
-            },
-            nameEmpty: function () {
-                return this.clickedRegister && util.isStringNullOrBlank(this.name);
-            },
-            usernameEmpty: function () {
-                return this.clickedRegister && util.isStringNullOrBlank(this.username);
-            },
-            passwordEmpty: function () {
-                return this.clickedRegister && util.isStringNullOrBlank(this.password);
-            },
-            emailEmpty: function () {
-                return this.clickedRegister && util.isStringNullOrBlank(this.email);
-            },
-            registrationKeyEmpty: function () {
-                return this.clickedRegister && util.isStringNullOrBlank(this.registrationKey);
-            }
-        },
-        methods: {
-            createModel: function () {
-                return {
-                    name: this.name,
-                    username: this.username,
-                    password: this.password,
-                    email: this.email,
-                    registrationKey: this.registrationKey
-                };
-            },
-            register: function () {
-                this.clickedRegister = true;
-                if (this.nameEmpty || this.usernameEmpty || this.passwordEmpty ||
-                    this.emailEmpty || this.registrationKeyEmpty ||
-                    !this.passwordsMatch || !this.emailsMatch) {             
-                    return;
-                }             
-
-                UserService.register(this.createModel()).then(function (res) {
-                    if (res) {
-                        window.location = Links.login + "?registered";
-                    }
-                    else {
-                        alert("Failed to register. Error occured");
-                    }
-                }.bind(this),
-                function (error) {
-                    alert("Error occured: " + error)
-                });
-            },
-            cancel: function () {
-                window.location = Links.home;
-            },
-            validateUsernameAvailable: function () {
-                UserService.usernameAvailable(this.username).then(function (res) {
-                    this.usernameAvailable = res === true;                    
-                }.bind(this));
-            }
-        },
-        components: {
-            "app-icon": Icon
+            // Validation stuff
+            usernameAvailable: true,       
+            clickedRegister: false
         }
+    },
+    computed: {
+        passwordsMatch: function () {
+            if (util.isStringNullOrBlank(this.password) || util.isStringNullOrBlank(this.passwordConfirm)) {
+                return true;
+            }
+            return this.password === this.passwordConfirm;
+        },
+        emailsMatch: function () {
+            if (util.isStringNullOrBlank(this.email) || util.isStringNullOrBlank(this.emailConfirm)) {
+                return true;
+            }
+            return this.email === this.emailConfirm;
+        },
+        nameEmpty: function () {
+            return this.clickedRegister && util.isStringNullOrBlank(this.name);
+        },
+        usernameEmpty: function () {
+            return this.clickedRegister && util.isStringNullOrBlank(this.username);
+        },
+        passwordEmpty: function () {
+            return this.clickedRegister && util.isStringNullOrBlank(this.password);
+        },
+        emailEmpty: function () {
+            return this.clickedRegister && util.isStringNullOrBlank(this.email);
+        },
+        registrationKeyEmpty: function () {
+            return this.clickedRegister && util.isStringNullOrBlank(this.registrationKey);
+        }
+    },
+    methods: {
+        createModel: function () {
+            return {
+                name: this.name,
+                username: this.username,
+                password: this.password,
+                email: this.email,
+                registrationKey: this.registrationKey
+            };
+        },
+        register: function () {
+            this.clickedRegister = true;
+            if (this.nameEmpty || this.usernameEmpty || this.passwordEmpty ||
+                this.emailEmpty || this.registrationKeyEmpty ||
+                !this.passwordsMatch || !this.emailsMatch) {             
+                return;
+            }             
+
+            UserService.register(this.createModel()).then(function (res) {
+                if (res) {
+                    window.location = Links.login + "?registered";
+                }
+                else {
+                    alert("Failed to register. Error occured");
+                }
+            }.bind(this),
+            function (error) {
+                alert("Error occured: " + error)
+            });
+        },
+        cancel: function () {
+            window.location = Links.home;
+        },
+        validateUsernameAvailable: function () {
+            UserService.usernameAvailable(this.username).then(function (res) {
+                this.usernameAvailable = res === true;                    
+            }.bind(this));
+        }
+    },
+    components: {
+        "app-icon": Icon
     }
+}
 </script>

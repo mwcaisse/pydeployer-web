@@ -36,56 +36,56 @@
 </template>
 
 <script>
-    import system from "@app/services/System.js"
-    import { UserAuthenticationTokenService } from "@app/services/ApplicationProxy.js"
-    import AuthenticationTokenModal from "@app/components/User/AuthenticationTokenModal.vue"
-    import Icon from "@app/components/Common/Icon.vue"
+import system from "@app/services/System.js"
+import { UserAuthenticationTokenService } from "@app/services/ApplicationProxy.js"
+import AuthenticationTokenModal from "@app/components/User/AuthenticationTokenModal.vue"
+import Icon from "@app/components/Common/Icon.vue"
 
 
-    export default {
-        name: "authentication-token-list",
-        data: function() {
-            return {
-                tokens: []
-            }
-        },  
-        methods: {
-            fetchTokens: function () {
-                UserAuthenticationTokenService.getActive().then(function (data) {
-                    this.tokens = data.data; // returns a paged object, so tokens are in data.data
-                }.bind(this),
-                function (error) {
-                    console.log("Error fetching tokens for application: " + error)
-                });
-            },
-            create: function () {
-                system.events.$emit("authenticationTokenModal:create");
-            },
-            deleteToken: function (token) {
-                return UserAuthenticationTokenService.delete(token.userAuthenticationTokenId).then(function (res) {
-                    if (res) {
-                        var index = this.tokens.indexOf(token);
-                        this.tokens.splice(index, 1);
-                    }
-                    return res;
-                }.bind(this), function (error) {
-                    console.log("Error deleting authentication token: " + error);
-                    return false;
-                })
-            },
-        },
-        components: {
-            "app-icon": Icon,
-            "authentication-token-modal": AuthenticationTokenModal
-        },
-        created: function () {
-            this.fetchTokens();
-
-            system.events.$on("authenticationTokenModal:created", function () {
-                this.fetchTokens();
-            }.bind(this));   
+export default {
+    name: "authentication-token-list",
+    data: function() {
+        return {
+            tokens: []
         }
+    },  
+    methods: {
+        fetchTokens: function () {
+            UserAuthenticationTokenService.getActive().then(function (data) {
+                this.tokens = data.data; // returns a paged object, so tokens are in data.data
+            }.bind(this),
+            function (error) {
+                console.log("Error fetching tokens for application: " + error)
+            });
+        },
+        create: function () {
+            system.events.$emit("authenticationTokenModal:create");
+        },
+        deleteToken: function (token) {
+            return UserAuthenticationTokenService.delete(token.userAuthenticationTokenId).then(function (res) {
+                if (res) {
+                    var index = this.tokens.indexOf(token);
+                    this.tokens.splice(index, 1);
+                }
+                return res;
+            }.bind(this), function (error) {
+                console.log("Error deleting authentication token: " + error);
+                return false;
+            })
+        },
+    },
+    components: {
+        "app-icon": Icon,
+        "authentication-token-modal": AuthenticationTokenModal
+    },
+    created: function () {
+        this.fetchTokens();
+
+        system.events.$on("authenticationTokenModal:created", function () {
+            this.fetchTokens();
+        }.bind(this));   
     }
+}
 </script>
 
 <style scoped>

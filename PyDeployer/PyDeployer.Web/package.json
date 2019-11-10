@@ -32,6 +32,7 @@
   },
   "build": "webpack",
   "scripts": {
-    "postinstall": "gulp restore"
+    "postinstall": "gulp restore",
+    "lint": "eslint  --ext .js,.vue web-src"
   }
 }

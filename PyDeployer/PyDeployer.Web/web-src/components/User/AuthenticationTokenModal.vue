@@ -22,7 +22,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { UserAuthenticationTokenService } from "@app/services/ApplicationProxy.js"
+import {UserAuthenticationTokenService} from "@app/services/ApplicationProxy.js"
 
 import Modal from "@app/components/Common/Modal.vue"
 

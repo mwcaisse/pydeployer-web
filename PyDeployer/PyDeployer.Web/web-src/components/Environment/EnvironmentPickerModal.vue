@@ -10,7 +10,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { EnvironmentService } from "@app/services/ApplicationProxy.js"
+import {EnvironmentService} from "@app/services/ApplicationProxy.js"
 
 import Modal from "@app/components/Common/Modal.vue"
 

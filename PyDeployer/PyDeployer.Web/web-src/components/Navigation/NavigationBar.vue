@@ -16,7 +16,7 @@
                                  :name="link.name"
                                  :link="link.link"
                                  :subLinks="link.subLinks"
-                                 >
+                >
 
                 </navigation-link>
             </div>
@@ -36,11 +36,11 @@
 </template>
 
 <script>  
-import { UserService } from "@app/services/ApplicationProxy.js"
+import {UserService} from "@app/services/ApplicationProxy.js"
 import Links from "@app/services/Links.js"
 import NavigationLink from "@app/components/Navigation/NavigationLink.vue"
 
-var isAuthenticated = $("#isAuthenticated").val() === "true";
+const isAuthenticated = $("#isAuthenticated").val() === "true";
 
 export default {
     name: "navigation-bar",
@@ -56,22 +56,33 @@ export default {
             if (isAuthenticated) {
                 this.fetchCurrentUser().then(function (user) {
                     this.navigationLinks.push({
-                        id: "Home", name: "Home", link: Links.home
+                        id: "Home", 
+                        name: "Home", 
+                        link: Links.home
                     })
 
                     this.navigationLinks.push({
-                        id: "build-token", name: "Build Tokens", link: Links.buildToken
+                        id: "build-token", 
+                        name: "Build Tokens", 
+                        link: Links.buildToken
                     });
 
-                    var userNav = {
-                        id: "User", name: user.name, link: "", subLinks: []
+                    const userNav = {
+                        id: "User", 
+                        name: user.name, 
+                        link: "", 
+                        subLinks: []
                     };
 
                     userNav.subLinks.push({
-                        id: "User/Tokens", name: "Tokens", link: Links.userAuthenticationTokens
+                        id: "User/Tokens", 
+                        name: "Tokens", 
+                        link: Links.userAuthenticationTokens
                     });
                     userNav.subLinks.push({
-                        id: "User/Logout", name: "Logout", link: Links.logout
+                        id: "User/Logout", 
+                        name: "Logout", 
+                        link: Links.logout
                     });
 
                     this.rightNavigationLinks.push(userNav);
@@ -81,7 +92,7 @@ export default {
         fetchCurrentUser: function () {
             return UserService.me().then(function (user) {
                 return user;
-            }.bind(this))
+            })
         }
     },
     components: {

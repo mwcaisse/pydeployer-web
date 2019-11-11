@@ -1,8 +1,4 @@
-﻿import Vue from "vue"
-
-
-function config() {
-
+﻿function config() {
 
 }
 

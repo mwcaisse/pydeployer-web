@@ -24,7 +24,7 @@ function ajax(options) {
         contentType: "application/json",
         data: null,
         method: "GET",
-        success: function (data, textStatus, jqXHR) {
+        success: function (data) {
             successHandler(def, data);
         },
         error: function (jqXHR, textStatus, error) {
@@ -93,7 +93,7 @@ function putAbsolute(url, body) {
 
 function put(relativeUrl, body) {
     return putAbsolute(baseUrl + relativeUrl, body);
-};
+}
 
 function deleteAbsolute(url, body) {
     return ajax({

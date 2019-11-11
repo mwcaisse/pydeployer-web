@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import util from "@app/services/Util.js"
 import BuildToken from "@app/components/BuildToken/BuildToken.vue"
 
 export default {

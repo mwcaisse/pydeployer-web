@@ -59,7 +59,7 @@ rules:
   func-style:
     - error
     - declaration
-  function-paren-newline: error
+  function-paren-newline: ["error", "never"]
   generator-star-spacing: error
   global-require: error
   guard-for-in: error
@@ -68,7 +68,7 @@ rules:
   id-length: 'off'
   id-match: error
   implicit-arrow-linebreak: error
-  indent: error
+  indent: ["error", 4]
   indent-legacy: error
   init-declarations: error
   jsx-quotes: error
@@ -108,7 +108,7 @@ rules:
   no-caller: error
   no-catch-shadow: error
   no-confusing-arrow: error
-  no-console: error
+  no-console: 'off'
   no-continue: error
   no-div-regex: error
   no-duplicate-imports: error
@@ -255,6 +255,7 @@ rules:
     - always
   valid-jsdoc: error
   vars-on-top: 'off'
+  "vue/html-indent": ["error", 4]
   wrap-iife: error
   wrap-regex: error
   yield-star-spacing: error

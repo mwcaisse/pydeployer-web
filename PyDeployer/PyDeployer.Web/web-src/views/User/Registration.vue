@@ -3,9 +3,9 @@
         <div class="columns">
             <div class="column">
                 <p>Here is the text on the left, that is really just here to make the form on the right look better.
-                But at some point there will most likely be some informational text here. But in all
-                honesty, I will probably be too lazy to populate it and it will stay like this. 
-                Hopefully this doesn't change your mind about registering.</p>
+                    But at some point there will most likely be some informational text here. But in all
+                    honesty, I will probably be too lazy to populate it and it will stay like this. 
+                    Hopefully this doesn't change your mind about registering.</p>
             </div>
             <div class="column">
                 <div class="field">
@@ -23,8 +23,8 @@
                     <label>Username</label>
                     <div class="control has-icons-left has-icons-right">
                         <input class="input" type="text" placeholder="Username"
-                                v-model="username" v-on:blur="validateUsernameAvailable()"
-                                v-bind:class="{ 'is-danger': !usernameAvailable || usernameEmpty, 'is-success': usernameAvailable && username }" />
+                               v-model="username" v-on:blur="validateUsernameAvailable()"
+                               v-bind:class="{ 'is-danger': !usernameAvailable || usernameEmpty, 'is-success': usernameAvailable && username }" />
                         <span class="icon is-small is-left">
                             <app-icon icon="user" :action="false"></app-icon>
                         </span>
@@ -47,8 +47,8 @@
                 <div class="field">
                     <label>Password</label>
                     <div class="control" v-bind:class=" {'has-icons-right': !passwordsMatch || passwordEmpty }">
-                        <input class="input" type="password" v-model="password" placeholder="Password"
-                                v-bind:class="{ 'is-danger': !passwordsMatch || passwordEmpty }" />
+                        <input class="input" type="password" v-model="password" placeholder="Password" 
+                               v-bind:class="{ 'is-danger': !passwordsMatch || passwordEmpty }" />
                         <span class="icon is-small is-right" v-if="!passwordsMatch || passwordEmpty">
                             <app-icon icon="exclamation-triangle" :action="false"></app-icon>
                         </span>
@@ -59,7 +59,7 @@
                     <label>Confirm Password</label>
                     <div class="control" v-bind:class=" {'has-icons-right': !passwordsMatch }">
                         <input class="input" type="password" v-model="passwordConfirm" placeholder="Password"
-                                v-bind:class="{ 'is-danger': !passwordsMatch }" />
+                               v-bind:class="{ 'is-danger': !passwordsMatch }" />
                         <span class="icon is-small is-right" v-if="!passwordsMatch">
                             <app-icon icon="exclamation-triangle" :action="false"></app-icon>
                         </span>
@@ -71,7 +71,7 @@
                     <label>Email</label>
                     <div class="control has-icons-left" v-bind:class=" {'has-icons-right': !emailsMatch || emailEmpty}">
                         <input class="input" type="email" v-model="email" placeholder="Email"
-                                v-bind:class="{ 'is-danger': !emailsMatch || emailEmpty }" />
+                               v-bind:class="{ 'is-danger': !emailsMatch || emailEmpty }" />
                         <span class="icon is-small is-left">
                             <app-icon icon="envelope" :action="false"></app-icon>
                         </span>
@@ -85,7 +85,7 @@
                     <label>Confirm Email</label>
                     <div class="control has-icons-left" v-bind:class=" {'has-icons-right': !emailsMatch }">
                         <input class="input" type="email" v-model="emailConfirm" placeholder="Email"
-                                v-bind:class="{ 'is-danger': !emailsMatch }" />
+                               v-bind:class="{ 'is-danger': !emailsMatch }" />
                         <span class="icon is-small is-left">
                             <app-icon icon="envelope" :action="false"></app-icon>
                         </span>
@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { UserService } from "@app/services/ApplicationProxy.js"
+import {UserService} from "@app/services/ApplicationProxy.js"
 import Links from "@app/services/Links.js"
 import util from "@app/services/Util.js"
 
@@ -141,7 +141,7 @@ export default {
             emailConfirm: "",
             registrationKey: "",
 
-            // Validation stuff
+            //Validation stuff
             usernameAvailable: true,       
             clickedRegister: false
         }
@@ -198,11 +198,11 @@ export default {
                     window.location = Links.login + "?registered";
                 }
                 else {
-                    alert("Failed to register. Error occured");
+                    console.log("Failed to register. Error occured");
                 }
-            }.bind(this),
+            },
             function (error) {
-                alert("Error occured: " + error)
+                console.log("Error occured: " + error)
             });
         },
         cancel: function () {

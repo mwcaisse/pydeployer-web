@@ -1,121 +1,297 @@
-﻿<template>
+<template>
     <div>     
         <div class="columns">
             <div class="column">
-                <p>Here is the text on the left, that is really just here to make the form on the right look better.
+                <p>
+                    Here is the text on the left, that is really just here to make the form on the right look better.
                     But at some point there will most likely be some informational text here. But in all
                     honesty, I will probably be too lazy to populate it and it will stay like this. 
-                    Hopefully this doesn't change your mind about registering.</p>
+                    Hopefully this doesn't change your mind about registering.
+                </p>
             </div>
             <div class="column">
                 <div class="field">
                     <label>Name</label>
-                    <div class="control" v-bind:class=" {'has-icons-right': nameEmpty }">
-                        <input class="input" type="text" v-model="name" placeholder="Name" 
-                               v-bind:class="{ 'is-danger': nameEmpty }" />
-                        <span class="icon is-small is-right" v-if="nameEmpty">
-                            <app-icon icon="exclamation-triangle" :action="false"></app-icon>
+                    <div
+                        class="control"
+                        :class=" {'has-icons-right': nameEmpty }"
+                    >
+                        <input
+                            v-model="name"
+                            class="input"
+                            type="text"
+                            placeholder="Name" 
+                            :class="{ 'is-danger': nameEmpty }"
+                        >
+                        <span
+                            v-if="nameEmpty"
+                            class="icon is-small is-right"
+                        >
+                            <app-icon
+                                icon="exclamation-triangle"
+                                :action="false"
+                            />
                         </span>
                     </div>
-                    <p class="help is-danger" v-if="nameEmpty">Name cannot be empty!</p>
+                    <p
+                        v-if="nameEmpty"
+                        class="help is-danger"
+                    >
+                        Name cannot be empty!
+                    </p>
                 </div>
                 <div class="field">
                     <label>Username</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" placeholder="Username"
-                               v-model="username" v-on:blur="validateUsernameAvailable()"
-                               v-bind:class="{ 'is-danger': !usernameAvailable || usernameEmpty, 'is-success': usernameAvailable && username }" />
+                        <input
+                            v-model="username"
+                            class="input"
+                            type="text"
+                            placeholder="Username"
+                            :class="{ 'is-danger': !usernameAvailable || usernameEmpty, 'is-success': usernameAvailable && username }"
+                            @blur="validateUsernameAvailable()"
+                        >
                         <span class="icon is-small is-left">
-                            <app-icon icon="user" :action="false"></app-icon>
+                            <app-icon
+                                icon="user"
+                                :action="false"
+                            />
                         </span>
                         <template v-if="username">
                             <span class="icon is-small is-right">
-                                <app-icon id="hi1" icon="check" :action="false" v-if="usernameAvailable"></app-icon>
-                                <app-icon id="hi2" icon="exclamation-triangle" :action="false" v-else></app-icon>
+                                <app-icon
+                                    v-if="usernameAvailable"
+                                    id="hi1"
+                                    icon="check"
+                                    :action="false"
+                                />
+                                <app-icon
+                                    v-else
+                                    id="hi2"
+                                    icon="exclamation-triangle"
+                                    :action="false"
+                                />
                             </span>
                         </template>
-                        <span class="icon is-small is-right" v-else>
-                            <app-icon id="hi2" icon="exclamation-triangle" :action="false" v-if="usernameEmpty"></app-icon>
+                        <span
+                            v-else
+                            class="icon is-small is-right"
+                        >
+                            <app-icon
+                                v-if="usernameEmpty"
+                                id="hi2"
+                                icon="exclamation-triangle"
+                                :action="false"
+                            />
                         </span>
                     </div>
                     <template v-if="username">
-                        <p class="help is-success" v-if="usernameAvailable">This username is available</p>
-                        <p class="help is-danger" v-else>This username is not available</p>
+                        <p
+                            v-if="usernameAvailable"
+                            class="help is-success"
+                        >
+                            This username is available
+                        </p>
+                        <p
+                            v-else
+                            class="help is-danger"
+                        >
+                            This username is not available
+                        </p>
                     </template>
-                    <p class="help is-danger" v-if="usernameEmpty">Username cannot be empty!</p>
+                    <p
+                        v-if="usernameEmpty"
+                        class="help is-danger"
+                    >
+                        Username cannot be empty!
+                    </p>
                 </div>
                 <div class="field">
                     <label>Password</label>
-                    <div class="control" v-bind:class=" {'has-icons-right': !passwordsMatch || passwordEmpty }">
-                        <input class="input" type="password" v-model="password" placeholder="Password" 
-                               v-bind:class="{ 'is-danger': !passwordsMatch || passwordEmpty }" />
-                        <span class="icon is-small is-right" v-if="!passwordsMatch || passwordEmpty">
-                            <app-icon icon="exclamation-triangle" :action="false"></app-icon>
+                    <div
+                        class="control"
+                        :class=" {'has-icons-right': !passwordsMatch || passwordEmpty }"
+                    >
+                        <input
+                            v-model="password"
+                            class="input"
+                            type="password"
+                            placeholder="Password" 
+                            :class="{ 'is-danger': !passwordsMatch || passwordEmpty }"
+                        >
+                        <span
+                            v-if="!passwordsMatch || passwordEmpty"
+                            class="icon is-small is-right"
+                        >
+                            <app-icon
+                                icon="exclamation-triangle"
+                                :action="false"
+                            />
                         </span>
                     </div>
-                    <p class="help is-danger" v-if="passwordEmpty">Password cannot be empty!</p>
+                    <p
+                        v-if="passwordEmpty"
+                        class="help is-danger"
+                    >
+                        Password cannot be empty!
+                    </p>
                 </div>
                 <div class="field">
                     <label>Confirm Password</label>
-                    <div class="control" v-bind:class=" {'has-icons-right': !passwordsMatch }">
-                        <input class="input" type="password" v-model="passwordConfirm" placeholder="Password"
-                               v-bind:class="{ 'is-danger': !passwordsMatch }" />
-                        <span class="icon is-small is-right" v-if="!passwordsMatch">
-                            <app-icon icon="exclamation-triangle" :action="false"></app-icon>
+                    <div
+                        class="control"
+                        :class=" {'has-icons-right': !passwordsMatch }"
+                    >
+                        <input
+                            v-model="passwordConfirm"
+                            class="input"
+                            type="password"
+                            placeholder="Password"
+                            :class="{ 'is-danger': !passwordsMatch }"
+                        >
+                        <span
+                            v-if="!passwordsMatch"
+                            class="icon is-small is-right"
+                        >
+                            <app-icon
+                                icon="exclamation-triangle"
+                                :action="false"
+                            />
                         </span>
                     </div>
-                    <p class="help is-danger" v-if="!passwordsMatch">Passwords do not match!</p>
+                    <p
+                        v-if="!passwordsMatch"
+                        class="help is-danger"
+                    >
+                        Passwords do not match!
+                    </p>
                 </div>
 
                 <div class="field">
                     <label>Email</label>
-                    <div class="control has-icons-left" v-bind:class=" {'has-icons-right': !emailsMatch || emailEmpty}">
-                        <input class="input" type="email" v-model="email" placeholder="Email"
-                               v-bind:class="{ 'is-danger': !emailsMatch || emailEmpty }" />
+                    <div
+                        class="control has-icons-left"
+                        :class=" {'has-icons-right': !emailsMatch || emailEmpty}"
+                    >
+                        <input
+                            v-model="email"
+                            class="input"
+                            type="email"
+                            placeholder="Email"
+                            :class="{ 'is-danger': !emailsMatch || emailEmpty }"
+                        >
                         <span class="icon is-small is-left">
-                            <app-icon icon="envelope" :action="false"></app-icon>
+                            <app-icon
+                                icon="envelope"
+                                :action="false"
+                            />
                         </span>
-                        <span class="icon is-small is-right" v-if="!emailsMatch || emailEmpty">
-                            <app-icon icon="exclamation-triangle" :action="false"></app-icon>
+                        <span
+                            v-if="!emailsMatch || emailEmpty"
+                            class="icon is-small is-right"
+                        >
+                            <app-icon
+                                icon="exclamation-triangle"
+                                :action="false"
+                            />
                         </span>
                     </div>
-                    <p class="help is-danger" v-if="emailEmpty">Email cannot be empty!</p>
+                    <p
+                        v-if="emailEmpty"
+                        class="help is-danger"
+                    >
+                        Email cannot be empty!
+                    </p>
                 </div>
                 <div class="field">
                     <label>Confirm Email</label>
-                    <div class="control has-icons-left" v-bind:class=" {'has-icons-right': !emailsMatch }">
-                        <input class="input" type="email" v-model="emailConfirm" placeholder="Email"
-                               v-bind:class="{ 'is-danger': !emailsMatch }" />
+                    <div
+                        class="control has-icons-left"
+                        :class=" {'has-icons-right': !emailsMatch }"
+                    >
+                        <input
+                            v-model="emailConfirm"
+                            class="input"
+                            type="email"
+                            placeholder="Email"
+                            :class="{ 'is-danger': !emailsMatch }"
+                        >
                         <span class="icon is-small is-left">
-                            <app-icon icon="envelope" :action="false"></app-icon>
+                            <app-icon
+                                icon="envelope"
+                                :action="false"
+                            />
                         </span>
-                        <span class="icon is-small is-right" v-if="!emailsMatch">
-                            <app-icon icon="exclamation-triangle" :action="false"></app-icon>
+                        <span
+                            v-if="!emailsMatch"
+                            class="icon is-small is-right"
+                        >
+                            <app-icon
+                                icon="exclamation-triangle"
+                                :action="false"
+                            />
                         </span>
                     </div>
-                    <p class="help is-danger" v-if="!emailsMatch">Emails do not match!</p>
+                    <p
+                        v-if="!emailsMatch"
+                        class="help is-danger"
+                    >
+                        Emails do not match!
+                    </p>
                 </div>
                 <div class="field">
                     <label>Registration Key</label>
-                    <div class="control has-icons-left" v-bind:class="{'has-icons-right': registrationKeyEmpty }">
-                        <input class="input" type="text" v-model="registrationKey" placeholder="Registration Key" 
-                               v-bind:class="{ 'is-danger': registrationKeyEmpty }" />
+                    <div
+                        class="control has-icons-left"
+                        :class="{'has-icons-right': registrationKeyEmpty }"
+                    >
+                        <input
+                            v-model="registrationKey"
+                            class="input"
+                            type="text"
+                            placeholder="Registration Key" 
+                            :class="{ 'is-danger': registrationKeyEmpty }"
+                        >
                         <span class="icon is-small is-left">
-                            <app-icon icon="key" :action="false"></app-icon>
+                            <app-icon
+                                icon="key"
+                                :action="false"
+                            />
                         </span>
-                        <span class="icon is-small is-right" v-if="registrationKeyEmpty">
-                            <app-icon icon="exclamation-triangle" :action="false"></app-icon>
+                        <span
+                            v-if="registrationKeyEmpty"
+                            class="icon is-small is-right"
+                        >
+                            <app-icon
+                                icon="exclamation-triangle"
+                                :action="false"
+                            />
                         </span>
                     </div>
-                    <p class="help is-danger" v-if="registrationKeyEmpty">Registration Key cannot be empty!</p>
+                    <p
+                        v-if="registrationKeyEmpty"
+                        class="help is-danger"
+                    >
+                        Registration Key cannot be empty!
+                    </p>
                 </div>
 
                 <div class="field is-grouped is-grouped-right">
                     <p class="control">
-                        <button class="button is-link" v-on:click="register">Register</button>
+                        <button
+                            class="button is-link"
+                            @click="register"
+                        >
+                            Register
+                        </button>
                     </p>
                     <p class="control">
-                        <button class="button" v-on:click="cancel">Cancel</button>
+                        <button
+                            class="button"
+                            @click="cancel"
+                        >
+                            Cancel
+                        </button>
                     </p>
                 </div>
             </div>
@@ -131,6 +307,9 @@ import util from "@app/services/Util.js"
 import Icon from "@app/components/Common/Icon.vue"
 
 export default {
+    components: {
+        "app-icon": Icon
+    },
     data: function() {
         return {
             name: "",
@@ -213,9 +392,6 @@ export default {
                 this.usernameAvailable = res === true;                    
             }.bind(this));
         }
-    },
-    components: {
-        "app-icon": Icon
     }
 }
 </script>

@@ -1,13 +1,27 @@
-﻿<template>
-    <app-modal ref="modal" :title="title">
+<template>
+    <app-modal
+        ref="modal"
+        :title="title"
+    >
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Token name" v-model="name" />
+                <input
+                    v-model="name"
+                    class="input"
+                    type="text"
+                    placeholder="Token name"
+                >
             </div>
         </div>
         <template slot="footer-buttons">
-            <button class="button" type="button" v-on:click="save">Save</button>
+            <button
+                class="button"
+                type="button"
+                @click="save"
+            >
+                Save
+            </button>
         </template>
     </app-modal>
 </template>
@@ -19,7 +33,16 @@ import {ApplicationTokenService} from "@app/services/ApplicationProxy.js"
 import Modal from "@app/components/Common/Modal.vue"
 
 export default {
-    name: "application-token-modal",
+    name: "ApplicationTokenModal",
+    components: {
+        "app-modal": Modal
+    },
+    props: {
+        applicationId: {
+            type: Number,
+            required: true
+        }
+    },
     data: function () {
         return {
             title: "Create Application Token",
@@ -27,11 +50,22 @@ export default {
             name: ""
         }
     },
-    props: {
-        applicationId: {
-            type: Number,
-            required: true
-        }
+    created: function () {
+        system.events.$on("applicationTokenModal:create", function () {
+            this.clear();
+            this.title = "Create Application Token";
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("applicationTokenModal:edit", function (applicationToken) {
+            this.title = "Edit Application Token";
+            this.update(applicationToken);
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("applicationTokenModal:hide", function () {
+            this.close();
+        }.bind(this));
     },
     methods: {
         fetchToken: function () {
@@ -89,26 +123,6 @@ export default {
                 name: this.name
             };
         }
-    },
-    created: function () {
-        system.events.$on("applicationTokenModal:create", function () {
-            this.clear();
-            this.title = "Create Application Token";
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("applicationTokenModal:edit", function (applicationToken) {
-            this.title = "Edit Application Token";
-            this.update(applicationToken);
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("applicationTokenModal:hide", function () {
-            this.close();
-        }.bind(this));
-    },
-    components: {
-        "app-modal": Modal
     }
 }
 </script>

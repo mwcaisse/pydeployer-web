@@ -1,4 +1,4 @@
-﻿function getURLParameter(name, def) {
+function getURLParameter(name, def) {
     if (typeof def === "undefined") {
         def = "";
     }

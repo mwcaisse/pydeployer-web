@@ -1,16 +1,16 @@
-﻿<template>
+<template>
     <div>
         <div class="box">
             <div class="field">
                 <label class="label">Name</label>
                 <div class="control">
-                    <span>{{name}}</span>
+                    <span>{{ name }}</span>
                 </div>
             </div>
             <div class="field">
                 <label class="label">UUID</label>
                 <div class="control">
-                    <span>{{uuid}}</span>
+                    <span>{{ uuid }}</span>
                 </div>
             </div>
         </div>
@@ -21,18 +21,21 @@
 import {ApplicationService} from "@app/services/ApplicationProxy.js"
 
 export default {
-    name: "application-details",
+    name: "ApplicationDetails",
+    props: {
+        applicationId: {
+            type: Number,
+            required: true
+        }
+    },
     data: function() {
         return {
             name: "",
             uuid: ""
         }
     },
-    props: {
-        applicationId: {
-            type: Number,
-            required: true
-        }
+    created: function () {
+        this.fetchApplication();
     },
     methods: {
         fetchApplication: function () {
@@ -52,9 +55,6 @@ export default {
             this.name = "";
             this.uuid = "";
         }               
-    },
-    created: function () {
-        this.fetchApplication();
     }
 }
 </script>

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
     <div>
         <div class="box">
             <p class="subtitle">
@@ -6,18 +6,35 @@
             </p>      
             <div class="field has-addons is-horizontal">                    
                 <label class="label">Environment</label>&nbsp;
-                <p class="control" v-for="environment in environments" :key="environment.environmentId">
-                    <button type="button" class="button" 
-                            v-bind:class="{'is-danger': environment == selectedEnvironment }"
-                            v-on:click="selectEnvironment(environment)">
-                        {{ environment.name }}</button>
+                <p
+                    v-for="environment in environments"
+                    :key="environment.environmentId"
+                    class="control"
+                >
+                    <button
+                        type="button"
+                        class="button" 
+                        :class="{'is-danger': environment == selectedEnvironment }"
+                        @click="selectEnvironment(environment)"
+                    >
+                        {{ environment.name }}
+                    </button>
                 </p>
             </div>
             <div>
-                <div class="field" v-for="token in tokens" :key="token.applicationEnvironmentTokenId">
+                <div
+                    v-for="token in tokens"
+                    :key="token.applicationEnvironmentTokenId"
+                    class="field"
+                >
                     <label class="label">{{ token.name }}</label>
                     <div class="control">
-                        <input class="input" type="text" v-model="token.value" v-on:blur="saveToken(token)"/>
+                        <input
+                            v-model="token.value"
+                            class="input"
+                            type="text"
+                            @blur="saveToken(token)"
+                        >
                     </div>
                 </div>
             </div>
@@ -29,18 +46,18 @@
 import {ApplicationEnvironmentService, ApplicationEnvironmentTokenService} from "@app/services/ApplicationProxy.js" 
 
 export default {
-    name: "application-environment-tokens",
+    name: "ApplicationEnvironmentTokens",
+    props: {
+        applicationId: {
+            type: Number,
+            required: true
+        }
+    },
     data: function() {
         return {
             environments: [],
             tokens: [],
             selectedEnvironment: null
-        }
-    },
-    props: {
-        applicationId: {
-            type: Number,
-            required: true
         }
     },
     computed: {
@@ -60,6 +77,9 @@ export default {
                 this.fetchTokens();
             }
         }
+    },
+    created: function () {
+        this.fetchEnvironments();           
     },
     methods: {
         fetchEnvironments: function () {
@@ -94,9 +114,6 @@ export default {
                 console.log(data)
             });
         }
-    },
-    created: function () {
-        this.fetchEnvironments();           
     }
 }
 </script>

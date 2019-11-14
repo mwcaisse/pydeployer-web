@@ -1,27 +1,45 @@
-﻿<template>   
-
+<template>
     <div>
         <div class="box">
             <p class="subtitle">
                 Environments
                 <span class="is-pulled-right">
-                    <app-icon icon="plus" :action="true" v-on:click.native="create"></app-icon>
+                    <app-icon
+                        icon="plus"
+                        :action="true"
+                        @click.native="create"
+                    />
                 </span>
             </p>
             <ul v-if="environments.length > 0">
-                <li class="box" v-for="environment in environments">
-                    {{environment.name}}
+                <li
+                    v-for="environment in environments"
+                    :key="environment.environmentId"
+                    class="box"
+                >
+                    {{ environment.name }}
                     <span class="is-pulled-right">
-                        <app-icon icon="clone" :action="true" v-on:click.native="viewEnvironment(environment)"></app-icon>
-                        <app-icon icon="trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>
+                        <app-icon
+                            icon="clone"
+                            :action="true"
+                            @click.native="viewEnvironment(environment)"
+                        />
+                        <app-icon
+                            icon="trash"
+                            :action="true"
+                            @click.native="deleteEnvironment(environment)"
+                        />
                     </span>
                 </li>
             </ul>
-            <p v-else class="has-text-centered">
+            <p
+                v-else
+                class="has-text-centered"
+            >
                 No environments exist yet!
             </p>
         </div> 
-        <environment-modal></environment-modal>
+        <environment-modal />
     </div>
 </template>
 
@@ -33,11 +51,31 @@ import Icon from "@app/components/Common/Icon.vue"
 import EnvironmentModal from "@app/components/Environment/EnvironmentModal.vue"
 
 export default {
-    name: "environment-list",
+    name: "EnvironmentList",
+    components: {
+        "app-icon": Icon,
+        "environment-modal": EnvironmentModal
+    },
     data: function() {
         return {
             environments: []
         }
+    },
+    created: function () {
+        this.fetchEnvironments();
+
+        system.events.$on("environmentModal:created", function (environment) {
+            this.environments.push(environment);
+        }.bind(this));
+
+        system.events.$on("environmentModal:updated", function (environment) {
+            var index = this.environments.findIndex(function (elm) {
+                return elm.environmentId == environment.environmentId;
+            });
+            if (index >= 0) {
+                this.environments.splice(index, 1, environment);
+            }
+        }.bind(this));
     },
     methods: {
         fetchEnvironments: function () {
@@ -66,26 +104,6 @@ export default {
         viewEnvironment: function (environment) {
             window.location = Links.environment(environment.environmentId);
         }
-    },
-    created: function () {
-        this.fetchEnvironments();
-
-        system.events.$on("environmentModal:created", function (environment) {
-            this.environments.push(environment);
-        }.bind(this));
-
-        system.events.$on("environmentModal:updated", function (environment) {
-            var index = this.environments.findIndex(function (elm) {
-                return elm.environmentId == environment.environmentId;
-            });
-            if (index >= 0) {
-                this.environments.splice(index, 1, environment);
-            }
-        }.bind(this));
-    },
-    components: {
-        "app-icon": Icon,
-        "environment-modal": EnvironmentModal
     }
 }
 </script>

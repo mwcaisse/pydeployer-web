@@ -1,31 +1,50 @@
-﻿<template>
+<template>
     <div>
         <div class="box">
             <p class="subtitle">
                 Build Tokens
                 <span class="is-pulled-right">
-                    <app-icon icon="plus" :action="true" v-on:click.native="create"></app-icon>
+                    <app-icon
+                        icon="plus"
+                        :action="true"
+                        @click.native="create"
+                    />
                 </span>
             </p>
             <ul v-if="tokens.length > 0">
-                <li class="box" v-for="token in tokens" :key="token.buildTokenId">
+                <li
+                    v-for="token in tokens"
+                    :key="token.buildTokenId"
+                    class="box"
+                >
                     <div>
-                        <span class="is-size-5 is-bold">{{token.name}}</span>
+                        <span class="is-size-5 is-bold">{{ token.name }}</span>
                         <span class="is-pulled-right">
-                            <app-icon icon="edit" :action="true" v-on:click.native="edit(token)"></app-icon>
-                            <app-icon icon="trash" :action="true" v-on:click.native="deleteToken(token)"></app-icon>
+                            <app-icon
+                                icon="edit"
+                                :action="true"
+                                @click.native="edit(token)"
+                            />
+                            <app-icon
+                                icon="trash"
+                                :action="true"
+                                @click.native="deleteToken(token)"
+                            />
                         </span>
                     </div>
                     <div>
-                        {{token.value}}
+                        {{ token.value }}
                     </div>
                 </li>
             </ul>
-            <p v-else class="has-text-centered">
+            <p
+                v-else
+                class="has-text-centered"
+            >
                 No build tokens exist yet!
             </p>
         </div>  
-        <build-token-modal></build-token-modal>
+        <build-token-modal />
     </div>
 </template>
 
@@ -37,11 +56,31 @@ import BuildTokenModal from "@app/components/BuildToken/BuildTokenModal.vue"
 
 
 export default {
-    name: "build-token-list",
+    name: "BuildTokenList",
+    components: {
+        "app-icon": Icon,
+        "build-token-modal": BuildTokenModal
+    },
     data: function () {
         return {
             tokens: []
         }
+    },
+    created: function () {
+        this.fetchTokens();
+
+        system.events.$on("buildTokenModal:created", function (buildToken) {
+            this.tokens.push(buildToken);
+        }.bind(this));
+
+        system.events.$on("buildTokenModal:updated", function (buildToken) {
+            let index = this.tokens.findIndex(function (elm) {
+                return elm.buildTokenId == buildToken.buildTokenId;
+            });
+            if (index >= 0) {
+                this.tokens.splice(index, 1, buildToken);
+            }
+        }.bind(this));
     }, 
     methods: {
         fetchTokens: function () {
@@ -72,26 +111,6 @@ export default {
                 return false;
             });
         }
-    },
-    created: function () {
-        this.fetchTokens();
-
-        system.events.$on("buildTokenModal:created", function (buildToken) {
-            this.tokens.push(buildToken);
-        }.bind(this));
-
-        system.events.$on("buildTokenModal:updated", function (buildToken) {
-            let index = this.tokens.findIndex(function (elm) {
-                return elm.buildTokenId == buildToken.buildTokenId;
-            });
-            if (index >= 0) {
-                this.tokens.splice(index, 1, buildToken);
-            }
-        }.bind(this));
-    },
-    components: {
-        "app-icon": Icon,
-        "build-token-modal": BuildTokenModal
     }
 }
 </script>

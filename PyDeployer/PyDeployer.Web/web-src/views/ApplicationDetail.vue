@@ -1,26 +1,28 @@
-﻿<template>
+<template>
     <div>
         <section class="section">
             <div class="container">
-                <h1 class="title">Application Details</h1>
+                <h1 class="title">
+                    Application Details
+                </h1>
             </div>
         </section>
         <div class="columns">
             <div class="column">
-                <application-details :applicationId="applicationId"></application-details>
+                <application-details :application-id="applicationId" />
             </div>
         </div>
         <div class="columns">
             <div class="column">
-                <application-token-list :applicationId="applicationId"></application-token-list>
+                <application-token-list :application-id="applicationId" />
             </div>
             <div class="column">
-                <application-environment-list :applicationId="applicationId"></application-environment-list>
+                <application-environment-list :application-id="applicationId" />
             </div>
         </div>
         <div class="columns">
             <div class="column">
-                <application-environment-tokens :applicationId="applicationId"></application-environment-tokens>
+                <application-environment-tokens :application-id="applicationId" />
             </div>
         </div>
     </div> 
@@ -35,16 +37,16 @@ import ApplicationEnvironmentTokens from "@app/components/Application/Applicatio
 const applicationId = parseInt($("#applicationId").val(), 10);
 
 export default {
-    data: function() {
-        return {
-            applicationId: applicationId
-        }
-    },
     components: {
         ApplicationDetails,
         ApplicationEnvironmentList,
         ApplicationTokenList,
         ApplicationEnvironmentTokens
+    },
+    data: function() {
+        return {
+            applicationId: applicationId
+        }
     }
 }
 </script>

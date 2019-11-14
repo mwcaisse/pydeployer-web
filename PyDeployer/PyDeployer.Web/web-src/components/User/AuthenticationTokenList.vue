@@ -1,37 +1,71 @@
-﻿<template>
+<template>
     <div>
         <section class="section">
             <div class="container">
                 <div class="title">
                     <span>Authentication Tokens</span>
                     <span class="is-pulled-right has-text-left is-size-3">
-                        <app-icon icon="plus" :action="true" v-on:click.native="create"></app-icon>
+                        <app-icon
+                            icon="plus"
+                            :action="true"
+                            @click.native="create"
+                        />
                     </span>
                 </div>                
             </div>
         </section>
         <ul>
-            <li class="box" v-for="token in tokens" :key="token.userAuthenticationTokenId">
+            <li
+                v-for="token in tokens"
+                :key="token.userAuthenticationTokenId"
+                class="box"
+            >
                 <div class="columns is-vcentered is-mobile">
                     <div class="column is-size-2">
-                        <app-icon icon="key" :action="false"></app-icon>
+                        <app-icon
+                            icon="key"
+                            :action="false"
+                        />
                     </div>
                     <div class="column is-four-fifths-tablet is-two-thirds-mobile">
-                        <p class="is-size-5 has-text-weight-bold">{{token.description}}</p>
-                        <p class="is-size-6" v-if="token.lastLogin">Last used on <span class="has-text-weight-bold">{{ token.lastLogin | formatDateTime }}</span> from <span class="has-text-weight-bold">{{ token.lastLoginAddress }}</span></p>
-                        <p class="is-size-6" v-else>This token has never been used</p>
-                        <p class="is-size-7">Added on {{ token.createDate | formatDate }}</p>
-                        <p class="is-size-7" v-if="token.expirationDate">Expires on {{ token.expirationDate | formatDateTime }}</p>
+                        <p class="is-size-5 has-text-weight-bold">
+                            {{ token.description }}
+                        </p>
+                        <p
+                            v-if="token.lastLogin"
+                            class="is-size-6"
+                        >
+                            Last used on <span class="has-text-weight-bold">{{ token.lastLogin | formatDateTime }}</span> from <span class="has-text-weight-bold">{{ token.lastLoginAddress }}</span>
+                        </p>
+                        <p
+                            v-else
+                            class="is-size-6"
+                        >
+                            This token has never been used
+                        </p>
+                        <p class="is-size-7">
+                            Added on {{ token.createDate | formatDate }}
+                        </p>
+                        <p
+                            v-if="token.expirationDate"
+                            class="is-size-7"
+                        >
+                            Expires on {{ token.expirationDate | formatDateTime }}
+                        </p>
                     </div>
                     <div class="column">
                         <span class="is-pulled-right is-size-5">
-                            <app-icon icon="trash" :action="true" v-on:click.native="deleteToken(token)"></app-icon>
+                            <app-icon
+                                icon="trash"
+                                :action="true"
+                                @click.native="deleteToken(token)"
+                            />
                         </span>
                     </div>
                 </div>
             </li>
         </ul>
-        <authentication-token-modal></authentication-token-modal>
+        <authentication-token-modal />
     </div>
 </template>
 
@@ -43,11 +77,22 @@ import Icon from "@app/components/Common/Icon.vue"
 
 
 export default {
-    name: "authentication-token-list",
+    name: "AuthenticationTokenList",
+    components: {
+        "app-icon": Icon,
+        "authentication-token-modal": AuthenticationTokenModal
+    },
     data: function() {
         return {
             tokens: []
         }
+    },
+    created: function () {
+        this.fetchTokens();
+
+        system.events.$on("authenticationTokenModal:created", function () {
+            this.fetchTokens();
+        }.bind(this));   
     },  
     methods: {
         fetchTokens: function () {
@@ -74,17 +119,6 @@ export default {
                 return false;
             })
         }
-    },
-    components: {
-        "app-icon": Icon,
-        "authentication-token-modal": AuthenticationTokenModal
-    },
-    created: function () {
-        this.fetchTokens();
-
-        system.events.$on("authenticationTokenModal:created", function () {
-            this.fetchTokens();
-        }.bind(this));   
     }
 }
 </script>

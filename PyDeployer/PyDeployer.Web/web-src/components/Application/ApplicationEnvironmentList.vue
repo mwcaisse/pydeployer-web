@@ -1,22 +1,39 @@
-﻿<template>
+<template>
     <div>        
         <div class="box">
-            <p class="subtitle">Environments
+            <p class="subtitle">
+                Environments
                 <span class="is-pulled-right">                   
-                    <app-icon icon="plus" :action="true" @click.native="addEnvironment"/>
+                    <app-icon
+                        icon="plus"
+                        :action="true"
+                        @click.native="addEnvironment"
+                    />
                 </span>
             </p>
             <ul>
-                <li class="box" v-for="environment in environments" :key="environment.applicationEnvironmentId">
-                    {{environment.name}}
+                <li
+                    v-for="environment in environments"
+                    :key="environment.applicationEnvironmentId"
+                    class="box"
+                >
+                    {{ environment.name }}
                     <span class="is-pulled-right">          
-                        <app-icon icon="clone" :action="true" v-on:click.native="viewEnvironment(environment)"></app-icon>
-                        <app-icon icon="trash" :action="true" v-on:click.native="deleteEnvironment(environment)"></app-icon>                
+                        <app-icon
+                            icon="clone"
+                            :action="true"
+                            @click.native="viewEnvironment(environment)"
+                        />
+                        <app-icon
+                            icon="trash"
+                            :action="true"
+                            @click.native="deleteEnvironment(environment)"
+                        />                
                     </span>
                 </li>
             </ul>
         </div>
-        <environment-picker-modal v-on:environment:selected="environmentSelected"></environment-picker-modal>
+        <environment-picker-modal @environment:selected="environmentSelected" />
     </div>
 </template>
 
@@ -29,17 +46,24 @@ import EnvironmentPickerModal from "@app/components/Environment/EnvironmentPicke
 import Icon from "@app/components/Common/Icon.vue"
 
 export default {
-    name: "application-environment-list",
-    data: function() {
-        return {
-            environments: []
-        }
+    name: "ApplicationEnvironmentList",
+    components: {
+        "environment-picker-modal": EnvironmentPickerModal,
+        "app-icon": Icon
     },
     props: {
         applicationId: {
             type: Number,
             required: true
         }
+    },
+    data: function() {
+        return {
+            environments: []
+        }
+    },
+    created: function () {
+        this.fetchEnvironments();
     },
     methods: {
         fetchEnvironments: function () {
@@ -82,13 +106,6 @@ export default {
                 console.log("Error associating environment with application: " + error)
             });
         }
-    },
-    created: function () {
-        this.fetchEnvironments();
-    },
-    components: {
-        "environment-picker-modal": EnvironmentPickerModal,
-        "app-icon": Icon
     }
 }
 </script>

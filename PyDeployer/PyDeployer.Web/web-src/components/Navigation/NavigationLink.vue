@@ -1,13 +1,28 @@
-﻿<template>
-    <a class="navbar-item" :href="link" v-if="!hasSubLinks">
+<template>
+    <a
+        v-if="!hasSubLinks"
+        class="navbar-item"
+        :href="link"
+    >
         {{ name }}
     </a>
-    <div class="navbar-item has-dropdown is-hoverable" v-else>
+    <div
+        v-else
+        class="navbar-item has-dropdown is-hoverable"
+    >
         <div class="navbar-link">
             {{ name }}
         </div>
-        <div class="navbar-dropdown" :class="{'is-right': right }">
-            <a class="navbar-item" v-for="subLink in subLinks" :href="subLink.link" :key="subLink.linkId">
+        <div
+            class="navbar-dropdown"
+            :class="{'is-right': right }"
+        >
+            <a
+                v-for="subLink in subLinks"
+                :key="subLink.linkId"
+                class="navbar-item"
+                :href="subLink.link"
+            >
                 {{ subLink.name }}
             </a>      
         </div>
@@ -21,11 +36,7 @@ import system from "@app/services/System.js"
 
 
 export default {
-    name: "navigation-bar",
-    data: function() {
-        return {     
-        }
-    },
+    name: "NavigationBar",
     props: {
         linkId: {
             type: String,
@@ -54,14 +65,18 @@ export default {
             default: false
         }
     },
+    data: function() {
+        return {     
+        }
+    },
     computed: {
         hasSubLinks: function () {
             return this.subLinks.length > 0;
         }
     },
-    methods: {   
-    },
     created: function () {
+    },
+    methods: {   
     }
 }
 </script>

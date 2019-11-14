@@ -1,5 +1,8 @@
-﻿<template>
-    <app-modal ref="modal" title="Select Environment">
+<template>
+    <app-modal
+        ref="modal"
+        title="Select Environment"
+    >
         <ul>
             <li
                 v-for="environment in environments"
@@ -20,11 +23,25 @@ import {EnvironmentService} from "@app/services/ApplicationProxy.js"
 import Modal from "@app/components/Common/Modal.vue"
 
 export default {
-    name: "environment-picker-modal",
+    name: "EnvironmentPickerModal",
+    components: {
+        "app-modal": Modal
+    },
     data: function() {
         return {
             environments: []
         }
+    },
+    created: function () {
+        this.fetchEnvironments();
+
+        system.events.$on("environmentModal:show", function () {
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("environmentModal:hide", function () {
+            this.close();
+        }.bind(this));
     },
     methods: {
         fetchEnvironments: function () {
@@ -42,20 +59,6 @@ export default {
             this.$emit("environment:selected", environment);
             this.close();
         }
-    },
-    created: function () {
-        this.fetchEnvironments();
-
-        system.events.$on("environmentModal:show", function () {
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("environmentModal:hide", function () {
-            this.close();
-        }.bind(this));
-    },
-    components: {
-        "app-modal": Modal
     }
 }
 </script>

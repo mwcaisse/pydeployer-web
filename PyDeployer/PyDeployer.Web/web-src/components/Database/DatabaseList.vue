@@ -4,23 +4,42 @@
             <p class="subtitle">
                 Databases
                 <span class="is-pulled-right">
-                    <app-icon icon="plus" :action="true" v-on:click.native="create"></app-icon>
+                    <app-icon
+                        icon="plus"
+                        :action="true"
+                        @click.native="create"
+                    />
                 </span>
             </p>
             <ul v-if="databases.length > 0">
-                <li class="box" v-for="database in databases" :key="database.databaseId">
-                    {{database.name}}
+                <li
+                    v-for="database in databases"
+                    :key="database.databaseId"
+                    class="box"
+                >
+                    {{ database.name }}
                     <span class="is-pulled-right">
-                        <app-icon icon="edit" :action="true" v-on:click.native="edit(database)"></app-icon>
-                        <app-icon icon="trash" :action="true" v-on:click.native="deleteDatabase(database)"></app-icon>
+                        <app-icon
+                            icon="edit"
+                            :action="true"
+                            @click.native="edit(database)"
+                        />
+                        <app-icon
+                            icon="trash"
+                            :action="true"
+                            @click.native="deleteDatabase(database)"
+                        />
                     </span>
                 </li>
             </ul>
-            <p v-else class="has-text-centered">
+            <p
+                v-else
+                class="has-text-centered"
+            >
                 No databases exist in this environment.
             </p>
         </div>
-        <database-modal :environment-id="environmentId"></database-modal>
+        <database-modal :environment-id="environmentId" />
     </div>
 </template>
 
@@ -32,17 +51,37 @@ import Icon from "@app/components/Common/Icon"
 import DatabaseModal, {DatabaseCreatedEvent, DatabaseUpdatedEvent, CreateDatabaseEvent, UpdateDatabaseEvent} from "@app/components/Database/DatabaseModal"
 
 export default {
-    name: "database-list",
-    data: function () {
-        return {
-            databases: []
-        }
+    name: "DatabaseList",
+    components: {
+        "app-icon": Icon,
+        "database-modal": DatabaseModal
     },
     props: {
         environmentId: {
             type: Number,
             required: true
         }
+    },
+    data: function () {
+        return {
+            databases: []
+        }
+    },
+    created: function () {
+        this.fetchDatabases();
+        
+        system.events.$on(DatabaseCreatedEvent, function (database) {
+            this.databases.push(database);
+        }.bind(this));
+        
+        system.events.$on(DatabaseUpdatedEvent, function (database) {
+            let index = this.databases.findIndex(function (elm) {
+                return elm.databaseId === database.databaseId;
+            });
+            if (index >= 0) {
+                this.databases.splice(index, 1, database);
+            }
+        }.bind(this));
     },
     methods: {
         fetchDatabases: function () {
@@ -73,26 +112,6 @@ export default {
                 return false;
             });
         }
-    },
-    created: function () {
-        this.fetchDatabases();
-        
-        system.events.$on(DatabaseCreatedEvent, function (database) {
-            this.databases.push(database);
-        }.bind(this));
-        
-        system.events.$on(DatabaseUpdatedEvent, function (database) {
-            let index = this.databases.findIndex(function (elm) {
-                return elm.databaseId === database.databaseId;
-            });
-            if (index >= 0) {
-                this.databases.splice(index, 1, database);
-            }
-        }.bind(this));
-    },
-    components: {
-        "app-icon": Icon,
-        "database-modal": DatabaseModal
     }
 }
 </script>

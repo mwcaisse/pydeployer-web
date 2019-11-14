@@ -1,6 +1,6 @@
-﻿<template>
+<template>
     <div>      
-        <user-authentication-token-list></user-authentication-token-list>  
+        <user-authentication-token-list />  
     </div>
 </template>
 
@@ -8,12 +8,12 @@
 import UserAuthenticationTokenList from "@app/components/User/AuthenticationTokenList.vue" 
 
 export default {
+    components: {
+        UserAuthenticationTokenList
+    },
     data: function () {
         return {             
         }
-    },
-    components: {
-        UserAuthenticationTokenList
     }
 }
 </script>

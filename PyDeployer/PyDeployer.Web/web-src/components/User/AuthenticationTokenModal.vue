@@ -1,9 +1,20 @@
-﻿<template>
-    <app-modal ref="modal" title="Create Authentication Token">
-        <div class="field" v-if="!tokenValue">
+<template>
+    <app-modal
+        ref="modal"
+        title="Create Authentication Token"
+    >
+        <div
+            v-if="!tokenValue"
+            class="field"
+        >
             <label class="label">Description</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Description" v-model="description" />
+                <input
+                    v-model="description"
+                    class="input"
+                    type="text"
+                    placeholder="Description"
+                >
             </div>
         </div>
         <div v-else>
@@ -15,7 +26,13 @@
             </div>
         </div>
         <template slot="footer-buttons">
-            <button class="button" type="button" v-on:click="create">Create</button>
+            <button
+                class="button"
+                type="button"
+                @click="create"
+            >
+                Create
+            </button>
         </template>
     </app-modal>
 </template>
@@ -27,12 +44,25 @@ import {UserAuthenticationTokenService} from "@app/services/ApplicationProxy.js"
 import Modal from "@app/components/Common/Modal.vue"
 
 export default {
-    name: "application-token-modal",
+    name: "ApplicationTokenModal",
+    components: {
+        "app-modal": Modal
+    },
     data: function () {
         return {       
             description: "",
             tokenValue: ""
         }
+    },
+    created: function () {
+        system.events.$on("authenticationTokenModal:create", function () {
+            this.clear();     
+            this.$refs.modal.open();
+        }.bind(this));   
+
+        system.events.$on("authenticationTokenModal:hide", function () {
+            this.close();
+        }.bind(this));
     },
     methods: {      
         create: function () {          
@@ -52,19 +82,6 @@ export default {
             this.description = "";
             this.tokenValue = "";
         }    
-    },
-    created: function () {
-        system.events.$on("authenticationTokenModal:create", function () {
-            this.clear();     
-            this.$refs.modal.open();
-        }.bind(this));   
-
-        system.events.$on("authenticationTokenModal:hide", function () {
-            this.close();
-        }.bind(this));
-    },
-    components: {
-        "app-modal": Modal
     }
 }
 </script>

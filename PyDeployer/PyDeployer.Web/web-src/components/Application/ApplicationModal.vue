@@ -1,13 +1,27 @@
-﻿<template>
-    <app-modal ref="modal" title="Create Application">
+<template>
+    <app-modal
+        ref="modal"
+        title="Create Application"
+    >
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Application name" v-model="name" />
+                <input
+                    v-model="name"
+                    class="input"
+                    type="text"
+                    placeholder="Application name"
+                >
             </div>
         </div>
         <template slot="footer-buttons">
-            <button class="button" type="button" v-on:click="save">Save</button>
+            <button
+                class="button"
+                type="button"
+                @click="save"
+            >
+                Save
+            </button>
         </template>
     </app-modal>
 </template>
@@ -19,13 +33,33 @@ import {ApplicationService} from "@app/services/ApplicationProxy.js"
 import Modal from "@app/components/Common/Modal.vue"
 
 export default {
-    name: "application-modal",
+    name: "ApplicationModal",
+    components: {
+        "app-modal": Modal
+    },
     data: function () {
         return {
             title: "Create Application",         
             applicationId: -1,
             name: ""
         }
+    },
+    created: function () {
+        system.events.$on("applicationModal:create", function () {
+            this.clear();
+            this.title = "Create Application";
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("applicationModal:edit", function (application) {
+            this.title = "Edit Application";
+            this.update(application);
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("applicationModal:hide", function () {
+            this.close();
+        }.bind(this));
     },
     methods: {
         fetchApplication: function () {
@@ -82,26 +116,6 @@ export default {
                 name: this.name
             };
         }
-    },
-    created: function () {
-        system.events.$on("applicationModal:create", function () {
-            this.clear();
-            this.title = "Create Application";
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("applicationModal:edit", function (application) {
-            this.title = "Edit Application";
-            this.update(application);
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("applicationModal:hide", function () {
-            this.close();
-        }.bind(this));
-    },
-    components: {
-        "app-modal": Modal
     }
 }
 </script>

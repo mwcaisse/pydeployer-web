@@ -1,6 +1,9 @@
-﻿<template>
+<template>
     <span>    
-        <font-awesome-icon :icon="icon" v-bind:class="{'action-icon': action }"></font-awesome-icon>
+        <font-awesome-icon
+            :icon="icon"
+            :class="{'action-icon': action }"
+        />
     </span>
 </template>
 
@@ -12,9 +15,9 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome"
 library.add(fas);
 
 export default {
-    name: "app-icon",
-    data: function() {
-        return { }
+    name: "AppIcon",
+    components: {
+        "font-awesome-icon": FontAwesomeIcon
     },
     props: {
         icon: {
@@ -27,11 +30,11 @@ export default {
             default: false
         }
     },
+    data: function() {
+        return { }
+    },
     methods: {
     
-    },
-    components: {
-        "font-awesome-icon": FontAwesomeIcon
     }
 }
 </script>

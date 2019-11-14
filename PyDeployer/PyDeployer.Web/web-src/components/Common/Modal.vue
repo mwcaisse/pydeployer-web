@@ -1,19 +1,40 @@
-﻿<template>
-    <div class="modal" v-bind:class="{'is-active': show }">
-        <div class="modal-background" v-on:click="close"></div>
+<template>
+    <div
+        class="modal"
+        :class="{'is-active': show }"
+    >
+        <div
+            class="modal-background"
+            @click="close"
+        />
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">{{title}}</p>
-                <button class="delete" aria-label="close" v-on:click="close"></button>
+                <p class="modal-card-title">
+                    {{ title }}
+                </p>
+                <button
+                    class="delete"
+                    aria-label="close"
+                    @click="close"
+                />
             </header>
             <section class="modal-card-body">
                 <slot>
                     <p>Empty Modal. Feel free to fill this in</p>
                 </slot>
             </section>
-            <footer class="modal-card-foot" style="justify-content: flex-end;">              
-                <slot name="footer-buttons"></slot>
-                <button class="button" type="button" v-on:click="close">{{ cancelText }}</button>
+            <footer
+                class="modal-card-foot"
+                style="justify-content: flex-end;"
+            >              
+                <slot name="footer-buttons" />
+                <button
+                    class="button"
+                    type="button"
+                    @click="close"
+                >
+                    {{ cancelText }}
+                </button>
             </footer>
         </div>
     </div>
@@ -21,12 +42,7 @@
 
 <script>
 export default {
-    name: "app-modal",
-    data: function() {
-        return {
-            show: false
-        }
-    },     
+    name: "AppModal",     
     props: {
         title: {
             type: String,
@@ -36,6 +52,11 @@ export default {
             type: String,
             required: false,
             default: "Cancel"
+        }
+    },
+    data: function() {
+        return {
+            show: false
         }
     },
     methods: {

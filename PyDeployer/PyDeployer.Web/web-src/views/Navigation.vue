@@ -1,16 +1,16 @@
-﻿<template>
-    <navigation-bar></navigation-bar>
+<template>
+    <navigation-bar />
 </template>
 
 <script>
 import NavigationBar from "@app/components/Navigation/NavigationBar.vue"
 
 export default {
-    data: function () {  
-        return {}
-    },
     components: {         
         "navigation-bar": NavigationBar
+    },
+    data: function () {  
+        return {}
     }
 }
 </script>

@@ -1,22 +1,22 @@
-﻿<template>
+<template>
     <div>
         <div class="box">
             <div class="field">
                 <label class="label">Name</label>
                 <div class="control">
-                    <span>{{name}}</span>
+                    <span>{{ name }}</span>
                 </div>
             </div>
             <div class="field">
                 <label class="label">UUID</label>
                 <div class="control">
-                    <span>{{uuid}}</span>
+                    <span>{{ uuid }}</span>
                 </div>
             </div>
             <div class="field">
                 <label class="label">Host Name</label>
                 <div class="control">
-                    <span>{{hostName}}</span>
+                    <span>{{ hostName }}</span>
                 </div>
             </div>
         </div>
@@ -27,7 +27,13 @@
 import {EnvironmentService} from "@app/services/ApplicationProxy";
 
 export default {
-    name: "environment-details",
+    name: "EnvironmentDetails",
+    props: {
+        environmentId: {
+            type: Number,
+            required: true
+        }
+    },
     data: function() {
         return {
             name: "",
@@ -35,11 +41,8 @@ export default {
             hostName: ""
         }
     },
-    props: {
-        environmentId: {
-            type: Number,
-            required: true
-        }
+    created: function () {
+        this.fetchEnvironment();
     },
     methods: {
         fetchEnvironment: function () {
@@ -60,9 +63,6 @@ export default {
             this.hostName = "";
         }
         
-    },
-    created: function () {
-        this.fetchEnvironment();
     }
 }
 </script>

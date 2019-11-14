@@ -1,4 +1,4 @@
-﻿function config() {
+function config() {
 
 }
 

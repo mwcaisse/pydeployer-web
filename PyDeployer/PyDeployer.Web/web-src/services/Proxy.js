@@ -1,4 +1,4 @@
-﻿import Q from "q"
+import Q from "q"
 
 var baseUrl = ($("#rootPathPrefix").val() || "") + "/api/";
 

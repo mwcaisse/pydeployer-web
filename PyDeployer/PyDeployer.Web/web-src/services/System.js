@@ -1,4 +1,4 @@
-﻿import Vue from "vue"
+import Vue from "vue"
 import VueConfig from "@app/services/VueCommon.js"
 import "@app/services/CustomDirectives.js"
 

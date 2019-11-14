@@ -1,37 +1,71 @@
-﻿﻿<template>
-    <app-modal ref="modal" :title="title">
+<template>
+    <app-modal
+        ref="modal"
+        :title="title"
+    >
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Database name" v-model="name">
+                <input
+                    v-model="name"
+                    class="input"
+                    type="text"
+                    placeholder="Database name"
+                >
             </div>
         </div>
         <div class="field">
             <label class="label">Host</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Hostname of the database" v-model="host">
+                <input
+                    v-model="host"
+                    class="input"
+                    type="text"
+                    placeholder="Hostname of the database"
+                >
             </div>
         </div>
         <div class="field">
             <label class="label">Port</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Port database listens on" v-model="port">
+                <input
+                    v-model="port"
+                    class="input"
+                    type="text"
+                    placeholder="Port database listens on"
+                >
             </div>
         </div>
         <div class="field">
             <label class="label">User</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Maintenance username" v-model="user">
+                <input
+                    v-model="user"
+                    class="input"
+                    type="text"
+                    placeholder="Maintenance username"
+                >
             </div>
         </div>
         <div class="field">
             <label class="label">Password</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Maintenance user's password" v-model="password">
+                <input
+                    v-model="password"
+                    class="input"
+                    type="text"
+                    placeholder="Maintenance user's password"
+                >
             </div>
         </div>
         <template slot="footer-buttons">
-            <button class="button" type="button" v-on:click="save">Save</button>
+            <button
+                class="button"
+                type="button"
+                @click="save"
+            >
+                Save
+            </button>
         </template>
     </app-modal>
 </template>
@@ -49,7 +83,16 @@ const updateDatabaseEvent = "databaseModal:update";
 const hideModalEvent = "databaseModal:hide";
 
 export default {
-    name: "database-modal",
+    name: "DatabaseModal",
+    components: {
+        "app-modal": Modal
+    },
+    props: {
+        environmentId: {
+            type: Number,
+            required: true
+        }
+    },
     data: function () {
         return {
             title: "Create Database",
@@ -62,11 +105,22 @@ export default {
             password: ""                
         }
     },
-    props: {
-        environmentId: {
-            type: Number,
-            required: true
-        }
+    created: function () {
+        system.events.$on(createDatabaseEvent, function () {
+            this.clear();
+            this.title = "Create Database";
+            this.$refs.modal.open();
+        }.bind(this));
+        
+        system.events.$on(updateDatabaseEvent, function (database) {
+            this.title = "Edit Database";
+            this.update(database);
+            this.$refs.modal.open();
+        }.bind(this));
+        
+        system.events.$on(hideModalEvent, function () {
+            this.close();
+        }.bind(this));
     },
     methods: {
         save: function () {
@@ -125,26 +179,6 @@ export default {
             };
         }
         
-    },
-    created: function () {
-        system.events.$on(createDatabaseEvent, function () {
-            this.clear();
-            this.title = "Create Database";
-            this.$refs.modal.open();
-        }.bind(this));
-        
-        system.events.$on(updateDatabaseEvent, function (database) {
-            this.title = "Edit Database";
-            this.update(database);
-            this.$refs.modal.open();
-        }.bind(this));
-        
-        system.events.$on(hideModalEvent, function () {
-            this.close();
-        }.bind(this));
-    },
-    components: {
-        "app-modal": Modal
     }
 }
 

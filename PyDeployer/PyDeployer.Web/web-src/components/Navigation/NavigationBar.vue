@@ -1,36 +1,47 @@
-﻿<template>
-    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+<template>
+    <nav
+        class="navbar is-info"
+        role="navigation"
+        aria-label="main navigation"
+    >
         <div class="navbar-brand">
-            <a class="navbar-item" :href="rootLink">PyDeployer</a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
+            <a
+                class="navbar-item"
+                :href="rootLink"
+            >PyDeployer</a>
+            <a
+                role="button"
+                class="navbar-burger"
+                aria-label="menu"
+                aria-expanded="false"
+            >
+                <span aria-hidden="true" />
+                <span aria-hidden="true" />
+                <span aria-hidden="true" />
             </a>
         </div>
         <div class="navbar-menu">
             <div class="navbar-start">
-                <navigation-link v-for="link in navigationLinks"
-                                 :key="link.id"
-                                 :linkId="link.id"
-                                 :name="link.name"
-                                 :link="link.link"
-                                 :subLinks="link.subLinks"
-                >
-
-                </navigation-link>
+                <navigation-link
+                    v-for="link in navigationLinks"
+                    :key="link.id"
+                    :link-id="link.id"
+                    :name="link.name"
+                    :link="link.link"
+                    :sub-links="link.subLinks"
+                />
             </div>
             <div class="navbar-end">
-                <navigation-link v-for="link in rightNavigationLinks"
-                                 :key="link.id"
-                                 :linkId="link.id"
-                                 :name="link.name"
-                                 :link="link.link"
-                                 :subLinks="link.subLinks"
-                                 :right="true">
-                </navigation-link>
+                <navigation-link
+                    v-for="link in rightNavigationLinks"
+                    :key="link.id"
+                    :link-id="link.id"
+                    :name="link.name"
+                    :link="link.link"
+                    :sub-links="link.subLinks"
+                    :right="true"
+                />
             </div>
-
         </div>
     </nav>
 </template>
@@ -43,13 +54,19 @@ import NavigationLink from "@app/components/Navigation/NavigationLink.vue"
 const isAuthenticated = $("#isAuthenticated").val() === "true";
 
 export default {
-    name: "navigation-bar",
+    name: "NavigationBar",
+    components: {
+        "navigation-link": NavigationLink
+    },
     data: function() {
         return {     
             navigationLinks: [],
             rightNavigationLinks: [],
             rootLink: Links.home
         }
+    },
+    created: function () {
+        this.initializeLinks();
     },
     methods: {
         initializeLinks: function () {
@@ -94,12 +111,6 @@ export default {
                 return user;
             })
         }
-    },
-    components: {
-        "navigation-link": NavigationLink
-    },
-    created: function () {
-        this.initializeLinks();
     }
 
 }

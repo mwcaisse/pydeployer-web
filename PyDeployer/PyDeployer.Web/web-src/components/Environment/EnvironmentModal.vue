@@ -1,19 +1,38 @@
-﻿<template>
-    <app-modal ref="modal" title="Create Environment">
+<template>
+    <app-modal
+        ref="modal"
+        title="Create Environment"
+    >
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Environment name" v-model="name" />
+                <input
+                    v-model="name"
+                    class="input"
+                    type="text"
+                    placeholder="Environment name"
+                >
             </div>
         </div>
         <div class="field">
             <label class="label">Host Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Host name" v-model="hostName" />
+                <input
+                    v-model="hostName"
+                    class="input"
+                    type="text"
+                    placeholder="Host name"
+                >
             </div>
         </div>
         <template slot="footer-buttons">
-            <button class="button" type="button" v-on:click="save">Save</button>
+            <button
+                class="button"
+                type="button"
+                @click="save"
+            >
+                Save
+            </button>
         </template>
     </app-modal>
 </template>
@@ -25,7 +44,10 @@ import {EnvironmentService} from "@app/services/ApplicationProxy.js"
 import Modal from "@app/components/Common/Modal.vue"
 
 export default {
-    name: "environment-modal",
+    name: "EnvironmentModal",
+    components: {
+        "app-modal": Modal
+    },
     data: function () {
         return {
             title: "Create Environment",
@@ -33,6 +55,23 @@ export default {
             name: "",
             hostName: ""
         }
+    },
+    created: function () {
+        system.events.$on("environmentModal:create", function () {
+            this.clear();
+            this.title = "Create Environment";
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("environmentModal:edit", function (environment) {
+            this.title = "Edit Environment";
+            this.update(environment);
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("environmentModal:hide", function () {
+            this.close();
+        }.bind(this));
     },
     methods: {
         fetchEnvironment: function () {
@@ -92,26 +131,6 @@ export default {
                 hostName: this.hostName
             };
         }
-    },
-    created: function () {
-        system.events.$on("environmentModal:create", function () {
-            this.clear();
-            this.title = "Create Environment";
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("environmentModal:edit", function (environment) {
-            this.title = "Edit Environment";
-            this.update(environment);
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("environmentModal:hide", function () {
-            this.close();
-        }.bind(this));
-    },
-    components: {
-        "app-modal": Modal
     }
 }
 </script>

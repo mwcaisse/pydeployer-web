@@ -1,26 +1,45 @@
-﻿<template>
+<template>
     <div>
         <div class="box">
             <p class="subtitle">
                 Applications
                 <span class="is-pulled-right">
-                    <app-icon icon="plus" :action="true" v-on:click.native="addApplication"></app-icon>
+                    <app-icon
+                        icon="plus"
+                        :action="true"
+                        @click.native="addApplication"
+                    />
                 </span>
             </p>
             <ul v-if="applications.length > 0">
-                <li class="box" v-for="application in applications" :key="application.applicationId">
-                    {{application.name}}
+                <li
+                    v-for="application in applications"
+                    :key="application.applicationId"
+                    class="box"
+                >
+                    {{ application.name }}
                     <span class="is-pulled-right">
-                        <app-icon icon="clone" :action="true" v-on:click.native="viewApplication(application)"></app-icon>
-                        <app-icon icon="trash" :action="true" v-on:click.native="deleteApplication(application)"></app-icon>                     
+                        <app-icon
+                            icon="clone"
+                            :action="true"
+                            @click.native="viewApplication(application)"
+                        />
+                        <app-icon
+                            icon="trash"
+                            :action="true"
+                            @click.native="deleteApplication(application)"
+                        />                     
                     </span>
                 </li>
             </ul>
-            <p v-else class="has-text-centered">
+            <p
+                v-else
+                class="has-text-centered"
+            >
                 This environment has no applications.
             </p>
         </div>  
-        <application-picker-modal v-on:application:selected="applicationSelected"></application-picker-modal>
+        <application-picker-modal @application:selected="applicationSelected" />
     </div>
 </template>
 
@@ -33,17 +52,24 @@ import Icon from "@app/components/Common/Icon.vue"
 import ApplicationPickerModal, {ApplicationPickerShowEvent} from "@app/components/Application/ApplicationPickerModal.vue";
 
 export default {
-    name: "application-list",
-    data: function() {
-        return {
-            applications: []
-        }
+    name: "ApplicationList",
+    components: {
+        "app-icon": Icon,
+        "application-picker-modal": ApplicationPickerModal
     },
     props: {
         environmentId: {
             type: Number,
             required: true
         }            
+    },
+    data: function() {
+        return {
+            applications: []
+        }
+    },        
+    created: function () {
+        this.fetchApplications()
     },        
     methods: {
         fetchApplications: function () {
@@ -81,13 +107,6 @@ export default {
                 console.log("Error associating application with environment: "+ error);
             });
         }
-    },        
-    created: function () {
-        this.fetchApplications()
-    },
-    components: {
-        "app-icon": Icon,
-        "application-picker-modal": ApplicationPickerModal
     }
 }
 </script>

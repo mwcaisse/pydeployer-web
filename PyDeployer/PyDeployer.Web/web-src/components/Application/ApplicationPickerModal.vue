@@ -1,5 +1,8 @@
 <template>
-    <app-modal ref="modal" title="Select Application">
+    <app-modal
+        ref="modal"
+        title="Select Application"
+    >
         <ul>
             <li
                 v-for="application in applications"
@@ -24,11 +27,26 @@ const modalShowEvent = "applicationPickerModal:show";
 const modalHideEvent = "applicationPickerModal:hide";
 
 export default {
-    name: "application-picker-modal",
+    name: "ApplicationPickerModal",
+    components: {
+        "app-modal": Modal
+    },
     data: function () {
         return {
             applications: []
         }
+    },
+    created: function () {
+        this.fetchApplications();
+        
+        system.events.$on(modalShowEvent, function () {
+            this.$refs.modal.open();
+        }.bind(this));
+        
+        system.events.$on(modalHideEvent, function () {
+            this.close();
+        }.bind(this));
+        
     },
     methods: {
         fetchApplications: function () {
@@ -47,21 +65,6 @@ export default {
             this.close();
         }
         
-    },
-    created: function () {
-        this.fetchApplications();
-        
-        system.events.$on(modalShowEvent, function () {
-            this.$refs.modal.open();
-        }.bind(this));
-        
-        system.events.$on(modalHideEvent, function () {
-            this.close();
-        }.bind(this));
-        
-    },
-    components: {
-        "app-modal": Modal
     }
 };
 

@@ -1,4 +1,4 @@
-﻿import Vue from "vue"
+import Vue from "vue"
 import Moment from "moment"
 
 import Util from "@app/services/Util.js"

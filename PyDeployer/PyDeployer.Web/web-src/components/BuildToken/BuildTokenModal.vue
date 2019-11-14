@@ -1,19 +1,38 @@
-﻿<template>
-    <app-modal ref="modal" :title="title">
+<template>
+    <app-modal
+        ref="modal"
+        :title="title"
+    >
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Token name" v-model="name" />
+                <input
+                    v-model="name"
+                    class="input"
+                    type="text"
+                    placeholder="Token name"
+                >
             </div>
         </div>
         <div class="field">
             <label class="label">Value</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Token value" v-model="value" />
+                <input
+                    v-model="value"
+                    class="input"
+                    type="text"
+                    placeholder="Token value"
+                >
             </div>
         </div>
         <template slot="footer-buttons">
-            <button class="button" type="button" v-on:click="save">Save</button>
+            <button
+                class="button"
+                type="button"
+                @click="save"
+            >
+                Save
+            </button>
         </template>
     </app-modal>
 </template>
@@ -25,7 +44,10 @@ import {BuildTokenService} from "@app/services/ApplicationProxy.js"
 import Modal from "@app/components/Common/Modal.vue"
 
 export default {
-    name: "build-token-modal",
+    name: "BuildTokenModal",
+    components: {
+        "app-modal": Modal
+    },
     data: function () {
         return {
             title: "Create Build Token",  
@@ -33,6 +55,23 @@ export default {
             name: "",
             value: ""
         }
+    },
+    created: function () {
+        system.events.$on("buildTokenModal:create", function () {
+            this.clear();
+            this.title = "Create Build Token";
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("buildTokenModal:edit", function (applicationToken) {
+            this.title = "Edit Build Token";
+            this.update(applicationToken);
+            this.$refs.modal.open();
+        }.bind(this));
+
+        system.events.$on("buildTokenModal:hide", function () {
+            this.close();
+        }.bind(this));
     },
     methods: {
         fetchToken: function () {
@@ -92,26 +131,6 @@ export default {
                 value: this.value
             };
         }
-    },
-    created: function () {
-        system.events.$on("buildTokenModal:create", function () {
-            this.clear();
-            this.title = "Create Build Token";
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("buildTokenModal:edit", function (applicationToken) {
-            this.title = "Edit Build Token";
-            this.update(applicationToken);
-            this.$refs.modal.open();
-        }.bind(this));
-
-        system.events.$on("buildTokenModal:hide", function () {
-            this.close();
-        }.bind(this));
-    },
-    components: {
-        "app-modal": Modal
     }
 }
 </script>

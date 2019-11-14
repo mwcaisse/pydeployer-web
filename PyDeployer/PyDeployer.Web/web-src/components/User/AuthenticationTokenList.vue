@@ -11,7 +11,7 @@
             </div>
         </section>
         <ul>
-            <li class="box" v-for="token in tokens">
+            <li class="box" v-for="token in tokens" :key="token.userAuthenticationTokenId">
                 <div class="columns is-vcentered is-mobile">
                     <div class="column is-size-2">
                         <app-icon icon="key" :action="false"></app-icon>
@@ -37,7 +37,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { UserAuthenticationTokenService } from "@app/services/ApplicationProxy.js"
+import {UserAuthenticationTokenService} from "@app/services/ApplicationProxy.js"
 import AuthenticationTokenModal from "@app/components/User/AuthenticationTokenModal.vue"
 import Icon from "@app/components/Common/Icon.vue"
 
@@ -52,7 +52,8 @@ export default {
     methods: {
         fetchTokens: function () {
             UserAuthenticationTokenService.getActive().then(function (data) {
-                this.tokens = data.data; // returns a paged object, so tokens are in data.data
+                //Returns a paged object, so tokens are in data.data
+                this.tokens = data.data; 
             }.bind(this),
             function (error) {
                 console.log("Error fetching tokens for application: " + error)
@@ -72,7 +73,7 @@ export default {
                 console.log("Error deleting authentication token: " + error);
                 return false;
             })
-        },
+        }
     },
     components: {
         "app-icon": Icon,

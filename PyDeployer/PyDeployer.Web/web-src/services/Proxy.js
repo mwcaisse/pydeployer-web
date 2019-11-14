@@ -8,7 +8,7 @@ function successHandler(deferred, data) {
 }
 
 //If the server return a non 200, return the error message to the caller
-function errorHandler(deferred, jqXHR, textStatus, error) {
+function errorHandler(deferred, jqXHR, textStatus) {
     var body = JSON.parse(jqXHR.responseText);
     if (body && body.error) {
         deferred.reject(body.error);

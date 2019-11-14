@@ -1,7 +1,12 @@
 <template>
     <app-modal ref="modal" title="Select Application">
         <ul>
-            <li class="box action" v-for="application in applications" v-on:click="selectApplication(application)">
+            <li
+                v-for="application in applications"
+                :key="application.applicationId"
+                class="box action"
+                @click="selectApplication(application)"
+            >
                 {{ application.name }}
             </li>
         </ul>
@@ -10,7 +15,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { ApplicationService } from "@app/services/ApplicationProxy.js"
+import {ApplicationService} from "@app/services/ApplicationProxy.js"
 
 import Modal from "@app/components/Common/Modal.vue"
 

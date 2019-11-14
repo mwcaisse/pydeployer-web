@@ -254,7 +254,7 @@ rules:
   template-tag-spacing: error
   unicode-bom:
     - error
-    - always
+    - never
   valid-jsdoc: error
   vars-on-top: 'off'
   "vue/html-indent": ["error", 4]

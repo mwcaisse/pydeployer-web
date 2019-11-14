@@ -8,7 +8,7 @@
                 </span>
             </p>
             <ul>
-                <li class="box" v-for="token in tokens">
+                <li class="box" v-for="token in tokens" :key="token.applicationTokenId">
                     {{token.name}}
                     <span class="is-pulled-right">
                         <app-icon icon="edit" :action="true" v-on:click.native="edit(token)"></app-icon>
@@ -23,7 +23,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { ApplicationTokenService } from "@app/services/ApplicationProxy.js"
+import {ApplicationTokenService} from "@app/services/ApplicationProxy.js"
 import Icon from "@app/components/Common/Icon.vue"
 import ApplicationTokenModal from "@app/components/Application/ApplicationTokenModal.vue"
 
@@ -60,17 +60,16 @@ export default {
             system.events.$emit("applicationTokenModal:edit", applicationToken);
         },
         deleteToken: function (applicationToken) {
-            return ApplicationTokenService.delete(this.applicationId,
-                applicationToken.applicationTokenId).then(function (res) {
-                    if (res) {
-                        var index = this.tokens.indexOf(applicationToken);
-                        this.tokens.splice(index, 1);
-                    }
-                    return res;
-                }.bind(this), function (error) {
-                    console.log("Error deleting application token: " + error);
-                    return false;
-                });
+            return ApplicationTokenService.delete(this.applicationId, applicationToken.applicationTokenId).then(function (res) {
+                if (res) {
+                    let index = this.tokens.indexOf(applicationToken);
+                    this.tokens.splice(index, 1);
+                }
+                return res;
+            }.bind(this), function (error) {
+                console.log("Error deleting application token: " + error);
+                return false;
+            });
 
         }
     },
@@ -82,8 +81,8 @@ export default {
         }.bind(this));
 
         system.events.$on("applicationTokenModal:updated", function (applicationToken) {
-            var index = this.tokens.findIndex(function (elm) {
-                return elm.applicationTokenId == applicationToken.applicationTokenId;
+            let index = this.tokens.findIndex(function (elm) {
+                return elm.applicationTokenId === applicationToken.applicationTokenId;
             });
             if (index >= 0) {
                 this.tokens.splice(index, 1, applicationToken);

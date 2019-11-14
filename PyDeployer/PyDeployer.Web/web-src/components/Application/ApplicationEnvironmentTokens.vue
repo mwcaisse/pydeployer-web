@@ -6,15 +6,15 @@
             </p>      
             <div class="field has-addons is-horizontal">                    
                 <label class="label">Environment</label>&nbsp;
-                <p class="control" v-for="environment in environments">
+                <p class="control" v-for="environment in environments" :key="environment.environmentId">
                     <button type="button" class="button" 
                             v-bind:class="{'is-danger': environment == selectedEnvironment }"
                             v-on:click="selectEnvironment(environment)">
-                    {{ environment.name }}</button>
+                        {{ environment.name }}</button>
                 </p>
             </div>
             <div>
-                <div class="field" v-for="token in tokens">
+                <div class="field" v-for="token in tokens" :key="token.applicationEnvironmentTokenId">
                     <label class="label">{{ token.name }}</label>
                     <div class="control">
                         <input class="input" type="text" v-model="token.value" v-on:blur="saveToken(token)"/>
@@ -26,9 +26,7 @@
 </template>
 
 <script>    
-import { ApplicationEnvironmentService, ApplicationEnvironmentTokenService } from "@app/services/ApplicationProxy.js" 
-
-import Icon from "@app/components/Common/Icon.vue"
+import {ApplicationEnvironmentService, ApplicationEnvironmentTokenService} from "@app/services/ApplicationProxy.js" 
 
 export default {
     name: "application-environment-tokens",
@@ -67,9 +65,9 @@ export default {
         fetchEnvironments: function () {
             ApplicationEnvironmentService.getEnvironmentsForApplication(this.applicationId).then(function (data) {
                 this.environments = data;
-                // Automatically select the first environment
+                //Automatically select the first environment
                 if (this.environments.length > 0) {
-                    this.selectedEnvironment = this.environments[0];
+                    [this.selectedEnvironment] = this.environments;
                 }
             }.bind(this),
             function (error) {
@@ -94,14 +92,11 @@ export default {
             ApplicationEnvironmentTokenService.save(this.applicationId, this.environmentId, token).then(function (data) {
                 console.log("saved it");
                 console.log(data)
-            }.bind(this));
+            });
         }
     },
     created: function () {
         this.fetchEnvironments();           
-    },
-    components: {
-        "app-icon": Icon
     }
 }
 </script>

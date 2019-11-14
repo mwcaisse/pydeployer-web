@@ -1,4 +1,4 @@
-<template>
+﻿﻿<template>
     <app-modal ref="modal" :title="title">
         <div class="field">
             <label class="label">Name</label>
@@ -38,7 +38,7 @@
 
 <script>
 import system from "@app/services/System"
-import { DatabaseService } from "@app/services/ApplicationProxy"
+import {DatabaseService} from "@app/services/ApplicationProxy"
 
 import Modal from "@app/components/Common/Modal"
 
@@ -70,7 +70,7 @@ export default {
     },
     methods: {
         save: function () {
-            let func;
+            let func = null;
             let eventName = "";
             if (this.databaseId < 0) {
                 func = function (database) {
@@ -103,7 +103,7 @@ export default {
             this.host = data.host;
             this.port = data.port;
             this.user = data.user;
-            this.password =  data.password;
+            this.password = data.password;
         },
         clear: function () {
             this.databaseId = -1;
@@ -117,8 +117,7 @@ export default {
         createModel: function () {
             return {
                 databaseId: this.databaseId,
-                name: this.name,
-                //type: this.type,
+                name: this.name,                
                 host: this.host,
                 port: this.port,
                 user: this.user,

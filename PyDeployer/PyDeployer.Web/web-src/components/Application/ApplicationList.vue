@@ -8,7 +8,7 @@
                 </span>
             </p>
             <ul v-if="applications.length > 0">
-                <li class="box" v-for="application in applications">
+                <li class="box" v-for="application in applications" :key="application.applicationId">
                     {{application.name}}
                     <span class="is-pulled-right">
                         <app-icon icon="clone" :action="true" v-on:click.native="viewApplication(application)"></app-icon>
@@ -27,7 +27,7 @@
 <script>
 import system from "@app/services/System.js"
 import Links from "@app/services/Links.js"
-import { ApplicationService } from "@app/services/ApplicationProxy.js"
+import {ApplicationService} from "@app/services/ApplicationProxy.js"
 import Icon from "@app/components/Common/Icon.vue"
 import ApplicationModal from "@app/components/Application/ApplicationModal.vue"
 
@@ -53,7 +53,7 @@ export default {
         deleteApplication: function (application) {
             ApplicationService.delete(application.applicationId).then(function (res) {
                 if (res) {
-                    var index = this.applications.indexOf(application);
+                    let index = this.applications.indexOf(application);
                     this.applications.splice(index, 1);
                 }
                 else {
@@ -75,7 +75,7 @@ export default {
         }.bind(this));
 
         system.events.$on("applicationModal:updated", function (application) {
-            var index = this.applications.findIndex(function (elm) {
+            let index = this.applications.findIndex(function (elm) {
                 return elm.applicationId == application.applicationId;
             });
             if (index >= 0) {

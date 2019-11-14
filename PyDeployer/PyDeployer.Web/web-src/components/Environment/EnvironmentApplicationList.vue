@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <div>
         <div class="box">
             <p class="subtitle">
@@ -8,7 +8,7 @@
                 </span>
             </p>
             <ul v-if="applications.length > 0">
-                <li class="box" v-for="application in applications">
+                <li class="box" v-for="application in applications" :key="application.applicationId">
                     {{application.name}}
                     <span class="is-pulled-right">
                         <app-icon icon="clone" :action="true" v-on:click.native="viewApplication(application)"></app-icon>
@@ -27,10 +27,10 @@
 <script>
 import system from "@app/services/System.js"
 import Links from "@app/services/Links.js"
-import { ApplicationEnvironmentService } from "@app/services/ApplicationProxy.js"
+import {ApplicationEnvironmentService} from "@app/services/ApplicationProxy.js"
 
 import Icon from "@app/components/Common/Icon.vue"
-import ApplicationPickerModal, { ApplicationPickerShowEvent } from "@app/components/Application/ApplicationPickerModal.vue";
+import ApplicationPickerModal, {ApplicationPickerShowEvent} from "@app/components/Application/ApplicationPickerModal.vue";
 
 export default {
     name: "application-list",
@@ -48,11 +48,11 @@ export default {
     methods: {
         fetchApplications: function () {
             ApplicationEnvironmentService.getApplicationsForEnvironment(this.environmentId).then(function (data) {
-                    this.applications = data;
-                }.bind(this),
-                function (error) {
-                    console.log("Error fetching applications: " + error)
-                });
+                this.applications = data;
+            }.bind(this),
+            function (error) {
+                console.log("Error fetching applications: " + error)
+            });
         },
         addApplication: function () {
             system.events.$emit(ApplicationPickerShowEvent);
@@ -74,12 +74,12 @@ export default {
             window.location = Links.application(application.applicationId);
         },
         applicationSelected: function (application) {
-            ApplicationEnvironmentService.create(application.applicationId, this.environmentId).then(function (res) {
-                    this.applications.push(application);
-                }.bind(this),
-                function (error) {
-                    console.log("Error associating application with environment: "+  error);
-                });
+            ApplicationEnvironmentService.create(application.applicationId, this.environmentId).then(function () {
+                this.applications.push(application);
+            }.bind(this),
+            function (error) {
+                console.log("Error associating application with environment: "+ error);
+            });
         }
     },        
     created: function () {

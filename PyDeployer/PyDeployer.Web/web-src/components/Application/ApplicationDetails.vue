@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ApplicationService } from "@app/services/ApplicationProxy.js"
+import {ApplicationService} from "@app/services/ApplicationProxy.js"
 
 export default {
     name: "application-details",

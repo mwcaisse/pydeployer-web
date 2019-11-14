@@ -8,7 +8,7 @@
                 </span>
             </p>
             <ul v-if="databases.length > 0">
-                <li class="box" v-for="database in databases">
+                <li class="box" v-for="database in databases" :key="database.databaseId">
                     {{database.name}}
                     <span class="is-pulled-right">
                         <app-icon icon="edit" :action="true" v-on:click.native="edit(database)"></app-icon>
@@ -26,10 +26,10 @@
 
 <script>
 import system from "@app/services/System"
-import { DatabaseService } from "@app/services/ApplicationProxy"
+import {DatabaseService} from "@app/services/ApplicationProxy"
 
 import Icon from "@app/components/Common/Icon"
-import DatabaseModal, { DatabaseCreatedEvent, DatabaseUpdatedEvent, CreateDatabaseEvent, UpdateDatabaseEvent } from "@app/components/Database/DatabaseModal"
+import DatabaseModal, {DatabaseCreatedEvent, DatabaseUpdatedEvent, CreateDatabaseEvent, UpdateDatabaseEvent} from "@app/components/Database/DatabaseModal"
 
 export default {
     name: "database-list",
@@ -47,7 +47,7 @@ export default {
     methods: {
         fetchDatabases: function () {
             DatabaseService.getForEnvironment(this.environmentId).then(function(databases) {
-               this.databases = databases; 
+                this.databases = databases; 
             }.bind(this),
             function (error) {
                 console.log("Error fetching databases for environment: " + error);

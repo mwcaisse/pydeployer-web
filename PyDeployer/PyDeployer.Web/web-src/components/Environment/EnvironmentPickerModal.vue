@@ -1,8 +1,13 @@
 ﻿<template>
     <app-modal ref="modal" title="Select Environment">
         <ul>
-            <li class="box action" v-for="environment in environments" v-on:click="selectEnvironment(environment)">
-                {{environment.name}}
+            <li
+                v-for="environment in environments"
+                :key="environment.environmentId"
+                class="box action" 
+                @click="selectEnvironment(environment)"
+            >
+                {{ environment.name }}
             </li>
         </ul>
     </app-modal>

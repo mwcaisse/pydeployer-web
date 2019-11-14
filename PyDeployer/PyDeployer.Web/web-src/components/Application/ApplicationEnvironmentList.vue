@@ -3,11 +3,11 @@
         <div class="box">
             <p class="subtitle">Environments
                 <span class="is-pulled-right">                   
-                    <app-icon icon="plus" :action="true" v-on:click.native="addEnvironment"/>
+                    <app-icon icon="plus" :action="true" @click.native="addEnvironment"/>
                 </span>
             </p>
             <ul>
-                <li class="box" v-for="environment in environments">
+                <li class="box" v-for="environment in environments" :key="environment.applicationEnvironmentId">
                     {{environment.name}}
                     <span class="is-pulled-right">          
                         <app-icon icon="clone" :action="true" v-on:click.native="viewEnvironment(environment)"></app-icon>
@@ -23,7 +23,7 @@
 <script>
 import system from "@app/services/System.js"
 import Links from "@app/services/Links.js"
-import { ApplicationEnvironmentService } from "@app/services/ApplicationProxy.js"
+import {ApplicationEnvironmentService} from "@app/services/ApplicationProxy.js"
 import EnvironmentPickerModal from "@app/components/Environment/EnvironmentPickerModal.vue"    
 
 import Icon from "@app/components/Common/Icon.vue"
@@ -75,7 +75,7 @@ export default {
             window.location = Links.environment(environment.environmentId);
         },
         environmentSelected: function (environment) {
-            ApplicationEnvironmentService.create(this.applicationId, environment.environmentId).then(function (res) {
+            ApplicationEnvironmentService.create(this.applicationId, environment.environmentId).then(function () {
                 this.environments.push(environment);
             }.bind(this),
             function (error) {

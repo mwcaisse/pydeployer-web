@@ -14,7 +14,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { ApplicationService } from "@app/services/ApplicationProxy.js"
+import {ApplicationService} from "@app/services/ApplicationProxy.js"
 
 import Modal from "@app/components/Common/Modal.vue"
 
@@ -38,7 +38,7 @@ export default {
             });
         },
         save: function () {
-            var func;
+            let func = null;
             var created = false;
             if (this.applicationId < 0) {
                 func = ApplicationService.create

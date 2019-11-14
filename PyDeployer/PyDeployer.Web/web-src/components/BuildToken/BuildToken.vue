@@ -8,7 +8,7 @@
                 </span>
             </p>
             <ul v-if="tokens.length > 0">
-                <li class="box" v-for="token in tokens">
+                <li class="box" v-for="token in tokens" :key="token.buildTokenId">
                     <div>
                         <span class="is-size-5 is-bold">{{token.name}}</span>
                         <span class="is-pulled-right">
@@ -31,7 +31,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { BuildTokenService } from "@app/services/ApplicationProxy.js"
+import {BuildTokenService} from "@app/services/ApplicationProxy.js"
 import Icon from "@app/components/Common/Icon.vue"
 import BuildTokenModal from "@app/components/BuildToken/BuildTokenModal.vue"
 
@@ -48,9 +48,9 @@ export default {
             BuildTokenService.getAll().then(function (data) {
                 this.tokens = data;
             }.bind(this),
-                function (error) {
-                    console.log("Error fetching build tokens: " + error)
-                });
+            function (error) {
+                console.log("Error fetching build tokens: " + error)
+            });
 
         },
         clear: function () {
@@ -64,7 +64,7 @@ export default {
         },
         deleteToken: function (buildToken) {
             return BuildTokenService.delete(buildToken.buildTokenId).then(function () {                  
-                var index = this.tokens.indexOf(buildToken);
+                let index = this.tokens.indexOf(buildToken);
                 this.tokens.splice(index, 1);                    
                 return true;
             }.bind(this), function (error) {
@@ -81,7 +81,7 @@ export default {
         }.bind(this));
 
         system.events.$on("buildTokenModal:updated", function (buildToken) {
-            var index = this.tokens.findIndex(function (elm) {
+            let index = this.tokens.findIndex(function (elm) {
                 return elm.buildTokenId == buildToken.buildTokenId;
             });
             if (index >= 0) {

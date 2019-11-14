@@ -7,7 +7,7 @@
             {{ name }}
         </div>
         <div class="navbar-dropdown" :class="{'is-right': right }">
-            <a class="navbar-item" v-for="subLink in subLinks" :href="subLink.link">
+            <a class="navbar-item" v-for="subLink in subLinks" :href="subLink.link" :key="subLink.linkId">
                 {{ subLink.name }}
             </a>      
         </div>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+//We import system for its side effects
+//eslint-disable-next-line no-unused-vars
 import system from "@app/services/System.js"
 
 

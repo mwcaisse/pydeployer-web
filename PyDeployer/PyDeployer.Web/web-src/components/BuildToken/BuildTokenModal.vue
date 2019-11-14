@@ -20,7 +20,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { BuildTokenService } from "@app/services/ApplicationProxy.js"
+import {BuildTokenService} from "@app/services/ApplicationProxy.js"
 
 import Modal from "@app/components/Common/Modal.vue"
 
@@ -37,16 +37,16 @@ export default {
     methods: {
         fetchToken: function () {
             return BuildTokenService.get(this.buildTokenId).then(function (data) {
-                    this.update(data);
-                    return true;
-                }.bind(this), function (error) {
-                    console.log("Error fetching build token: " + error)
-                    return false;
-                });
+                this.update(data);
+                return true;
+            }.bind(this), function (error) {
+                console.log("Error fetching build token: " + error)
+                return false;
+            });
         },
         save: function () {
-            var func;
-            var created = false;
+            let func = null;
+            let created = false;
             if (this.buildTokenId < 0) {
                 func = BuildTokenService.create
                 created = true;
@@ -56,7 +56,7 @@ export default {
                 created = false;
             }
             return func(this.createModel()).then(function (data) {
-                var eventName = ""
+                let eventName = ""
                 if (created) {
                     eventName = "buildTokenModal:created";
                 }

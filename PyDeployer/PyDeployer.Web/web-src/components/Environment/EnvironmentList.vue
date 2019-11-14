@@ -28,7 +28,7 @@
 <script>
 import system from "@app/services/System.js"
 import Links from "@app/services/Links.js"
-import { EnvironmentService } from "@app/services/ApplicationProxy.js"
+import {EnvironmentService} from "@app/services/ApplicationProxy.js"
 import Icon from "@app/components/Common/Icon.vue"
 import EnvironmentModal from "@app/components/Environment/EnvironmentModal.vue"
 

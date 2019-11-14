@@ -14,7 +14,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { ApplicationTokenService } from "@app/services/ApplicationProxy.js"
+import {ApplicationTokenService} from "@app/services/ApplicationProxy.js"
 
 import Modal from "@app/components/Common/Modal.vue"
 
@@ -35,20 +35,19 @@ export default {
     },
     methods: {
         fetchToken: function () {
-            return ApplicationTokenService.get(this.applicationId,
-                this.applicationTokenId).then(function (data) {
-                    this.update(data);
-                    return true;
-                }.bind(this), function (error) {
-                    console.log("Error fetching application token: " + error)
-                    return false;
-                });
+            return ApplicationTokenService.get(this.applicationId, this.applicationTokenId).then(function (data) {
+                this.update(data);
+                return true;
+            }.bind(this), function (error) {
+                console.log("Error fetching application token: " + error)
+                return false;
+            });
         },
         save: function () {
-            var func;
-            var created = false;
+            let func = null;
+            let created = false;
             if (this.applicationTokenId < 0) {
-                func = ApplicationTokenService.create
+                func = ApplicationTokenService.create;
                 created = true;
             }
             else {

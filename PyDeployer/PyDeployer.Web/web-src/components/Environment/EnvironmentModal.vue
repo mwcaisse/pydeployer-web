@@ -20,7 +20,7 @@
 
 <script>
 import system from "@app/services/System.js"
-import { EnvironmentService } from "@app/services/ApplicationProxy.js"
+import {EnvironmentService} from "@app/services/ApplicationProxy.js"
 
 import Modal from "@app/components/Common/Modal.vue"
 
@@ -45,10 +45,10 @@ export default {
             });
         },
         save: function () {
-            var func;
+            var func = null;
             var created = false;
             if (this.environmentId < 0) {
-                func = EnvironmentService.create
+                func = EnvironmentService.create;
                 created = true;
             }
             else {

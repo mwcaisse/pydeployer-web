@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="OwlTin.Authentication" Version="1.0.0-CI-20180928-020558" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.2" />
   </ItemGroup>
